@@ -1,5 +1,12 @@
 const socket = io();
 
+//Create 버튼 클릭 시 비밀번호 입력창이 뜨게 변경함
+
+//Create 버튼 요소 가져옴
+const preview = document.getElementById('createRoom');
+
+
+
 function createRoom() {
   const roomName = document.getElementById("roomName").value.trim();
 
@@ -15,4 +22,6 @@ function createRoom() {
 
   // 다시 로비로 이동
   window.location.href = "lobby.html";
+
+  
 }

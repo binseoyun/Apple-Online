@@ -27,7 +27,9 @@ function drawRoomList(data) {
           <button onclick="joinRoom('${room.id}')" class="text-[#9e9e47]">Enter</button>
           <button onclick="deleteRoom('${room.id}')" class="text-red-500">Delete</button>
         </td>
-      `;
+      `
+
+      //room
 
       // 완성된 행을 tbody에 추가합니다.
       roomListBody.appendChild(row);

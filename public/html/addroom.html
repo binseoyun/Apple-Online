@@ -37,8 +37,12 @@
 
           <!-- 버튼 -->
           <div class="flex px-4 py-3">
-            <button
-              onclick="createRoom()"
+
+            <!--비밀번호 안치면 그냥 Create 되게, 비밀번호 설정은 자유 Create 버튼을 누를 때 비밀번호 입력 창이 뜨게 수정
+            onclick="creaateRoom()" 에서 새로운 페이지로 수정-->
+            <button 
+              onclick="window.location.href='addroomPW.html'"
+              id="createRoom"
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 flex-1 bg-[#e4e405] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
             >
               <span class="truncate">Create</span>
@@ -51,9 +55,19 @@
     </div>
   </div>
 
+  
+    
   <!-- 스크립트 -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/addroom.js"></script>
+
+  <!--비밀번호 관련 스크립트 -->
+  <script>
+
+
+
+
+  </script>
 
     
 </body>
