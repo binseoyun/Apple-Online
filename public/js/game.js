@@ -123,8 +123,6 @@ const sum = selectedCells.reduce(
     const addedScore=1; 
     const currentScore = getScore("user1"); //user1의 점수 가져오기
     setScore("user1", currentScore + addedScore); //점수 업데이트(user가 성공하면 10을 맞춘거니깐 1을 더하게)
-
-    alert("🍎 숫자의 합이 10입니다!");
     selectedCells.forEach((cell) => {
         cell.textContent=""; //셀의 숫자 제거
         cell.classList.remove("apple"); //사과 클래스 제거

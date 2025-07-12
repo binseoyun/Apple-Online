@@ -3,6 +3,8 @@
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none; 
+    
   }
   #drag-box {
     position: absolute;
@@ -11,5 +13,9 @@
     pointer-events: all;
     z-index: 50;
 
+  }
+  /*잘못된 영역 드레그에 대한 스타일 제거*/
+  #game-board {
+    user-select: none;
   }
  
