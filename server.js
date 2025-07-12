@@ -53,8 +53,6 @@ io.on('connection', (socket) => {
 
       if (roomHandler.gameStates?.[roomId]) {
         roomHandler.handleDeleteRoom(redisClient, roomId);
-      } else {
-        console.log('그래그래');
       }
     } catch (error) {
 

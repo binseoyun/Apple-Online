@@ -347,43 +347,45 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
     const dragApples = async (x1, y1, x2, y2, roomId, userId) => {
         // 나중에 mapdata를 서버에 저장하고 불러와야함.
-        const mapDataLoad = await redisClient.hGetAll(`game:map:${roomId}`);
+        try {
+            const mapDataLoad = await redisClient.hGetAll(`game:map:${roomId}`);
 
-        const mapData = [];
-        for (let i=0; i<10; i++) {
-            const temp = [];
-            for (let j=0; j<17; j++) {
-                temp.push(mapDataLoad[`${i}-${j}`]);
-            }
-            mapData.push(temp);
-        }
-
-        const apple_list = gameLogic.dragApple(x1, y1, x2, y2, mapData);
-        const result = gameLogic.calculateScore(apple_list, mapData);
-
-        if (result > 0) {  
-            for (let i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) {
-                for (let j = Math.min(y1, y2); j <= Math.max(y1, y2); j++) {
-                    await redisClient.hSet(`game:map:${roomId}`, `${j}-${i}`, '0');
+            const mapData = [];
+            for (let i=0; i<10; i++) {
+                const temp = [];
+                for (let j=0; j<17; j++) {
+                    temp.push(mapDataLoad[`${i}-${j}`]);
                 }
+                mapData.push(temp);
             }
-
-            if (gameStates[roomId].player1 == userId) {
-                const currentScore = gameStates[roomId].score1;
-                gameStates[roomId].score1 = currentScore + result;
-            } else {
-                const currentScore = gameStates[roomId].score2;
-                gameStates[roomId].score2 = currentScore + result;
+    
+            const apple_list = gameLogic.dragApple(x1, y1, x2, y2, mapData);
+            const result = gameLogic.calculateScore(apple_list, mapData);
+    
+            if (result > 0) {  
+                for (let i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) {
+                    for (let j = Math.min(y1, y2); j <= Math.max(y1, y2); j++) {
+                        await redisClient.hSet(`game:map:${roomId}`, `${j}-${i}`, '0');
+                    }
+                }
+    
+                if (gameStates[roomId].player1 == userId) {
+                    const currentScore = gameStates[roomId].score1;
+                    gameStates[roomId].score1 = currentScore + result;
+                } else {
+                    const currentScore = gameStates[roomId].score2;
+                    gameStates[roomId].score2 = currentScore + result;
+                }
+                
+                io.to(roomId).emit('getScore', {
+                    score: result,
+                    userId: userId
+                });
+                io.to(roomId).emit('deleteApple', {
+                    row1: x1, col1: y1, row2: x2, col2: y2
+                });
             }
-            
-            io.to(roomId).emit('getScore', {
-                score: result,
-                userId: userId
-            });
-            io.to(roomId).emit('deleteApple', {
-                row1: x1, col1: y1, row2: x2, col2: y2
-            });
-        }
+        } catch {}
     };
 
 
