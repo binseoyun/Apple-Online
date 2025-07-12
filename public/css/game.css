@@ -3,13 +3,19 @@
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none; 
+    
   }
   #drag-box {
     position: absolute;
     border: 2px solid #3bc166;
     background-color: rgba(67, 214, 138, 0.3);
-    pointer-events: all;
-    z-index: 50;
+    pointer-events: all; /*드레그 되게 설정*/
+    z-index: 50; /* 드래그 박스가 사과 위에 설정되도록 z-index 설정 */
 
+  }
+  /*잘못된 영역 드레그에 대한 스타일 제거*/
+  #game-board {
+    user-select: none;
   }
  

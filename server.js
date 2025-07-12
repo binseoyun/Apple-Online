@@ -2,7 +2,9 @@ const express = require('express');
 const http = require('http');
 const { Server } = require("socket.io");
 const { pool, redisClient, connectDBs } = require('./config/db');
-const { v4: uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuid');
+
+const roomHandler = require('./server/handlers/roomHandlers');
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +21,21 @@ app.get('/', (req, res) => {
 app.get('/game.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'game.html'));
 });
+app.get('/addroom.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'addroom.html'));
+});
+app.get('/editprofile.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'editprofile.html'));
+});
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+});
+app.get('/lobby.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
+});
+app.get('/profile.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'profile.html'));
+});
 
 // 게임 맵 관리(숫자가 양수면 사과 존재, 숫자가 0이면 사과 없음)
 
@@ -28,48 +45,7 @@ app.use(express.static('public'));
 io.on('connection', (socket) => {
   console.log(`✅ A user connected: ${socket.id}`); // 유저 접속 시 콘솔에 메시지 출력
 
-  socket.on('createRoom', async (userInfo) => {
-    try {
-        // 방 id 생성
-        const roomId = uuidv4();
-        const roomKey = `room:${roomId}`;
-
-        // Redis에 방 정보(Hash) 저장
-        await redisClient.hSet(roomKey, {
-            player1: userInfo.id,
-            player2: null,
-            status: 'waiting', // waiting과 playing으로 상태 구분
-            createdAt: Date.now()
-        });
-
-        await redisClient.sAdd('rooms', roomKey);
-
-        // 방 정보
-
-        // 방 참여 기능
-        socket.join(roomId);
-
-        console.log(`[Room Created] ID: ${roomId} by ${userInfo.nickname}`);
-
-        // 방 생성 완료 사실 전달
-        socket.emit('roomCreated', { roomId });
-    } catch (error) {
-        console.error('방 생성 중 에러 발생:', error);
-        socket.emit('error', { message: '방을 만드는 데 실패했습니다.' });
-    }
-  });
-
-  socket.on('joinRoom', async (userInfo, roomId) => {
-    console.log(`[Room Join Start] To: ${roomId} by ${userInfo.nickname}`)
-
-    // 방이 존재하는지 확인
-    const roomKey = `room:${roomId}`
-    const RoomExists = await redisClient.sIsMember('rooms', roomKey)
-
-    // 방에 빈자리가 있는지 확인
-
-    // 비밀번호가 일치하는지 확인
-  });
+  roomHandler(io, socket, redisClient);
 
   socket.on('disconnect', () => {
     console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력

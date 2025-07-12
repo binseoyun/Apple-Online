@@ -26,13 +26,13 @@ function createMap() {
 }
 
 function dragApple(x1, y1, x2, y2, mapData) {
-    const apple_size = 10;
+    const apple_size = 1;
     const apple_list = [];
 
-    const x_start = Math.max(0, Math.trunc(x1 / apple_size));
-    const x_end = Math.min(16, Math.trunc(x2 / apple_size));
-    const y_start = Math.max(0, Math.trunc(y1 / apple_size));
-    const y_end = Math.min(9, Math.trunc(y2 / apple_size));
+    const x_start = Math.max(0, Math.trunc(Math.min(x1, x2) / apple_size));
+    const x_end = Math.min(16, Math.trunc(Math.max(x1, x2) / apple_size));
+    const y_start = Math.max(0, Math.trunc(Math.min(y1, y2) / apple_size));
+    const y_end = Math.min(9, Math.trunc(Math.max(y1, y2) / apple_size));
 
     const cnt = (x_end - x_start + 1) * (y_end - y_start + 1);
 
@@ -57,17 +57,13 @@ function calculateScore(apple_list, mapData) {
     let sum = 0;
     let cnt = 0;
     for (const apple of apple_list) {
-        sum += mapData[apple[0]][apple[1]];
+        sum += Number(mapData[apple[0]][apple[1]]);
         cnt += 1;
         if (sum > 10) return 0;
     }
 
-    if (sum == 10) {
-        for (const apple of apple_list) {
-            mapData[apple[0]][apple[1]] = 0;
-        }
-        return cnt;
-    } else return 0;
+    if (sum == 10) return cnt; 
+    else return 0;
 }
 
 module.exports = {
