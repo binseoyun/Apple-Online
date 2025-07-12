@@ -26,6 +26,11 @@ const cols = 17; //열의 수
 
 let mapData = []
 
+socket.on('fulledRoom', () => {
+  alert('방이 가득찼습니다!');
+  window.location.href = `lobby.html`;
+});
+
 function DrawMap(mapData) {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 17; j++) {
@@ -247,15 +252,24 @@ let timeLeft = 60; //게임 진행 시간 60초
 const timerText = document.getElementById("timer-text");
 const timerBar = document.getElementById("timer-bar");
 
-let timerInterval = setInterval(() => {
-  timeLeft--;
+socket.on('updateTime', (data) => {
+  timeLeft = data.timeLeft;
   updateTimerUI();
+  console.log("game update");
+});
 
-  if (timeLeft <= 0) {
-    clearInterval(timerInterval);
-    endGame("시간이 종료되었습니다");
+socket.on('gameEnd', (data) => {
+  if (data.winner == socket.id) {
+    endGame("승리하였습니다!\n" + data.message);
+  } else if (data.winner == '') {
+    endGame("비겼습니다!\n" + data.message);
+  } else if (data.winner == ' ') {
+    endGame("승리 당하셨습니다!\n" + data.message);
+  } else {
+    endGame("패배하였습니다!\n" + data.message);
   }
-}, 1000);
+});
+
 
 
 // 타이머 UI 업데이트

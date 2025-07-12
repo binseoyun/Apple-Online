@@ -3,10 +3,11 @@ const redisClient = require('redis');
 const { isKeyObject } = require('util/types');
 
 const gameLogic = require('./gameLogic');
+const { STATUS_CODES } = require('http');
 
-const gameStates = {}; // { roomid: { mapData, seed, scores: {player1: 0, player2: 0} } ... }
+const gameStates = {}; // { roomid: { timeLeft: 60, timerId: <setInterval_ID>, scores: {player1: 0, player2: 0} } ... }
 
-module.exports = (io, socket, redisClient) => {
+const registerRoomsHandlers = async (io, socket, redisClient) => {
     /** 
      * 방 관리
      * @param {object} data - { title: string, password: string }
@@ -113,49 +114,44 @@ module.exports = (io, socket, redisClient) => {
         console.log(`[Room Join End] To: ${roomId} by ${userInfo.nickname}`);
     };
 
-    const handleDisconnect = async (userInfo, data) => {
+    const handleDisconnect = async () => {
         console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력
 
+        const roomId = findRoomBySocket(socket);
+
         // 방에 참여하고 있었는지 확인(게임을 진행 중이었는지)
-        const hasRoom = await redisClient.sIsMember('waits', userInfo.id);
+        const hasRoom = await redisClient.sIsMember('waits', socket.id);
         if (!hasRoom) {
             return;
         }
 
         // 방 정보 불러오기
-        const roomData = await redisClient.hGetAll(data.roodId);
+        const roomData = await redisClient.hGetAll(roomId);
 
         // roomId에 참여하는 유저인지 확인
-        if ((roomData.player1 !== userInfo.id) && (roomData.player2 !== userInfo.id)) {
+        if ((roomData.player1 !== userInfo.id) && (roomData.player2 !== socket.id)) {
             return;
         }
 
         // ToDo: 방 상태가 playing이라면 -> 상대방이 게임을 종료하였습니다. 처리하기
+        if (roomId && gameStates[roomId]) {
+            clearInterval(gameStates[roomId].timerId);
+            delete gameStates[roomId];
+
+            io.to(roomId).emit('gameEnd', {message: `플레이어가 퇴장하여 게임이 종료되었습니다.`});
+        }
 
         // 방 상태가 waiting이라면 탈퇴 후 방 제거
         if (roomData.status === 'waiting') {
-            await redisClient.del(data.roomId);
+            await redisClient.del(roomId);
         }
-
-        // 방 목록 및 유저 목록에서 제거
-        await redisClient.sRem('rooms:playing', data.roomId);
-        await redisClient.sRem('rooms:waiting', data.roomId);
-        await redisClient.sRem('fastRooms', data.roomId);
-        await redisClient.sRem('waits', userInfo.id);
-    };
-
-    const handleDeleteRoom = async (roomId) => {
-        // 방 정보 불러오기
-        const roomData = await redisClient.hGetAll(roomId);
 
         // 방 목록 및 유저 목록에서 제거
         await redisClient.sRem('rooms:playing', roomId);
         await redisClient.sRem('rooms:waiting', roomId);
         await redisClient.sRem('fastRooms', roomId);
-        await redisClient.del(roomId);
-
-        // todo: 유저 제거
-    }
+        await redisClient.sRem('waits', socket.id);
+    };
 
     const fastRoomGenerate = async (userInfo, data) => {
         // 빠른 방 참여
@@ -264,25 +260,71 @@ module.exports = (io, socket, redisClient) => {
     };
 
     const startGame = async(roomId) => {
-        socket.join(roomId);
+        try {
+            socket.join(roomId);
+            console.log(`${socket.id} joined ${roomId}`);
 
-        const roomData = await redisClient.hGetAll(roomId);
+            const roomData = await redisClient.hGetAll(roomId);
 
-        if (roomData.status === 'waiting') {
-            roomData.status = 'playing';
-            await redisClient.hSet(roomId, roomData);
-        } else {
-            SendMap(roomId);
+            if (roomData.status === 'waiting') {
+                roomData.status = 'playing';
+                gameStates[roomId] = {
+                    timeLeft: null,
+                    timerId: null,
+                    player1: socket.id,
+                    player2: null,
+                    score1: 0,
+                    score2: 0
+                };
+                await redisClient.hSet(roomId, roomData);
+            } else {
+                if (gameStates[roomId].player2 !== null) {
+                    socket.emit('fulledRoom');
+                    return;
+                }
 
-            const timerId = setTimeout(() => {
-                io.to(roomId).emit('gameEnd', { message: '시간 종료! 게임이 끝났습니다.' });
-                endGame(roomId);
-            }, 60000);
+                SendMap(roomId);
+
+                gameStates[roomId].timeLeft = 60;
+                gameStates[roomId].player2 = socket.id;
+
+                const timerId = setInterval(() => {
+                    const roomState = gameStates[roomId];
+
+                    if (roomState && roomState.timeLeft > 0) {
+                        roomState.timeLeft--;
+                        io.to(roomId).emit('updateTime', { timeLeft: roomState.timeLeft });
+                    } else {
+                        clearInterval(timerId);
+
+                        let winner = '';
+                        if (gameStates[roomId].score1 > gameStates[roomId].score2) {
+                            winner = gameStates[roomId].player1;
+                        } else if (gameStates[roomId].score1 < gameStates[roomId].score2) {
+                            winner = gameStates[roomId].player2;
+                        } else {
+                            winner = '';
+                        }
+
+                        io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner });
+
+                        delete gameStates[roomId];
+                        endGame(roomId);
+                    }
+                }, 1000);
+
+                gameStates[roomId].timerId = timerId;
+
+                console.log(`${roomId}의 타이머가 시작되었습니다.`);
+            }
+        } catch (error) {
+            socket.emit('fulledRoom');
+            handleDeleteRoom(redisClient, roomId);
         }
     };
 
     const endGame = async(roomId) => {
-        handleDeleteRoom(roomId);
+        handleDeleteRoom(redisClient, roomId);
     }
 
     const SendMap = async (roomId) => {
@@ -305,10 +347,7 @@ module.exports = (io, socket, redisClient) => {
 
     const dragApples = async (x1, y1, x2, y2, roomId, userId) => {
         // 나중에 mapdata를 서버에 저장하고 불러와야함.
-        console.log(x1, y1, x2, y2);
-
         const mapDataLoad = await redisClient.hGetAll(`game:map:${roomId}`);
-        console.log(mapDataLoad);
 
         const mapData = [];
         for (let i=0; i<10; i++) {
@@ -319,19 +358,22 @@ module.exports = (io, socket, redisClient) => {
             mapData.push(temp);
         }
 
-        console.log(mapData);
-
         const apple_list = gameLogic.dragApple(x1, y1, x2, y2, mapData);
         const result = gameLogic.calculateScore(apple_list, mapData);
-
-        console.log(apple_list, result);
 
         if (result > 0) {  
             for (let i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) {
                 for (let j = Math.min(y1, y2); j <= Math.max(y1, y2); j++) {
                     await redisClient.hSet(`game:map:${roomId}`, `${j}-${i}`, '0');
-                    console.log(await redisClient.hGet(`game:map:${roomId}`, `${j}-${i}`));
                 }
+            }
+
+            if (gameStates[roomId].player1 == userId) {
+                const currentScore = gameStates[roomId].score1;
+                gameStates[roomId].score1 = currentScore + result;
+            } else {
+                const currentScore = gameStates[roomId].score2;
+                gameStates[roomId].score2 = currentScore + result;
             }
             
             io.to(roomId).emit('getScore', {
@@ -350,4 +392,23 @@ module.exports = (io, socket, redisClient) => {
 
     socket.on('startGame', startGame);
     socket.on('dragApples', dragApples);
+};
+
+const handleDeleteRoom = async (redisClient, roomId) => {
+    // 방 정보 불러오기
+    const roomData = await redisClient.hGetAll(roomId);
+
+    // 방 목록 및 유저 목록에서 제거
+    await redisClient.sRem('rooms:playing', roomId);
+    await redisClient.sRem('rooms:waiting', roomId);
+    await redisClient.sRem('fastRooms', roomId);
+    await redisClient.del(roomId);
+
+    // todo: 유저 제거
+};
+
+
+module.exports = {
+    registerRoomsHandlers,
+    handleDeleteRoom
 }

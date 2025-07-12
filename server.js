@@ -45,14 +45,24 @@ app.use(express.static('public'));
 io.on('connection', (socket) => {
   console.log(`✅ A user connected: ${socket.id}`); // 유저 접속 시 콘솔에 메시지 출력
 
-  roomHandler(io, socket, redisClient);
+  roomHandler.registerRoomsHandlers(io, socket, redisClient);
+  socket.on('disconnecting', () => {
+    try {
+      const roomId = Array.from(socket.rooms).filter(room => room !== socket.id)[0];
+      io.to(roomId).emit('gameEnd', {message: `플레이어가 퇴장하여 게임이 종료되었습니다.`, winner: ' '});
+
+      if (roomHandler.gameStates?.[roomId]) {
+        roomHandler.handleDeleteRoom(redisClient, roomId);
+      } else {
+        console.log('그래그래');
+      }
+    } catch (error) {
+
+    }
+  });
 
   socket.on('disconnect', () => {
     console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력
-
-    // 방에 접속 중이면 탈퇴 -> 만약 방에 남아있는 마지막 유저이면 방도 제거
-
-    // 
   });
 });
 
