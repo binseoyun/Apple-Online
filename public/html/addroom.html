@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Room</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="bg-[#fcfcf8]" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+  <div class="relative flex min-h-screen flex-col">
+    <div class="layout-container flex flex-col grow h-full">
+      <div class="px-40 flex justify-center py-5 flex-1">
+        <div class="layout-content-container flex flex-col w-[512px] max-w-[960px] flex-1 py-5">
+          <h2 class="text-[#1c1c0d] text-[28px] font-bold leading-tight text-center px-4 pb-3 pt-5">Create a Room</h2>
+
+          <div class="text-[#1c1c0d] text-base font-normal leading-normal text-center px-4 pb-3 pt-1">
+            <p>Enter a room name to create a new game room.</p>
+            
+          
+            <!--입력필드와 버튼을 묶어서 가운데 정렬 되게-->
+            <div class="flex justify-center items-center">
+            
+            
+          <!-- 입력 필드 -->
+          <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+            <label class="flex flex-col min-w-40 flex-1">
+              <input
+                id="roomName"
+                type="text"
+                placeholder="Room Name"
+                class="form-input w-full rounded-xl text-[#1c1c0d] focus:outline-0 border-none bg-[#f4f4e6] h-14 placeholder:text-[#9e9e47] p-4 text-base font-normal"
+              />
+            </label>
+          </div>
+
+          <!-- 버튼 -->
+          <div class="flex px-4 py-3">
+            <button
+              onclick="createRoom()"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 flex-1 bg-[#e4e405] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+            >
+              <span class="truncate">Create</span>
+            </button>
+          </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 -->
+  <script src="\public/js/addroom.js"></script>
+
+    
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Profile</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="bg-[#fbfbf9] min-h-screen flex flex-col items-center justify-center" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+
+  <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-bold text-center text-[#181811] mb-4">Edit Profile</h2>
+
+    <!--이 파일에서 변경한 내용들이 저장되게 해야함-->
+    <!-- 이미지 미리보기 -->
+    <div class="flex justify-center mb-4">
+      <div class="w-32 h-32 rounded-full bg-center bg-cover bg-no-repeat border"
+           id="preview"
+           style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoDTJgbUs-rAkXpY393nqF3-LUKyqfZsd4r3XeYEChkixKZsGNTFcQo0bR0jq_R_pvKs7uNQnr8c82VuwwNalAmBASIO46uqzt0JepbdUlEadVXt7fZp7dSgEprled597DbQggeOpbdxOG8w5JdScAxJfsccn9n1_99SPGlXcYNIUPx4u6TJ7NlaugA8v-Fkq2Iq5p-eDcvYjsDLthjKBKm09mSDXRVrZO0FqtHpEwCJZk-_fDb1qrYfIMFBy9sy7qsM0hfwou7yuX');">
+      </div>
+    </div>
+
+    <!-- 파일 선택 -->
+    <div class="flex justify-center mb-6">
+      <label for="imageInput" class="cursor-pointer bg-[#f1f1ea] text-[#181811] font-medium py-2 px-4 rounded-full text-sm">
+        사진 변경
+      </label>
+      <input type="file" id="imageInput" accept="image/*" class="hidden" />
+    </div>
+
+    <!-- 사용자 이름 변경-->
+     <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-[#181811] mb-2">사용자 이름 변경</label>
+      <input type="text" id="username" placeholder="사용자 이름 변경" class="form-input w-full rounded-xl text-[#181811] focus:outline-0 border-none bg-[#f1f1ea] h-10 placeholder:text-[#9e9e47] p-2 text-base font-normal" />
+</div>
+
+    <!-- 저장 버튼 -->
+    <div class="flex justify-center">
+      <button onclick="goBack()" class="bg-[#181811] text-white font-bold px-6 py-2 rounded-full text-sm">
+        저장
+      </button>
+    </div>
+  </div>
+
+  <script src="/public/js/editprofile.js"></script>
+   
+  
+
+</body>
+</html>

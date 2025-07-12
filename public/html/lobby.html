@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Game Lobby</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body class="bg-[#fcfcf8]" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+  <div class="relative flex min-h-screen flex-col overflow-x-hidden">
+    <div class="layout-container flex h-full grow flex-col">
+      <header class="flex items-center justify-between border-b border-solid border-b-[#f4f4e6] px-10 py-3">
+        <div class="flex items-center gap-4 text-[#1c1c0d]">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h2 class="text-[#1c1c0d] text-lg font-bold tracking-[-0.015em]">Fruit Game</h2>
+        </div>
+        <button
+          onclick="window.location.href='profile.html'"
+          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+        >
+          <span class="truncate">View Profile</span>
+        </button>
+      </header>
+
+      <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[960px] w-full">
+          <div class="flex flex-wrap justify-between gap-3 p-4">
+            <p class="text-[#1c1c0d] text-[32px] font-bold tracking-light">Game Lobby</p>
+          </div>
+
+          <div class="px-4 py-3 @container">
+            <div class="overflow-hidden rounded-xl border border-[#e9e9ce] bg-[#fcfcf8]">
+              <table class="w-full">
+                <thead>
+                  <tr class="bg-[#fcfcf8]">
+                    <th class="px-4 py-3 text-left text-[#1c1c0d] text-sm font-medium w-[400px]">Room Name</th>
+                    <th class="px-4 py-3 text-left text-[#1c1c0d] text-sm font-medium w-[400px]">Participants</th>
+                    <th class="px-4 py-3 text-left text-[#9e9e47] text-sm font-medium w-60">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- 반복 가능한 row -->
+                  <tr class="border-t border-t-[#e9e9ce]">
+                    <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">Apple game</td>
+                    <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">0/2</td>
+                    <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
+                      <button onclick="window.location.href='game.html'" class="text-[#9e9e47]">Enter</button>
+                      <button onclick="deleteRow(this)" class="text-red-500">Delete</button>
+                    </td>
+                  </tr>
+                  <tr class="border-t border-t-[#e9e9ce]">
+                    <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">Apple room</td>
+                    <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
+                    <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
+                      <button onclick="window.location.href='game.html'" class="text-[#9e9e47]">Enter</button>
+                      <!--삭제 버튼 기능 구현해야 함-->
+                      <button onclick="deleteRow(this)" class="text-red-500">Delete</button>
+                    </td>
+                  </tr>
+                  <!-- 필요한 만큼 더 추가 가능 -->
+                </tbody>
+              </table>
+            </div>
+            <style>
+              @container(max-width:120px){.table-column-120{display: none;}}
+              @container(max-width:240px){.table-column-240{display: none;}}
+              @container(max-width:360px){.table-column-360{display: none;}}
+            </style>
+          </div>
+
+          <div class="flex px-4 py-3 justify-end">
+            <button
+              onclick="window.location.href='addroom.html'"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#eeee06] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+            >
+              <span class="truncate">Create Room</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 삭제 기능 스크립트 -->
+  <script src="/public/js/lobby.js"></script>
+   
+</body>
+</html>

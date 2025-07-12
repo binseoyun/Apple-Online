@@ -11,6 +11,15 @@ const io = new Server(server);
 const PORT = 3000;
 const HOST = '127.0.0.1';
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
+});
+app.get('/game.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'game.html'));
+});
+
 // 게임 맵 관리(숫자가 양수면 사과 존재, 숫자가 0이면 사과 없음)
 
 // 나중에 여기에 프론트엔드 파일들을 연결할 수 있습니다.
