@@ -251,6 +251,7 @@ function updateTimerBar() {
 let timeLeft = 60; //게임 진행 시간 60초
 const timerText = document.getElementById("timer-text");
 const timerBar = document.getElementById("timer-bar");
+let game = true;
 
 socket.on('updateTime', (data) => {
   timeLeft = data.timeLeft;
@@ -259,15 +260,21 @@ socket.on('updateTime', (data) => {
 });
 
 socket.on('gameEnd', (data) => {
-  if (data.winner == socket.id) {
-    endGame("승리하였습니다!\n" + data.message);
-  } else if (data.winner == '') {
-    endGame("비겼습니다!\n" + data.message);
-  } else if (data.winner == ' ') {
-    endGame("승리 당하셨습니다!\n" + data.message);
-  } else {
-    endGame("패배하였습니다!\n" + data.message);
-  }
+  if (game) {
+    if (data.winner == socket.id) {
+      game = false;
+      endGame("승리하였습니다!\n" + data.message);
+    } else if (data.winner == '') {
+      game = false;
+      endGame("비겼습니다!\n" + data.message);
+    } else if (data.winner == ' ') {
+      game = false;
+      endGame("승리 당하셨습니다!\n" + data.message);
+    } else {
+      game = false;
+      endGame("패배하였습니다!\n" + data.message);
+    }
+ }
 });
 
 

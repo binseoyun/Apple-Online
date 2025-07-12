@@ -7,7 +7,7 @@ const preview = document.getElementById('createRoom');
 
 
 
-function createRoom() {
+function createRoom(hasPW) {
   const roomName = document.getElementById("roomName").value.trim();
 
   if (!roomName) {
@@ -16,13 +16,16 @@ function createRoom() {
   }
 
   // 임시: 실제로는 서버에 POST 요청을 보내거나 로컬에 저장할 수 있음
-  socket.emit('createRoom', {title: roomName, password: ""}, {id: socket.id, nickname: "nick"});
+  let password = '';
+  if (hasPW) {
+    const passwordInput = document.getElementById('roomPassword').value.trim();
+    password = passwordInput
+  }
+  socket.emit('createRoom', {title: roomName, password: password}, {id: socket.id, nickname: "nick"});
   
   console.log("Room created:", roomName);
 
   // 다시 로비로 이동
   window.location.href = "lobby.html";
-
-  
 }
 
