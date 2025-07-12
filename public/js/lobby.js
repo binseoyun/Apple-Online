@@ -29,6 +29,9 @@ function drawRoomList(data) {
         </td>
       `
 
+    //Enter와 Delete 버튼 누르면 비빌번호 입력 모듈 뜨게 설정
+    
+
       // 완성된 행을 tbody에 추가
       roomListBody.appendChild(row);
     });
