@@ -19,7 +19,7 @@ function drawRoomList(data) {
       const row = document.createElement('tr');
       row.className = 'border-t border-t-[#e9e9ce]'; // Tailwind CSS 클래스 적용
 
-      // 각 행에 들어갈 HTML 내용을 정의합니다.
+      // 각 행에 들어갈 HTML 내용을 정의
       row.innerHTML = `
         <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
         <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
@@ -29,9 +29,7 @@ function drawRoomList(data) {
         </td>
       `
 
-      //room
-
-      // 완성된 행을 tbody에 추가합니다.
+      // 완성된 행을 tbody에 추가
       roomListBody.appendChild(row);
     });
   } else {
