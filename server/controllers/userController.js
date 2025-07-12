@@ -1,26 +1,19 @@
-const User = require('../../config/db')
+const passport = require('passport');
 
-const getUserProfile = async (req, res) => {
-    try {
-        const userId = req.params.id;
+// 구글 로그인 시작
+exports.googleLogin = passport.authenticate('google', {
+    scope: ['profile', 'email']
+});
 
-        // 유저 정보 조회
-        const userProfile = await User.findById(userId);
+exports.googleCallback = passport.authenticate('google', {
+    failureRedirect: '/login.html', // 로그인 실패 시 리디렉션될 경로
+    successRedirect: '/lobby.html' // 로그인 성공 시 리디렉션될 경로
+});
 
-        if (!userProfile) {
-            return res.status(404).json({ message: 'Users not found' });
-        }
-        res.status(200).json(userProfile);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-};
-
-const updateNickname = async (req, res) => {
-
-};
-
-module.exports = {
-    getUserProfile,
-    updateNickname,
+// 로그아웃
+exports.logout = (req, res, next) => {
+    req.logout((err) => {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
 };

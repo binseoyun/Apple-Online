@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jpt0927/Apple-Online#readme",
   "dependencies": {
+    "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "mysql2": "^3.14.2",

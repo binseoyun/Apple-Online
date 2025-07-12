@@ -57,12 +57,14 @@ function calculateScore(apple_list, mapData) {
     let sum = 0;
     let cnt = 0;
     for (const apple of apple_list) {
-        sum += Number(mapData[apple[0]][apple[1]]);
-        cnt += 1;
+        if (Number(mapData[apple[0]][apple[1]]) != 0) {
+            sum += Number(mapData[apple[0]][apple[1]]);
+            cnt += 1;
+        }
         if (sum > 10) return 0;
     }
 
-    if (sum == 10) return cnt; 
+    if (sum == 10) return cnt;
     else return 0;
 }
 

@@ -3,6 +3,10 @@ const http = require('http');
 const { Server } = require("socket.io");
 const { pool, redisClient, connectDBs } = require('./config/db');
 const { v4: uuidv4 } = require('uuid');
+const passport = require('passport');
+const passportConfig = require('./server/controllers/passport');
+const session = require('express-session');
+const GoogleStrategy = require('passport-google-oauth20');
 
 const roomHandler = require('./server/handlers/roomHandlers');
 
@@ -14,7 +18,22 @@ const PORT = 3000;
 const HOST = '127.0.0.1';
 
 const path = require('path');
+const authRoutes = require('./server/routes/authRoutes');
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passportConfig(passport);
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/auth', authRoutes);
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
 });
