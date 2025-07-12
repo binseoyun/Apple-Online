@@ -1,4 +1,4 @@
- //Firebase 초기화 코드가 필요
+//Firebase 초기화 코드가 필요
         // Firebase 설정 정보
 
   /*로그인이 되는 전체 과정
@@ -11,6 +11,10 @@
 
 
   */
+
+ //login.js가 실행되고 있는지 먼저 확인
+ console.log("login.js 로딩됨");
+
 
 //HTML 문서가 모두 로드되고 나서 버튼을 제대로 찾을 수 있게 
  document.addEventListener("DOMContentLoaded",()=>{
@@ -33,7 +37,17 @@
 
   //5.로그인 이벤트 처리
   //login-button 클릭시 google 창 열림
-const loginBtn=document.getElementById("loginbtn"); //login.html에서 loginbtn을 가져와서 
+const loginBtn=document.getElementById('loginbtn'); //login.html에서 loginbtn을 가져와서 
+
+
+//버튼 연결 확인
+
+ document.addEventListener("click",()=>{
+  alert("버튼을 클릭하였습니다");
+ })
+
+
+
 
   if(!loginBtn){
     console.error("loginBtn요소 없음");
