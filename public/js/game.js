@@ -30,13 +30,13 @@
 
     
       //드레그 시작(마우스 누르면 박스가 표시 시작 됨)
-board.addEventListener("mousedown", (e) => {
-  if (e.target.parentElement !== board) return;
+    board.addEventListener("mousedown", (e) => {
+    if (e.target.parentElement !== board) return;
 
   //드레그 됐다고 표시, 기존에 드레그 된것(기존 선택 셀 초기화)
   isDragging = true; 
-  clearSelection(); 
-  startCell = e.target; //드레그 시작 셀 지정
+  clearSelection(); //기존에 선택한 셀을 초기화 했음
+  startCell = e.target; //드레그 시작 셀 지정(새롭게 선택된 셀 재지정)
   selectCell(startCell);
 
   const rect = e.target.getBoundingClientRect();
@@ -52,8 +52,8 @@ board.addEventListener("mousedown", (e) => {
 
 });
 
-//드래그 중 마우스 이동(박스 크기 선택)
-board.addEventListener("mouseover", (e) => {
+//드래그 중 마우스 이동
+  board.addEventListener("mouseover", (e) => {
   if (!isDragging || e.target.parentElement !== board) return;
   const currRect = e.target.getBoundingClientRect();
 
@@ -64,9 +64,10 @@ const height = Math.abs(currRect.top - dragStartY);
 
 dragBox.style.left = `${x}px`;
 dragBox.style.top = `${y}px`;
-dragBox.style.width = `${width + currRect.width}px`;
-dragBox.style.height = `${height + currRect.height}px`;
+dragBox.style.width=`${width+currRect.width}px`;
+dragBox.style.height = `${height+currRect.height}px`;
 
+//대각선 요소는 단순히 width와 height를 조정하는 걸로는 안될 거 같음
 
 
   if (!startCell) return;
