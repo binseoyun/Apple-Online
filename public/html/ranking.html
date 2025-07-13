@@ -1,0 +1,202 @@
+<!--랭킹을 볼 수 있는 페이지 구성
+상위 3명은 고정된 페이지로 구성하고 나머지는 스크롤 해서 볼 수 있게 -->
+
+<html>
+    
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Ranking</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaf1ea] px-10 py-3">
+        
+            <div class="flex items-center gap-4 text-[#101810]">
+
+               <div class="size-4">
+               </div>
+
+               <h2 class="text-[#101810] text-lg font-bold leading-tight tracking-[-0.015em]">🍎 Apple Game</h2>
+          </div>
+
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+                <!--lobby로 가는 버튼-->
+             <button
+                onclick="window.location.href='lobby.html'"
+               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+             >
+           <span class="truncate">Lobby</span>
+
+           <!--프로필로 가는 버튼-->
+           <button
+                onclick="window.location.href='profile.html'"
+               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+             >
+           <span class="truncate">Profile</span>
+            </div>
+        </div>
+        </header>
+
+
+        <!--현재는 사용자 정보가 지정되어 있지만 동적으로 변경되게 만들어야 함-->
+
+        <!--사용자 랭킹 표시-->
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#101810] tracking-light text-[32px] font-bold leading-tight min-w-72">Rankingboard</p></div>
+              
+            <!--Top3 Player-->
+            <h2 class="text-[#101810] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Top3 Players</h2>
+              
+            <!--사용자 1-->
+              <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <!--사용자 이미지-->
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCYwihQdWNFu8IFc-8ju4LeceM42Da69_UlUxzrpQCtQCm1DAWFjNVMIW5HiEZi2tNZbEkU-EyST2iOMRZw8tW0elOGvAAmkgNjedlvKpDYiQO_WHac8cc0JvbOG7NNdFtAPoBgl-AsaNYSblt39u-fNJOrN8eJEz4EmTOUU31gW8LhSb9xJ_dogt_0qFXWgdB8NmrV8hsdFbEwp3tKUBwW0_RdqouS3nxTKTCTYg_JtcpBQgVb8T7diBO5-uueb7YkWAkGjPtlx31B");'
+              ></div>
+
+               <!--사용자 정보-->
+               <div class="flex flex-col justify-center">
+                <!--이름-->
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Sophia Clark</p>
+                <!--랭킹-->
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">1nd</p>
+              </div>
+            </div>
+
+           
+            <!--사용자 2-->
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjwVyu5XUk0bJTXeRWjtOFZZlJOHWcNC9f_6oLAHhK0sa0wmbYpnK5AuPa4YGfsZOj42hfsZXOF_mAq2P194G7LIihfL9qPHESMbBkvHMVzb67orm1WBVQj-kZVV8lfcEaqvuu2bmO10dnj_UW1Asqil6x-iAfyF0EG4ddA9DXvhihylft6UyDzutZva7BqgjAGQtC63d4HdIGvFl3iv6BSbm2k_3bTCe8mg6fMe-PCofCpq1oridM60GNtmMBgnxgMM0mzVbt6z3A");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Ethan Miller</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">1st</p>
+              </div>
+            </div>
+
+
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGqHNva388JeZQ8zKpfT7kI0rbBnFdnehX-wnxdtHsbCexFzUqzZZMPGITn532Wo688W8H1FBr7VsxWKp0IiIqJBJLCndCbtswaofDD11Nzb7VFGnQfO1GemQpUh6iYtpwNZFUPNPtE_lH9_ZjiQOFhUJ5RhIH9NI5b1Q5shfAJDsDWcnhLjICTz-OdIwYsELTYlC3yePuTtcEra6zcwBMp0urVpPhFAs7p07KeeZFWTq8UaJSunWOAaD-i8chzmXO5mvShy6w67TJ");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Olivia Davis</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">3rd</p>
+              </div>
+            </div>
+
+
+            <!--나머지 사용자-->
+            <h2 class="text-[#101810] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">All Players</h2>
+
+<!--나머지 사용자1-->
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIESffn9JbOfquWllbT4a2NZfIaovP8mvkC8ffaAudmMUQT4ESNxgdVSSfXxKfyRC2xh84iJMJZXKRfB8zeCcYcjUTHoCibLxzxTTv5xyHdgXebqbuO-CeoOW-etbYMMnx-BTKEX5DmbRW0wl2CctyKLt2EqJXuKFv9mhn-SxnOJRxSbn1X3FnFjN27GobanqRGztXuC7t4LjB0fnw5wmrqfhCT1Skz6wNwPAMZmOESxyppQvl2TQkmhiiut2WRXtW5SSJt4Dhqo6S");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Liam Wilson</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">4th</p>
+              </div>
+            </div>
+
+
+<!--나머지 사용자2-->
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASDiEuaRNnirYwKRRSCOPWzo0AIf-eEk3MpsII8TzgS-JcS70hrPKrATVsScup8m97qSvgZgx2VwmuRmiT9IU22H-DQr-EGBHgR11UZGyRcmFN-aOJAlddhrr2Jz1WbU1rvluHuQapTDciaGx_AXjH0gG8edjL_dqDnJCtlxHhCVUMgbZD8cwJ5ABUS6GecKHcO-BfR0r-wAVuMI0YlInLicHVnHLGXkuB8wiFMPIl8tMWXcLUpGe2tkzbnQiXhgkVo7hSTq0eQb4D");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Ava Taylor</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">5th</p>
+              </div>
+            </div>
+
+<!--계속 사용자 추가-->
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJh3BtB0oGYJxcdZ3sZ__IlA4ZVgU7_VXgUe_TKRLpfYX6uvm0r4wnCwth22s3o6w20_I2JVHu_ZTsS5wdc75JXv5ZbEnLkJPScrZn3l1L_fzhsbUP4dGroM3Dig3jPF1ab-C9St7PWY0iozPe3tqoGHSTnokRyvnO8f8FiRY20O5qBjz6PTPdoBbuRodfcCfl-KR4idrK6hxzvuDUoBgXAzZ1L-yk5SRSbr9oVzJt-P9vubUHC7BU2J6ZbaGXqNazDOaLoQ8LnTY3");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Noah Anderson</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">6th</p>
+              </div>
+            </div>
+
+
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOxD8rFPhktn96NnOZgThFWehry5U1hl3DeWxuRZTjtXyM-NHbcyuOtVvpsonUR-L2Y3G7vyofhS7S3LxCxULvIoRb23Am6kTOHWdjUZ83TC9D2lsfK-xtF7H9p9puUYEYV_Cux5DPsunJoFHXE90oVjGwO0FnkVJ9L4DuuMSg86KENgNnNxE-cYKzv1-_2dqYRNSrxdkGUyrvTCqPSFAijzXTo8fZrIB9r7Ld6z9NVpy-IGGWrwoKpIu9MuXWW8_ZTNE0ujqhoWQ3");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Isabella Thomas</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">7th</p>
+              </div>
+            </div>
+
+
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD77cVP03U-15WA17Ns-DLcPyL9IXyrD6jSaOip016fx_gbAbeiMf5-LqimljZOgjd0hvTik_FnS7v6HFlHlXSH7ob6HCPAPMO7qII_nIUInXFhp7Tef5rmygYbo4RCCmm9DymG2rGtUO8zl89RDo8KWU3_KKQxWf4hfsPNCPhFevJGj_4cPgBcGQLkRa7y787RjQEqebVKwdVzUipSqR9zWXiMyZQIt4n93t-BVrr2-Vptq1qg9H4PBnP8xJJoV4B7t83OmH1522q_");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Jackson Moore</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">8th</p>
+              </div>
+            </div>
+
+
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfiYKwnphL1qhwWQ97564PEx718UEuyGVCSRmPxm2lFj25QJX04vZQ3KePstpQAyvuuCQJF6DxFvaGByrgV3xBd-FvoVCJBFVVQ8dNKlxe5FuSfsWwposqSVfF34QQ5M-NUdnTghdKcZdndH9Hf8F2LoP6Rhwoh2_yqpkHwIKNB-IGCAxkNDT4KdhWop8rD8r_GWNL6fKf80Ay082OsNUU1Px-s63RN0eWjGBb8dhPoart-82a3GfBQQlq237cXnkpOMZ8_PEqAAdA");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Mia Jackson</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">9th</p>
+              </div>
+            </div>
+
+
+            <div class="flex items-center gap-4 bg-[#f9fbf9] px-4 min-h-[72px] py-2">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCC3RlxJCdudlDw41wUna7NKWAaq7GDD-D18Nwb_YxZ8-I-MQTrZN_9oWd2Q4fL72M3RmPzvEnQPysaQ9qDS-fmYUX7UhmC3ljNPDcdPXDIf6HGN9dY8ZLcj1UXAF8JfmyMOR-WtowCitWu-5O50bWpylvn5QdNi0uM2dL3E3IjcVshP-bT8TFq-hl3SITg_5VsEzszrEMhGqCJIHovHjIyQSzfVWkAEoBrPra-6fxrVfAa4bxNJV48DNJHX11aBENnpjIIM3W_yrte");'
+              ></div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[#101810] text-base font-medium leading-normal line-clamp-1">Aiden White</p>
+                <p class="text-[#5c8a5c] text-sm font-normal leading-normal line-clamp-2">10th</p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
