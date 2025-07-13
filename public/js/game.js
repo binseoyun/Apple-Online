@@ -55,6 +55,7 @@ socket.on('map', (data) => {
   console.log(data.mapData);
   console.log("맵을 받았습니다.");
 
+  /*
   //카운트 다운 로직을 구현하기 위해 변경
   //카운트다운 후에만 드레그 활성화 되게 
   board.style.pointerEvents="none";
@@ -62,7 +63,10 @@ socket.on('map', (data) => {
   startCountdown(()=>{
     //카운트 다운 완료 후 드레그가 가능해짐
     board.style.pointerEvents="auto"; //드래그 가능해짐
+    
   })
+*/
+
 });
 
 
@@ -315,8 +319,19 @@ function updateTimerUI() {
       timerBar.classList.add("bg-green-400");
       timerBar.classList.remove("bg-yellow-400", "bg-red-500");
     }
+
+    //배경색 변경하기 위해 추가
+    //시간이 10초 이하 남았을 때 빨간색이 뜨게 설정
+    const gameRoot =document.getElementById("game-main");
+    if(timeLeft<=10){
+      gameRoot.classList.add("bg-red-100","transition-colors");
+    }else{
+      gameRoot.classList.remove("bg-red-100");
+    }
   }
 }
+
+
 
 // 게임 종료 처리
 function endGame(message) {
@@ -336,11 +351,11 @@ function playScoreSound(){
   sound.play();
 }
 
-
+/*
 //카운트 다운 로직 추가
 function startCountdown(callback){
   //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
-  const overlay=document.getElementById("countdonwOverlay");
+  const overlay=document.getElementById("countdownOverlay");
   const text=document.getElementById("countdownText");
   let count=3;
 
@@ -362,4 +377,9 @@ function startCountdown(callback){
   },1000); 
 }
 
-
+document.addEventListener('DOMContentLoaded',()=>{
+  startCountdown(()=>{
+    console.log("카운트다운 종료 후 실행됨");   
+  });
+});
+*/
