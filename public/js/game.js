@@ -62,6 +62,10 @@ socket.on('getScore', (result) => {
     const currentScore = getScore("user1");
     setScore("user1", currentScore + result.score);
     console.log(`${result.score} 점수를 얻었습니다.`);
+    
+    //내가 점수를 얻었을 때 소리 재생 추가
+    playScoreSound();
+
   } else {
     const currentScore = getScore("user2");
     setScore("user2", currentScore + result.score);
@@ -202,6 +206,7 @@ function checkSum() {
 
   if (!selectionCoords.start || !selectionCoords.end) return;
 
+  //숫자의 합이 10인지 확인하는 위치
   socket.emit('dragApples', 
     selectionCoords.start.col, 
     selectionCoords.start.row, 
@@ -269,7 +274,7 @@ socket.on('gameEnd', (data) => {
       endGame("비겼습니다!\n" + data.message);
     } else if (data.winner == ' ') {
       game = false;
-      endGame("승리 당하셨습니다!\n" + data.message);
+      endGame("승리하셨습니다!\n" + data.message);
     } else {
       game = false;
       endGame("패배하였습니다!\n" + data.message);
@@ -312,5 +317,11 @@ function endGame(message) {
     setTimeout(() => {
         window.location.href = "lobby.html"; // 예: lobby.html로 이동
     }, 1000); // 1초 후 lobby로 이동
+}
+
+function playScoreSound(){
+  const sound=document.getElementById("scoreSound");
+  sound.currentTime=0; //같은 소리를 연속으로 재생할 수 있게
+  sound.play();
 }
 

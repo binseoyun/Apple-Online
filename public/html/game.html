@@ -22,6 +22,10 @@
 
 
   <body>
+<!--성공시 사운드 나게 오디오 태그 추가-->
+    <audio id="socreScound" src="/sound.wav"  preload="auto"></audio>
+
+
     <div class="relative flex size-full min-h-screen flex-col bg-[#f8fcf8] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
 
@@ -155,6 +159,7 @@
     <!-- 🧠 게임 보드 생성 스크립트 -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="\js/game.js"> </script>
+  
     
   </body>
 </html>
