@@ -45,7 +45,7 @@ function DrawMap(mapData) {
     }
   }
 }
-
+//게임 시작 전 카운트 다운 로직을 구현하기 위해 startCountdown 추가
 //사과 셀 생성
 socket.emit('getMap');
 console.log("맵을 요청 중입니다...");
@@ -54,7 +54,17 @@ socket.on('map', (data) => {
   mapData = data.mapData;
   console.log(data.mapData);
   console.log("맵을 받았습니다.");
+
+  //카운트 다운 로직을 구현하기 위해 변경
+  //카운트다운 후에만 드레그 활성화 되게 
+  board.style.pointerEvents="none";
+  //콜백함수(카운트다운이 끝난 후에 어떤 작업을 실행해라는 방식)
+  startCountdown(()=>{
+    //카운트 다운 완료 후 드레그가 가능해짐
+    board.style.pointerEvents="auto"; //드래그 가능해짐
+  })
 });
+
 
 socket.on('getScore', (result) => {
   console.log(result.userId);
@@ -65,8 +75,8 @@ socket.on('getScore', (result) => {
     
     //내가 점수를 얻었을 때 소리 재생 추가
     playScoreSound();
-
-  } else {
+  } 
+  else {
     const currentScore = getScore("user2");
     setScore("user2", currentScore + result.score);
     console.log(`상대가 ${result.score} 점수를 얻었습니다.`);
@@ -319,9 +329,37 @@ function endGame(message) {
     }, 1000); // 1초 후 lobby로 이동
 }
 
+//게임 성공 시 소리나게
 function playScoreSound(){
   const sound=document.getElementById("scoreSound");
   sound.currentTime=0; //같은 소리를 연속으로 재생할 수 있게
   sound.play();
 }
+
+
+//카운트 다운 로직 추가
+function startCountdown(callback){
+  //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
+  const overlay=document.getElementById("countdonwOverlay");
+  const text=document.getElementById("countdownText");
+  let count=3;
+
+  text.textContent=count; //3초 카운트 진행예정
+  overlay.style.display="flex";
+
+  const interval=setInterval(()=>{
+    count--;
+    if(count>0){
+      text.textContent=count; 
+    } else if(count==0){
+      text.textContent="Start!";
+    }  else{ //3초가 지나면
+        clearInterval(interval); 
+        overlay.style.display="none"; //카운트 다운 화면 사라지게
+        //게임이 시작되게
+        if(callback) callback(); //이 부분에서 callback()이 실행됨
+      } 
+  },1000); 
+}
+
 
