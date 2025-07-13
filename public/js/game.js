@@ -39,7 +39,7 @@ function DrawMap(mapData) {
       cell.textContent = num;
       cell.className = //Tailwind CSS 클래스를 사용하여 스타일링
       //셀크기, 사과 이미지, 숫자 스타일, 숫자 가운데 정렬, 원형, 마우스 반응
-        'w-[40px] h-[40px] bg-[url("https://www.nicepng.com/png/detail/8-83846_large-green-apple-png-clipart-green-apple-transparent.png")] bg-cover bg-center text-white text-sm font-bold flex items-center justify-center rounded-full cursor-pointer hover:scale-105 transition-transform';
+      "w-[40px] h-[40px] bg-[url('/apple.png')] bg-cover bg-center text-white text-sm font-bold flex items-center justify-center rounded-full cursor-pointer hover:scale-105 transition-transform";
       cell.setAttribute('data-value', num); //숫자 값을 data-value 속성에 저장
       board.appendChild(cell); //완성된 셀을 보드에 추가
     }
