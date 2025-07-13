@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("https://www.applegame.shop");
 const roomListBody = document.getElementById('room-list-body');
 
 function deleteRow(btn) {

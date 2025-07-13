@@ -22,8 +22,16 @@
 
 
   <body>
-<!--성공시 사운드 나게 오디오 태그 추가-->
-    <audio id="scoreSound" src="/sound.wav"  preload="auto"></audio>
+
+    <!--게임 시작 전에 카운트다운 요소 추가
+    countdownOverlay: 화면 전체를 덮는 반투명 배경
+    counddowntText:중앙의 큰 숫자-->
+    <div id="countdownOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div id="countdownText" class="text-white text-8xl font-extrabold animate-pulse">3</div>
+    </div>
+
+    <!--성공시 사운드 나게 오디오 태그 추가-->
+    <audio id="socreScound" src="/sound.wav"  preload="auto"></audio>
 
 
     <div class="relative flex size-full min-h-screen flex-col bg-[#f8fcf8] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>

@@ -14,7 +14,12 @@ const roomHandler = require('./server/handlers/roomHandlers');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "https://www.applegame.shop",
+    credentials: true
+  }
+});
 
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
