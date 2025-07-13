@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
+  res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
 });
 app.get('/game.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'game.html'));

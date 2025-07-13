@@ -6,7 +6,7 @@ module.exports = (passport) => {
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'auth/google/callback'
+        callbackURL: 'http://www.applegame.shop/auth/google/callback'
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -42,7 +42,7 @@ module.exports = (passport) => {
     passport.deserializeUser(async (id, done) => {
         try {
             const [rows] = await pool.query('SELECT * FROM Users WHERE id = ?', [id]);
-            done(null, row[0]);
+            done(null, rows[0]);
         } catch (error) {
             done(error);
         }

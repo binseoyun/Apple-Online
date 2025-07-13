@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 router.get('/google', userController.googleLogin);
 
 // 구글 로그인 성공 후 롤백
-router.get('google/callback', userController.googleCallback);
+router.get('/google/callback', userController.googleCallback);
 
 // 로그아웃
 router.get('/logout', userController.logout);

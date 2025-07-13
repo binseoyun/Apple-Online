@@ -1,11 +1,13 @@
+require('dotenv').config();
+
 const mysql = require('mysql2/promise');
 const redis = require('redis');
 
 // 1. MySQL 연결 풀(Pool) 생성
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '', // 설치 시 설정한 비밀번호
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD, // 설치 시 설정한 비밀번호
   database: 'apple_game_db', // 사용할 데이터베이스 이름
   waitForConnections: true,
   connectionLimit: 10,
