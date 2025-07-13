@@ -28,8 +28,10 @@ function drawRoomList(data) {
           <button onclick="deleteRoom('${room.id}')" class="text-red-500">Delete</button>
         </td>
       `
+      
 
-    //Enter와 Delete 버튼 누르면 비빌번호 입력 모듈 뜨게 설정
+    //Enter와 Delete 버튼 누르면 비빌번호 입력 모듈 뜨게 연결해야 함
+
     
 
       // 완성된 행을 tbody에 추가

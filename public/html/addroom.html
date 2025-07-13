@@ -10,13 +10,14 @@
 </head>
 <body class="bg-[#fcfcf8]" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
   <div class="relative flex min-h-screen flex-col">
-    <div class="layout-container flex flex-col grow h-full">
+   <!--중앙 정렬-->
       <div class="px-40 flex justify-center py-5 flex-1">
+        <!--수직으로 정렬되게-->
         <div class="layout-content-container flex flex-col w-[512px] max-w-[960px] flex-1 py-5">
-          <h2 class="text-[#1c1c0d] text-[28px] font-bold leading-tight text-center px-4 pb-3 pt-5">Create a Room</h2>
+          <h2 class="text-[#1c1c0d] text-[28px] font-bold leading-tight text-center px-4 pb-3 pt-5">🍎 Create a Room 🍎 </h2>
 
           <div class="text-[#1c1c0d] text-base font-normal leading-normal text-center px-4 pb-3 pt-1">
-            <p>Enter a room name to create a new game room.</p>
+            <p>Enter a aroom name to create a new game room.</p>
             
           
             <!--입력필드와 버튼을 묶어서 가운데 정렬 되게-->
@@ -29,7 +30,7 @@
               <input
                 id="roomName"
                 type="text"
-                placeholder="Room Name"
+                placeholder="Room name"
                 class="form-input w-full rounded-xl text-[#1c1c0d] focus:outline-0 border-none bg-[#f4f4e6] h-14 placeholder:text-[#9e9e47] p-4 text-base font-normal"
               />
             </label>
@@ -69,15 +70,16 @@
       />
 
       <div class="flex justify-between gap-4 mt-6">
+        <!--방 비밀번호 생성버튼과 비밀번호 없이 생성-->
         <button
           onclick="createRoom(true)"
           class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 flex-1 bg-[#e4e405] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]">
-          Create
+          Creae
         </button>
         <button
           onclick="createRoom(false)"
           class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 flex-1 bg-[#e4e405] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]">
-          Without Password
+         Without Password
         </button>
       </div>
     </div>
