@@ -39,7 +39,7 @@ function DrawMap(mapData) {
       cell.textContent = num;
       cell.className = //Tailwind CSS 클래스를 사용하여 스타일링
       //셀크기, 사과 이미지, 숫자 스타일, 숫자 가운데 정렬, 원형, 마우스 반응
-        'w-[40px] h-[40px] bg-[url("https://cdn-icons-png.flaticon.com/512/590/590685.png")] bg-cover bg-center text-white text-sm font-bold flex items-center justify-center rounded-full cursor-pointer hover:scale-105 transition-transform';
+        'w-[40px] h-[40px] bg-[url("https://www.nicepng.com/png/detail/8-83846_large-green-apple-png-clipart-green-apple-transparent.png")] bg-cover bg-center text-white text-sm font-bold flex items-center justify-center rounded-full cursor-pointer hover:scale-105 transition-transform';
       cell.setAttribute('data-value', num); //숫자 값을 data-value 속성에 저장
       board.appendChild(cell); //완성된 셀을 보드에 추가
     }
@@ -128,7 +128,7 @@ board.addEventListener("mouseover", (e) => {
   dragBox.style.width=`${width+currRect.width}px`;
   dragBox.style.height = `${height+currRect.height}px`;
 
- //대각선 요소는 단순히 width와 height를 조정하는 걸로는 안될 거 같음
+
   if (!startCell) return;
 
   const index1 = [...board.children].indexOf(startCell);
