@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Wating Room</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+
+
+  <body>
+  <!--사과 bouncing 애니메이션-->
+  <div class="flex justify-center pt-4">
+   <div class="text-4xl animate-bounce">🍎</div>
+  </div>
+
+  
+
+
+    <div class="relative flex size-full min-h-screen flex-col bg-[#f8fcf8] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+      
+        <div class="px-40 flex flex-1 justify-center py-5">
+
+        <!--요소들이 수직으로 정렬되게-->
+          <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+            <!--텍스트-->
+            <h2 class="text-[#0e1b0e] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Waiting for opponent</h2>
+           
+            <!--다시 로비버튼으로 돌아가는 버튼-->
+            <div class="flex px-4 py-3 justify-center">
+              <button
+               onclick="window.location.href='lobby.html'"
+               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#e7f3e7] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <span class="truncate">Back to Lobby</span>
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/wating.js"></script>
+  </body>
+</html>

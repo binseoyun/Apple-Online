@@ -99,6 +99,9 @@ document.getElementById('confirm-password-btn').addEventListener('click',()=>{
   //password는 사용자가 입력한 비밀번호
   //두 값을 쿼리 파라미터로 넘겨받아서 game.html로 이동하게 되는 구조
   //현재는 비밀번호 검증없이 바로 이동
-  window.location.href=`game.html?roomId=${selectedRoomId}&password=${password}`;
+  //window.location.href=`game.html?roomId=${selectedRoomId}&password=${password}`;
+  
+  //waing.html로 이동하게 함
+  window.location.href='waiting.html'
 
 })
