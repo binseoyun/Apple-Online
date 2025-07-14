@@ -1,6 +1,10 @@
 //js/game.js
 (async () => {
   let roomId = '';
+  let userId = await getMyUserId();
+  const socket = io("https://www.applegame.shop", {
+      withCredentials: true
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
     // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
@@ -13,34 +17,23 @@
     if (roomId !== '') {
       console.log(`전달받은 방 ID: ${roomId}`);
       // 이 roomId를 사용해 서버에 방 참여 요청 등을 보냅니다.
-      socket.emit('joinRoom', roomId, password);
+      socket.emit('getGame', userId, roomId);
     } else {
       console.error('방 ID가 전달되지 않았습니다!');
       // 에러 처리 (예: 로비로 돌려보내기)
     }
   });
 
-  const socket = io();
+  socket.on('what?', () => {
+    alert("잘못된 접근입니다!");
+    window.location.href = `lobby.html`;
+  });
+
   const board = document.getElementById('game-board');
   const rows= 10; //행의 수
   const cols = 17; //열의 수
 
   let mapData = []
-
-  socket.on('fulledRoom', () => {
-    alert('방이 가득찼습니다!');
-    window.location.href = `lobby.html`;
-  });
-
-  socket.on('PlayingRoom', () => {
-    alert('게임이 이미 시작되었습니다!');
-    window.location.href = `lobby.html`;
-  });
-
-  socket.on('BlockedRoom', () => {
-    alert('비밀번호가 틀렸습니다!');
-    window.location.href = `lobby.html`;
-  });
 
   function DrawMap(mapData) {
     for (let i = 0; i < 10; i++) {
@@ -52,49 +45,62 @@
         //셀크기, 사과 이미지, 숫자 스타일, 숫자 가운데 정렬, 원형, 마우스 반응
         "w-[40px] h-[40px] bg-[url('/apple.png')] bg-cover bg-center text-white text-sm font-bold flex items-center justify-center rounded-full cursor-pointer hover:scale-105 transition-transform";
         cell.setAttribute('data-value', num); //숫자 값을 data-value 속성에 저장
+        if (Number(num) === 0) {
+          cell.textContent = '';
+          cell.style.backgroundImage = 'none';
+          cell.classList.remove('apple');
+        }
         board.appendChild(cell); //완성된 셀을 보드에 추가
       }
     }
   }
   //게임 시작 전 카운트 다운 로직을 구현하기 위해 startCountdown 추가
   //사과 셀 생성
-  socket.emit('getMap');
-  console.log("맵을 요청 중입니다...");
   socket.on('map', (data) => {
     DrawMap(data.mapData);
     mapData = data.mapData;
     console.log(data.mapData);
     console.log("맵을 받았습니다.");
 
-    /*
-    //카운트 다운 로직을 구현하기 위해 변경
-    //카운트다운 후에만 드레그 활성화 되게 
-    board.style.pointerEvents="none";
-    //콜백함수(카운트다운이 끝난 후에 어떤 작업을 실행해라는 방식)
-    startCountdown(()=>{
-      //카운트 다운 완료 후 드레그가 가능해짐
-      board.style.pointerEvents="auto"; //드래그 가능해짐
-      
-    })
-  */
-
+    // user data 설정
+    const score1Element = document.getElementById("user1");
+    const score2Element = document.getElementById("user2");
+    const player1Row = score1Element.closest('tr');
+    const player2Row = score2Element.closest('tr');
+    const image1Div = player1Row.querySelector('td:nth-child(1) div');
+    const image2Div = player2Row.querySelector('td:nth-child(1) div');
+    const name1Element = player1Row.querySelector('td:nth-child(2)');
+    const name2Element = player2Row.querySelector('td:nth-child(2)');
+    image1Div.style.backgroundImage = `url('${data.image1}')`;
+    image2Div.style.backgroundImage = `url('${data.image2}')`;
+    score1Element.textContent = `Score: ${data.score1}`;
+    score2Element.textContent = `Score: ${data.score2}`;
+    name1Element.textContent = data.user1;
+    name2Element.textContent = data.user2;
   });
 
 
   socket.on('getScore', (result) => {
     console.log(result.userId);
-    if (result.userId == socket.id) {
-      const currentScore = getScore("user1");
-      setScore("user1", currentScore + result.score);
-      console.log(`${result.score} 점수를 얻었습니다.`);
-      
+    if (result.userId == userId) {
+      if (result.num == 1) {
+        const currentScore = getScore("user1");
+        setScore("user1", currentScore + result.score);
+      } else {
+        const currentScore = getScore("user2");
+        setScore("user2", currentScore + result.score);
+      }  
       //내가 점수를 얻었을 때 소리 재생 추가
       playScoreSound();
     } 
     else {
-      const currentScore = getScore("user2");
-      setScore("user2", currentScore + result.score);
-      console.log(`상대가 ${result.score} 점수를 얻었습니다.`);
+      if (result.num == 1) {
+        const currentScore = getScore("user1");
+        setScore("user1", currentScore + result.score);
+      } else {
+        const currentScore = getScore("user2");
+        setScore("user2", currentScore + result.score);
+      }  
     }
   });
 
@@ -237,7 +243,7 @@
       selectionCoords.start.row, 
       selectionCoords.end.col, 
       selectionCoords.end.row,
-      roomId, socket.id
+      roomId, userId
     );
   }
 
@@ -289,9 +295,13 @@
     console.log("game update");
   });
 
+  socket.on('whatareyoudoing', () => {
+    window.location.href = 'whatareyoudoing.html';
+  });
+
   socket.on('gameEnd', (data) => {
     if (game) {
-      if (data.winner == socket.id) {
+      if (data.winner == userId) {
         game = false;
         //이겼을 때 소리 재생 추가
         playWinSound();
@@ -313,9 +323,6 @@
         setTimeout(()=>{
         endGame("비겼습니다!\n" + data.message);
         },500);
-      
-    
-
       } else if (data.winner == ' ') {
         game = false;
         //이겼을 때 소리 재생 추가
@@ -327,7 +334,7 @@
         windOverlay.classList.remove("hidden");
         //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
         setTimeout(()=>{
-        endGame("승리하였습니다!\n" + data.message);
+        endGame("승리당하였습니다!\n" + data.message);
         },500); //0.5초 후 실행
 
       } else {
@@ -401,39 +408,6 @@
     sound.currentTime=0; //같은 소리를 연속으로 재생할 수 있게
     sound.play();
   }
-
-  /*
-  //카운트 다운 로직 추가
-  function startCountdown(callback){
-    //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
-    const overlay=document.getElementById("countdownOverlay");
-    const text=document.getElementById("countdownText");
-    let count=3;
-
-    text.textContent=count; //3초 카운트 진행예정
-    overlay.style.display="flex";
-
-    const interval=setInterval(()=>{
-      count--;
-      if(count>0){
-        text.textContent=count; 
-      } else if(count==0){
-        text.textContent="Start!";
-      }  else{ //3초가 지나면
-          clearInterval(interval); 
-          overlay.style.display="none"; //카운트 다운 화면 사라지게
-          //게임이 시작되게
-          if(callback) callback(); //이 부분에서 callback()이 실행됨
-        } 
-    },1000); 
-  }
-
-  document.addEventListener('DOMContentLoaded',()=>{
-    startCountdown(()=>{
-      console.log("카운트다운 종료 후 실행됨");   
-    });
-  });
-  */
 
   //게임에서 이겼을 때 소리 재생 추가
   function playWinSound(){

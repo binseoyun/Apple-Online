@@ -56,6 +56,30 @@ const sessionMiddleware = session({
   }
 });
 
+const redirectIfInGame = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  try {
+    const userId = req.user.id;
+    const roomId = await redisClient.get(`user-${userId}-room`);
+    if (roomId) {
+      const roomData = await redisClient.hGetAll(String(roomId));
+      const roomStatus = roomData.status;
+      if (roomStatus === 'waiting') {
+        return res.redirect(`/wating.html?roomId=${roomId}&password=${roomData.password}&mode=join`);
+      } else if (roomStatus === 'playing') {
+        return res.redirect(`/game.html?roomId=${roomId}&password=${roomData.password}`);
+      }
+    }
+
+    next();
+  } catch(error) {
+    console.error('Redirect Middleware error: ', error);
+    next();
+  }
+};
+
 const PORT = 3000;
 const HOST = '127.0.0.1';
 
@@ -97,28 +121,42 @@ app.get('/api/me', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+  if (req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
+  } else {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+  }
 });
 app.get('/game.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'game.html'));
 });
-app.get('/addroom.html', ensureAuthenticated, (req, res) => {
+app.get('/whatareyoudoing.html', ensureAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'whatareyoudoing.html'));
+});
+app.get('/addroom.html', ensureAuthenticated, redirectIfInGame, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'addroom.html'));
 });
-app.get('/editprofile.html', ensureAuthenticated, (req, res) => {
+app.get('/editprofile.html', ensureAuthenticated, redirectIfInGame, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'editprofile.html'));
 });
 app.get('/login.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+  if (req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
+  } else {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+  }
 });
-app.get('/lobby.html', ensureAuthenticated, (req, res) => {
+app.get('/lobby.html', ensureAuthenticated, redirectIfInGame, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
 });
-app.get('/profile.html', ensureAuthenticated, (req, res) => {
+app.get('/profile.html', ensureAuthenticated, redirectIfInGame, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'profile.html'));
 });
-app.get('/ranking.html', ensureAuthenticated, (req, res) => {
+app.get('/ranking.html', ensureAuthenticated, redirectIfInGame, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'ranking.html'));
+});
+app.get('/wating.html', ensureAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'wating.html'));
 });
 
 // 게임 맵 관리(숫자가 양수면 사과 존재, 숫자가 0이면 사과 없음)
@@ -155,19 +193,6 @@ io.on('connection', (socket) => {
     socket.join('lobby');
   });
 
-  socket.on('disconnecting', () => {
-    try {
-      const roomId = Array.from(socket.rooms).filter(room => room !== socket.id)[0];
-      io.to(roomId).emit('gameEnd', {message: `플레이어가 퇴장하여 게임이 종료되었습니다.`, winner: ' '});
-
-      if (roomHandler.gameStates?.[roomId]) {
-        roomHandler.handleDeleteRoom(redisClient, roomId);
-      }
-    } catch (error) {
-
-    }
-  });
-
   socket.on('disconnect', () => {
     setTimeout(() => {
       io.in(userId).allSockets().then(sockets => {
@@ -178,7 +203,3 @@ io.on('connection', (socket) => {
     }, 3000);
   });
 });
-
-app.get('/pet', function(요청, 응답) {
-    응답.send('펫용품 사시오')
-})

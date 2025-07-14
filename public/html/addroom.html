@@ -9,6 +9,8 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 </head>
 <body class="bg-[#fcfcf8]" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/auth.js"></script>
   <div class="relative flex min-h-screen flex-col">
    <!--중앙 정렬-->
       <div class="px-40 flex justify-center py-5 flex-1">
@@ -93,9 +95,6 @@
   <script>
     function openPasswordModal() {
       const roomName = document.getElementById("roomName").value.trim();
-      if (!roomName) {
-        return;
-      }
       document.getElementById("passwordModal").classList.remove("hidden");
     }
 
@@ -110,8 +109,5 @@
       window.location.href='lobby.html'
     }
   </script>
-  <script src="/js/auth.js"></script>
-
-
 </body>
 </html>

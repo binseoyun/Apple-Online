@@ -86,14 +86,6 @@
                    ></div>
                  </div>
 
-          <button
-          onclick="window.location.href='lobby.html'"
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]"
-          >
-           <span class="truncate" >End Game</span>
-          </button>
-
-
         </header>
 
 
@@ -122,10 +114,10 @@
                       <tr class="border-t border-t-[#d0e7d0]">
                         
                         <td class="w-14 px-4 py-2 h-[72px]" >
-                          <div class="w-10 aspect-square bg-center bg-cover rounded-full" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjts06O8l-rsdq31hAvIIg_nfx2ey3DYOD0H_32IFXGQ8B_KIU81rBkJC1rzFp-3Frl2hmeamm3F967q-M-SQ55b6SK-paJ9AKiIFTVnTX0hG3fDbs1pxe9AT8Zf4chSYSs_mbe1XgUcSeQRXUg6RKfM39Im15Di5R4eQvX9ZfPJhf6HE7ZeO9EK-zLNd6yRtalF-YklE6jyQ55d-sZVxGAJPwsXN-CL8BWy_UGRx6cG1kg0mywAGx2zaBpDwKYxTQpY5tiubxYQwr");'></div>
+                          <div class="w-10 aspect-square bg-center bg-cover rounded-full" style='background-image: url();'></div>
                         </td>
                         <!--서버에서 이름과 score가지고 와야함-->
-                        <td class="w-[400px] text-[#0e1b0e] text-sm font-normal leading-normal">Sophia</td>
+                        <td class="w-[400px] text-[#0e1b0e] text-sm font-normal leading-normal"></td>
                         <td class="w-[400px] text-[#4e974e] text-sm font-normal leading-normal" id="user1">Score: 0</td>
                       </tr>
                     </tbody>
@@ -140,64 +132,38 @@
                     <tbody>
                       <tr class="border-t border-t-[#d0e7d0]">
                         <td class="w-14 px-4 py-2 h-[72px]" >
-                          <div class="w-10 aspect-square bg-center bg-cover rounded-full" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARVJf8vQBciVcPC17k_iNWnLSXULspVuCJcYg9A8tVJ7Bordnk7voMX7Abn0e63GN0aEm53b7GNo6qUnc32piB2WXuPHXeUvBLoVWJK8hbkq92YgoTkdd-Lwlp0O_HQLWgOAAuCFzzWvBFj6e_0su6J05utAgR1x1Tfy0lDDsTR3Wa3bbduAdHB83V2gHhTuiSrmT3G4R8aQlJUNaB6rpPA21k308fpDGxPXisvoLAscSL8LDrIikOP9Y9QThOMWLtrHUQVDYE_58V");'></div>
+                          <div class="w-10 aspect-square bg-center bg-cover rounded-full" style='background-image: url();'></div>
                         </td>
                         <!--서버에서 사용자2 이름과 score 가지고 와야함-->
-                        <td class="w-[400px] text-[#0e1b0e] text-sm font-normal leading-normal">Ethan</td>
+                        <td class="w-[400px] text-[#0e1b0e] text-sm font-normal leading-normal"></td>
                         <td class="w-[400px] text-[#4e974e] text-sm font-normal leading-normal" id="user2">Score: 0</td>
                       </tr>
                     </tbody>
                   </table>
-
-
                 </div>
               </div>
             </div>
-            
-
-            <!-- 🟩 게임 보드 -->
-             <!-- 드래그 선택 박스 -->
-             
+            <!-- 🟩 게임 보드 -->             
 <div id="drag-box" class="hidden fixed border-2 border-blue-400 bg-blue-200/30 pointer-events-none z-50"></div>
-       
-
-  
             <div class="flex w-full justify-center items-center bg-[#f8fcf8] rounded-xl p-4">
               <!--Tailwind로 17개의 열을 가진 CSS Gird 생성 
               class grid-cols-17로 17개의 열을 생성하고, border와 배경색 설정
               style 속성으로 너비와 높이 자동 설정-->
-              
               <div
                  id="game-board"
                  class="grid grid-cols-17 rounded-xl border border-[#d0e7d0] "
                  style="display: grid; grid-template-columns: repeat(17, 1fr);  width:auto; height:auto
                  ;"
               >
-                <!-- JS에서 사과 셀이 생성됨 -->
-                 <!--JS에서 div 속성을 각각 추가를 하는데 여기서 문제가 발생하는 것 같음-->
               </div>
-
-              
-          
             </div>
-
-
-          </div>
-          
-        </div>
-
-        
+          </div>  
+        </div>       
       </div>
-
-     
-
     </div>
-
     <!-- 🧠 게임 보드 생성 스크립트 -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="\js/game.js"> </script>
     <script src="/js/auth.js"></script>
-  
-    
+    <script src="\js/game.js"> </script>
   </body>
 </html>

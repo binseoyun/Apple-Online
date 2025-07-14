@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Spline+Sans%3Awght%40400%3B500%3B700"
     />
 
-    <title>Wating Room</title>
+    <title>Waiting Room</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -20,7 +20,9 @@
   <div class="flex justify-center pt-4">
    <div class="text-4xl animate-bounce">🍎</div>
   </div>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/wating.js"></script>
   
 
 
@@ -36,7 +38,7 @@
             <!--다시 로비버튼으로 돌아가는 버튼-->
             <div class="flex px-4 py-3 justify-center">
               <button
-               onclick="window.location.href='lobby.html'"
+               onclick="backtoLobby()"
                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#e7f3e7] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]"
               >
                 <span class="truncate">Back to Lobby</span>
@@ -47,6 +49,5 @@
         </div>
       </div>
     </div>
-    <script src="/js/wating.js"></script>
   </body>
 </html>

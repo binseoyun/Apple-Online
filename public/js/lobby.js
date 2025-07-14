@@ -1,13 +1,49 @@
 const roomListBody = document.getElementById('room-list-body');
+const cancelButton = document.getElementById('cancel-password-btn');
+const confirmButton = document.getElementById('confirm-password-btn');
+const passwordInput = document.getElementById('room-password-input');
+
+let mode_ = 0;
+let roomId_ = '';
+let userId_ = '';
+
+cancelButton.addEventListener('click', () => {
+  // 모달의 클래스 리스트에 'hidden'을 추가하여 다시 안 보이게 만듭니다.
+  document.getElementById('password-modal').classList.add('hidden');
+  // 입력했던 비밀번호도 초기화해주는 것이 좋습니다.
+  passwordInput.value = '';
+});
+
+confirmButton.addEventListener('click', () => {
+  const password = document.getElementById('room-password-input').value;
+  joinOrDeleteRoom(mode_, roomId_, userId_, password)
+});
 
 //lobby에서 각 row에서 Enter를 눌렀을 때 비빌번호 모듈이 뜰 수 있도록 함수 추가
 let selectedRoomId=null;
 
-function openPasswordModal(roomId){
-  selectedRoomId=roomId;
+function openPasswordModal(mode, roomId, userId){
+  const confirmButton = document.getElementById('confirm-password-btn');
+  if (mode == 1) {
+    confirmButton.textContent = '입장'
+  } else if (mode == 2) {
+    confirmButton.textContent = '삭제'
+  } else {
+    return;
+  }
   document.getElementById('password-modal').classList.remove('hidden'); //hidden으로 설정 된 비밀번호 입력 모듈이 보이게
-  document.getElementById('room-password-input').value=''; //입력받은 password
-  
+
+  mode_ = mode
+  roomId_ = roomId
+  userId_ = userId
+}
+
+function joinOrDeleteRoom(mode, roomId, userId, password) {
+  if (mode == 1) {
+    window.location.href = `wating.html?roomId=${roomId}&password=${password}&mode=join`;
+  } else if (mode == 2) {
+    window.location.href = `wating.html?roomId=${roomId}&password=${password}&mode=delete`;
+  }
 }
 
 function deleteRow(btn) {
@@ -17,20 +53,13 @@ function deleteRow(btn) {
   }
 }
 
-function joinRoom(roomId) {
-  window.location.href = `game.html?roomId=${roomId}`;
-}
-
 (async () => {
   const userId = await getMyUserId();
 
   if (!userId) {
     console.log("User ID not found, stopping script.");
     return;
-  } else {
-    console.log(`I am ${userId}`);
   }
-
 
   const socket = io("https://www.applegame.shop", {
     withCredentials: true
@@ -38,6 +67,10 @@ function joinRoom(roomId) {
   const roomListBody = document.getElementById('room-list-body');
 
   socket.emit('joinLobby');
+
+  socket.on('whatareyoudoing', () => {
+    window.location.href = 'whatareyoudoing.html';
+  });
 
   function drawRoomList(data) {
     roomListBody.innerHTML = '';
@@ -56,28 +89,15 @@ function joinRoom(roomId) {
       // joinRoom,deleteRoom 함수가 아닌 비밀번호 입력 모듈 함수로 변경 필요
       row.innerHTML = `
         <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
-        <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">userId</td>
+        <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.maker}</td>
         <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
         <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
       
-          <button onclick="openPasswordModal('${room.id}')" class="text-[#9e9e47]">Enter</button>
-          <button onclick="deleteRoom('${room.id}')" class="text-red-500">Delete</button>
+          <button onclick="openPasswordModal(1, '${room.id}', '${userId}')" class="text-[#9e9e47]">Enter</button>
+          <button onclick="openPasswordModal(2, '${room.id}', '${userId}')" class="text-red-500">Delete</button>
         </td>
       `
 
-      /*기존 row.innerHTML
-       row.innerHTML = `
-        <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
-        <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">userId</td>
-        <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
-        <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
-      
-          <button onclick="joinRoom('${room.id}')" class="text-[#9e9e47]">Enter</button>
-          <button onclick="deleteRoom('${room.id}')" class="text-red-500">Delete</button>
-        </td>
-      `
-      */ 
-      
 
       //Enter와 Delete 버튼 누르면 비빌번호 입력 모듈 뜨게 연결해야 함
 
@@ -105,14 +125,16 @@ function joinRoom(roomId) {
     row.id = `room-${room.id}`;
     row.className = 'border-t border-t-[#e9e9ce]';
     row.innerHTML = `
-        <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
-        <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
-        <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
-            <button onclick="joinRoom('${room.id}')" class="text-[#9e9e47]">Enter</button>
-            <button onclick="deleteRoom('${room.id}')" class="text-red-500">Delete</button>
-        </td>
-    `;
-    roomListBody.appendChild(row);
+    <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
+    <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.maker}</td>
+    <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
+    <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
+  
+      <button onclick="openPasswordModal(1, '${room.id}', '${userId}')" class="text-[#9e9e47]">Enter</button>
+      <button onclick="openPasswordModal(2, '${room.id}', '${userId}')" class="text-red-500">Delete</button>
+    </td>
+  `;
+    roomListBody.prepend(row);
   }
 
   function removeRoom(roomId) {
@@ -135,6 +157,7 @@ function joinRoom(roomId) {
   socket.on('initialRoomList', (data) => {
     console.log(data);
     try {
+      const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
       drawRoomList(data);
     } catch(error) {
       console.log("방 목록을 불러오지 못했습니다.", error);

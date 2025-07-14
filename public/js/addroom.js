@@ -1,31 +1,35 @@
-const socket = io();
+(async () => {
+  const socket = io("https://www.applegame.shop", {
+    withCredentials: true
+  });
+  const userId = await getMyUserId();
 
-//Create 버튼 클릭 시 비밀번호 입력창이 뜨게 변경함
+  //Create 버튼 요소 가져옴
+  const preview = document.getElementById('createRoom');
 
-//Create 버튼 요소 가져옴
-const preview = document.getElementById('createRoom');
+  function createRoom(hasPW) {
+    let roomName = document.getElementById("roomName").value.trim();
 
+    if (!roomName) {
+      roomName = '';
+    }
 
+    // 임시: 실제로는 서버에 POST 요청을 보내거나 로컬에 저장할 수 있음
+    let password = '';
+    if (hasPW) {
+      const passwordInput = document.getElementById('roomPassword').value.trim();
+      password = passwordInput
+    }
+    socket.emit('createRoom', {title: roomName, password: password}, {id: userId});
 
-function createRoom(hasPW) {
-  const roomName = document.getElementById("roomName").value.trim();
+    socket.on('whatareyoudoing', () => {
+      window.location.href = 'whatareyoudoing.html';
+    });
 
-  if (!roomName) {
-    alert("Please enter a room name!");
-    return;
+    socket.on('roomCreated', (data) => {
+      window.location.href = `wating.html?roomId=${data.id}&password=${password}&mode=join`;
+    });
   }
 
-  // 임시: 실제로는 서버에 POST 요청을 보내거나 로컬에 저장할 수 있음
-  let password = '';
-  if (hasPW) {
-    const passwordInput = document.getElementById('roomPassword').value.trim();
-    password = passwordInput
-  }
-  socket.emit('createRoom', {title: roomName, password: password}, {id: socket.id, nickname: "nick"});
-  
-  console.log("Room created:", roomName);
-
-  // 다시 로비로 이동
-  window.location.href = "lobby.html";
-}
-
+  window.createRoom = createRoom;
+})();

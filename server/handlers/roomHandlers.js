@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const redisClient = require('redis');
 const { isKeyObject } = require('util/types');
+const userController = require('../controllers/userController')
 
 const gameLogic = require('./gameLogic');
 const { STATUS_CODES } = require('http');
@@ -19,13 +20,19 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     
     const handleCreateRoom = async (data, userInfo) => {
         try {
+            const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+            if (isUserWaiting) {
+                socket.emit('whatareyoudoing');
+                return;
+            }
             // 방 id 생성
             const roomId = uuidv4();
 
             // 방제 설정
             let title = "";
+            const nickname = await userController.getUserNickname(userId);
             if (data.title === "") {
-                title = `${userInfo.nickname} 님의 게임`;
+                title = `${nickname} 님의 게임`;
             } else {
                 title = data.title;
             }
@@ -33,6 +40,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             // Redis에 방 정보(Hash) 저장
             await redisClient.hSet(roomId, {
                 title: title,
+                nickname: nickname,
                 password: data.password,
                 player1: '',
                 player2: '',
@@ -41,10 +49,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             });
 
             // 방 목록에 새로운 방 추가
-            await redisClient.sAdd('rooms:waiting', roomId);
-
-            // 게임 중인 유저 목록에 새로운 유저 추가
-            await redisClient.sAdd('waits', userInfo.id);
+            await redisClient.sAdd('rooms:waiting', String(roomId));
 
             // Socket.IO 방에 참여
             socket.join(roomId);
@@ -57,106 +62,15 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             });
 
             // 서버 로그
-            console.log(`[Room Created] ID: ${roomId} by ${userInfo.nickname}`);
+            console.log(`[Room Created] ID: ${roomId} by ${nickname}`);
 
             // 방 생성 완료 사실 전달
-            socket.emit('roomCreated', { roomId });
-            io.to('lobby').emit('newRoom', {id: roomId, title: title, maker: userInfo.id, createdAt: Date.now().toString()});
+            socket.emit('roomCreated', {id: roomId, title: title, maker: nickname, createdAt: Date.now().toString()});
+            io.to('lobby').emit('newRoom', {id: roomId, title: title, maker: nickname, createdAt: Date.now().toString()});
         } catch (error) {
             console.error('방 생성 중 에러 발생:', error);
             socket.emit('error', { message: '방을 만드는 데 실패했습니다.' });
         }
-    };
-
-    const handleJoinRoom = async (userInfo, data) => {
-        console.log(`[Room Join Start] To: ${roomId} by ${userInfo.nickname}`)
-
-        // 방이 존재하는지 확인
-        const RoomExists = await redisClient.sIsMember('rooms:waiting', data.roomId);
-        if (!RoomExists) {
-            return;
-        }
-
-        // 방 정보 불러오기
-        const roomData = await redisClient.hGetAll(data.roodId);
-
-        // 비밀번호가 일치하는지 확인
-        if (roomData.password !== data.password) {
-            return;
-        }
-
-        // 방에 빈자리가 있는지 확인
-        if (roomData.status === 'waiting') {
-            if (roomData.player1 === '') {
-                // player1으로 등록
-                roomData.player1 = userInfo.id;
-            } else {
-                // player2로 등록
-                roomData.player2 = userInfo.id;
-            }
-            // 방 상태를 playing으로 변경
-            roomData.status = 'playing';
-        } else {
-            return;
-        }
-
-        // Socket.IO 방에 참여
-        socket.join(roomId);
-
-        // 게임 중인 유저 목록에 새로운 유저 추가
-        await redisClient.sAdd('waits', userInfo.id);
-        await redisClient.sRem('rooms:waiting', data.roomId);
-        await redisClient.sAdd('rooms:playing', data.roomId);
-
-        // Redis에 방 정보(Hash) 갱신
-        await redisClient.hSet(data.roomId, roomData);
-
-        // 검색 리스트에서 제거
-        const normalizedTitle = roomData.title.toLowerCase().replace(/\s/g, '');
-        await redisClient.zRem('rooms:title:index', `${normalizedTitle}:${data.roomId}`);
-
-        console.log(`[Room Join End] To: ${roomId} by ${userInfo.nickname}`);
-    };
-
-    const handleDisconnect = async () => {
-        console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력
-
-        const roomId = findRoomBySocket(socket);
-
-        // 방에 참여하고 있었는지 확인(게임을 진행 중이었는지)
-        const hasRoom = await redisClient.sIsMember('waits', userId);
-        if (!hasRoom) {
-            return;
-        }
-
-        // 방 정보 불러오기
-        const roomData = await redisClient.hGetAll(roomId);
-
-        // roomId에 참여하는 유저인지 확인
-        if ((roomData.player1 !== userInfo.id) && (roomData.player2 !== userId)) {
-            return;
-        }
-
-        // ToDo: 방 상태가 playing이라면 -> 상대방이 게임을 종료하였습니다. 처리하기
-        if (roomId && gameStates[roomId]) {
-            clearInterval(gameStates[roomId].timerId);
-            delete gameStates[roomId];
-
-            io.to(roomId).emit('gameEnd', {message: `플레이어가 퇴장하여 게임이 종료되었습니다.`});
-        }
-
-        // 방 상태가 waiting이라면 탈퇴 후 방 제거
-        if (roomData.status === 'waiting') {
-            await redisClient.del(roomId);
-        }
-
-        // 방 목록 및 유저 목록에서 제거
-        await redisClient.sRem('rooms:playing', roomId);
-        await redisClient.sRem('rooms:waiting', roomId);
-        await redisClient.sRem('fastRooms', roomId);
-        await redisClient.sRem('waits', userId);
-
-        io.to('lobby').emit('deleteRoom', roomId);
     };
 
     const fastRoomGenerate = async (userInfo, data) => {
@@ -182,15 +96,15 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             socket.join(roomId);
 
             // 방 목록에 새로운 방 추가
-            await redisClient.sAdd('fastRooms', roomKey);
+            await redisClient.sAdd('fastRooms', String(roomId));
 
             // 게임 중인 유저 목록에 새로운 유저 추가
-            await redisClient.sAdd('waits', userInfo.id);
+            await redisClient.sAdd('waits', String(userInfo.id));
         } else {
             // 빠른 방이 존재한다면 -> 참여
 
             // 방 정보 불러오기
-            const roomData = await redisClient.hGetAll(roodId);
+            const roomData = await redisClient.hGetAll(String(roomId));
 
             // 방 정보 수정 및 재등록
             roomData.player2 = userInfo.id;
@@ -201,7 +115,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             socket.join(roomId);
 
             // 게임 중인 유저 목록에 새로운 유저 추가
-            await redisClient.sAdd('waits', userInfo.id);
+            await redisClient.sAdd('waits', String(userInfo.id));
 
             // Redis에 방 정보(Hash) 갱신
             await redisClient.hSet(data.roomId, roomData);
@@ -228,7 +142,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
                 return {
                     id: id,
-                    title: details.title
+                    title: details.title,
+                    maker: details.nickname,
+                    createdAt: details.createdAt
                 };
             });
 
@@ -267,7 +183,23 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
     const joinRoom = async(roomId, password) => {
         try {
+            const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+            if (isUserWaiting) {
+                const roomData = await redisClient.hGetAll(roomId);
+                if ((roomData.player1 === String(userId)) || (roomData.player2 === String(userId))) {
+                    // 재접속
+                    return;
+                }
+                socket.emit('whatareyoudoing');
+                return;
+            }
+
             const roomData = await redisClient.hGetAll(roomId);
+
+            if (!roomData) {
+                console.log('존재하지 않는 방입니다.');
+                return;
+            }
 
             if (roomData.status === 'playing') {
                 socket.emit('PlayingRoom');
@@ -285,29 +217,39 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             } else if (roomData.player2 === '') {
                 roomData.player2 = userId;
                 socket.join(roomId);
+            } else if ((roomData.player1 === userId) || (roomData.player2 === userId)) {
+                console.log(`다시 방으로 복귀한 ${userId}`);
+                return;
             } else {
                 socket.emit('fulledRoom');
                 return;
             }
 
             await redisClient.hSet(roomId, roomData);
+            await redisClient.set(`user-${userId}-room`, roomId);
             console.log(`${userId} joined ${roomId}`);
 
-            if ((roomData.player1 !== '') && (roomData.player1 !== '')) {
+            // 게임 중인 유저 목록에 새로운 유저 추가\
+            await redisClient.sAdd('waits', String(userId));
+
+            if ((roomData.player1 !== '') && (roomData.player2 !== '')) {
                 // 게임 시작
                 startGame(roomId);
                 io.to(roomId).emit('startGame');
             }
         } catch (error) {
+            console.log('error', error);
             socket.emit('fulledRoom');
         }
     };
 
     const startGame = async(roomId) => {
         try {
-            const roomData = await redisClient.hGetAll(roomId);
+            const roomData = await redisClient.hGetAll(String(roomId));
             roomData.status = 'playing';
             await redisClient.hSet(roomId, roomData);
+            await redisClient.sRem('rooms:waiting', roomId);
+            await redisClient.sAdd('rooms:playing', roomId);
 
             gameStates[roomId] = {
                 timeLeft: null,
@@ -315,31 +257,49 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 player1: roomData.player1,
                 player2: roomData.player2,
                 score1: 0,
-                score2: 0
+                score2: 0,
+                loading: 0
             }
-
+            const normalizedTitle = roomData.title.toLowerCase().replace(/\s/g, '');
+            await redisClient.zRem('rooms:title:index', `${normalizedTitle}:${roomId}`);
             console.log(`${roomId} started the game.`);
         } catch (error) {
-            handleDeleteRoom(redisClient, roomId);
+            handleDeleteRoom(io, redisClient, roomId);
         }
     };
 
-    const getGame = async(userId, roomId) => {
+    const getGame = async (userId, roomId) => {
         try {
             const roomData = await redisClient.hGetAll(roomId);
+
+            if (!roomData) {
+                socket.emit('what?');
+                return;
+            }
 
             if (roomData.status !== 'playing') {
                 return;
             }
 
+            if ((roomData.player1 !== userId) && (roomData.player2 !== userId)) {
+                socket.emit('what?');
+                return;
+            }
+
             socket.join(roomId);
 
-            io.in(userId).allSockets().then(sockets => {
-                if (sockets.size === 2) {
-                    SendMap(roomId);
+            if (gameStates[roomId].loading === 2) {
+                await SendMap(roomId);
+                return;
+            }
+
+            io.in(roomId).allSockets().then(async sockets => {
+                gameStates[roomId].loading += 1;
+                if (gameStates[roomId].loading === 2) {
+                    await SendMap(roomId);
 
                     gameStates[roomId].timeLeft = 60;
-                    const timerId = setInterval(() => {
+                    const timerId = setInterval(async () => {
                         const roomState = gameStates[roomId];
         
                         if (roomState && roomState.timeLeft > 0) {
@@ -359,22 +319,66 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         
                             io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner });
         
+                            await redisClient.sRem('waits', String(gameStates[roomId].player1));
+                            await redisClient.sRem('waits', String(gameStates[roomId].player2));
                             delete gameStates[roomId];
                             endGame(roomId);
                         }
                     }, 1000);
                 } else {
-                    console.log(`User들의 game.html 로딩을 기다리는 중...`);
+                    console.log(`User들의 game.html 로딩을 기다리는 중...`, gameStates[roomId].loading);
                 }
               })
-        } catch (error) {}
+        } catch (error) {
+            socket.emit('what?');
+        }
     };
 
     const endGame = async(roomId) => {
-        handleDeleteRoom(redisClient, roomId);
+        handleDeleteRoom(io, redisClient, roomId);
     }
 
     const SendMap = async (roomId) => {
+        const roomData = await redisClient.hGetAll(roomId);
+        let user1 = '';
+        let user2 = '';
+        let score1 = '';
+        let score2 = '';
+        let image1 = '';
+        let image2 = '';
+        const user1Data = await userController.getProfile(roomData.player1);
+        const user2Data = await userController.getProfile(roomData.player2);
+        user1 = user1Data.nickname;
+        user2 = user2Data.nickname;
+        score1 = gameStates[roomId].score1;
+        score2 = gameStates[roomId].score2;
+        image1 = user1Data.profile_image_url;
+        image2 = user2Data.profile_image_url;
+
+
+        // map 정보 불러오기
+        const pastMap = await redisClient.hGetAll(`game:map:${roomId}`);
+        if (Object.keys(pastMap).length !== 0) {
+            let sendMap = [];
+            for (let i = 0; i < 10; i++) {
+                const newRow = []
+                for (let j = 0; j < 17; j++) {
+                    newRow.push(pastMap[`${i}-${j}`]);
+                }
+                sendMap.push(newRow);
+            }
+            socket.emit('map', {
+                mapData: sendMap,
+                user1: user1,
+                user2: user2,
+                score1: score1,
+                score2: score2,
+                image1: image1,
+                image2: image2
+            });
+            return;
+        }
+
         const Map = gameLogic.createMap();
 
         const initialMapFields = {};
@@ -388,7 +392,13 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         await redisClient.hSet(`game:map:${roomId}`, initialMapFields);
 
         io.to(roomId).emit('map', {
-            mapData: Map
+            mapData: Map,
+            user1: user1,
+            user2: user2,
+            score1: score1,
+            score2: score2,
+            image1: image1,
+            image2: image2
         });
     };
 
@@ -415,18 +425,22 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                         await redisClient.hSet(`game:map:${roomId}`, `${j}-${i}`, '0');
                     }
                 }
-    
+                
+                let num = 0;
                 if (gameStates[roomId].player1 == userId) {
                     const currentScore = gameStates[roomId].score1;
                     gameStates[roomId].score1 = currentScore + result;
+                    num = 1;
                 } else {
                     const currentScore = gameStates[roomId].score2;
                     gameStates[roomId].score2 = currentScore + result;
+                    num = 2;
                 }
                 
                 io.to(roomId).emit('getScore', {
                     score: result,
-                    userId: userId
+                    userId: userId,
+                    num: num
                 });
                 io.to(roomId).emit('deleteApple', {
                     row1: x1, col1: y1, row2: x2, col2: y2
@@ -434,6 +448,31 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             }
         } catch {}
     };
+
+    socket.on('deleteRoom', async (roomId, password) => {
+        try {
+            const roomData = await redisClient.hGetAll(roomId);
+
+            if (roomData.password !== password) {
+                socket.emit('BlockedRoom');
+                return;
+            }
+
+            handleDeleteRoom(io, redisClient, roomId);
+            io.to(roomId).emit('DeleteRoom');
+            socket.emit('DeleteRoom');
+        } catch (error) {
+            socket.emit('BlockedRoom');
+        }
+    });
+
+    socket.on('outRoom', async (roomId) => {
+        const roomData = await redisClient.hGetAll(roomId);
+        if (roomData.player1 === String(userId)) {
+            await handleDeleteRoom(io, redisClient, roomId);
+            socket.emit('outRoom');
+        }
+    })
 
 
     socket.on('createRoom', handleCreateRoom);
@@ -444,17 +483,30 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     socket.on('dragApples', dragApples);
 };
 
-const handleDeleteRoom = async (redisClient, roomId) => {
+const handleDeleteRoom = async (io, redisClient, roomId) => {
     // 방 정보 불러오기
     const roomData = await redisClient.hGetAll(roomId);
+
+    const user1 = roomData.player1;
+    const user2 = roomData.player1;
+    await redisClient.sRem('waits', String(user1));
+    await redisClient.sRem('waits', String(user2));
+    await redisClient.del(`user-${user1}-room`);
+    await redisClient.del(`user-${user2}-room`);
 
     // 방 목록 및 유저 목록에서 제거
     await redisClient.sRem('rooms:playing', roomId);
     await redisClient.sRem('rooms:waiting', roomId);
     await redisClient.sRem('fastRooms', roomId);
     await redisClient.del(roomId);
+    const normalizedTitle = roomData.title.toLowerCase().replace(/\s/g, '');
+    await redisClient.zRem('rooms:title:index', `${normalizedTitle}:${roomId}`);
+
+    delete gameStates[roomId];
 
     io.to('lobby').emit('deleteRoom', roomId);
+
+    console.log(`Room ${roomId} is deleted.`)
     // todo: 유저 제거
 };
 
