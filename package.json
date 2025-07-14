@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jpt0927/Apple-Online#readme",
   "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
     "connect-redis": "^9.0.0",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",

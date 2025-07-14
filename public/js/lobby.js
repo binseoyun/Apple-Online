@@ -1,4 +1,6 @@
-const socket = io("https://www.applegame.shop");
+const socket = io("https://www.applegame.shop", {
+  withCredentials: true
+});
 const roomListBody = document.getElementById('room-list-body');
 
 function deleteRow(btn) {
@@ -13,6 +15,8 @@ function joinRoom(roomId) {
 }
 
 function drawRoomList(data) {
+  roomListBody.innerHTML = '';
+
   if (data.length > 0) {
     data.forEach(room => {
       // 각 방 정보를 바탕으로 새로운 테이블 행(<tr>)을 생성합니다.

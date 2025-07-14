@@ -9,6 +9,7 @@ const passport = require('passport');
 const passportConfig = require('./server/controllers/passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20');
+const { createAdapter } = require('@socket.io/redis-adapter');
 
 const roomHandler = require('./server/handlers/roomHandlers');
 
@@ -19,6 +20,22 @@ const io = new Server(server, {
     origin: "https://www.applegame.shop",
     credentials: true
   }
+});
+
+connectDBs();
+
+const pubClient = redisClient;
+const subClient = pubClient.duplicate();
+
+Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+  io.adapter(createAdapter(pubClient, subClient));
+  console.log('✅ Redis Adapter is connected.');
+
+  server.listen(PORT, HOST => {
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  });
+}).catch(err => {
+  console.errer('Redis connection failed:', err);
 });
 
 const sessionMiddleware = session({
@@ -48,11 +65,13 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.set('trust proxy', 1);
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, none) => {
+passport.deserializeUser((id, done) => {
   const user = { id: id, name: '사용자' + id };
   done(null, user);
 });
@@ -109,6 +128,9 @@ io.on('connection', (socket) => {
 
   socket.userId = userId;
 
+  // -- 유저 id 기반 접속/종료 로직 -- /
+  
+
   roomHandler.registerRoomsHandlers(io, socket, redisClient);
   socket.on('disconnecting', () => {
     try {
@@ -126,12 +148,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력
   });
-});
-
-connectDBs().then(() => {
-    server.listen(PORT, HOST => {
-        console.log(`🚀 Server is running on http://localhost:${PORT}`);
-    });
 });
 
 app.get('/pet', function(요청, 응답) {

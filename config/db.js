@@ -15,13 +15,13 @@ const pool = mysql.createPool({
 });
 
 // 2. Redis 클라이언트 생성
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL
+});
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 // 연결 테스트 및 모듈 export
 async function connectDBs() {
-  await redisClient.connect();
-  console.log('✅ Redis Connected!');
   // MySQL은 요청 시점에 연결되므로 별도 connect() 호출 불필요
   console.log('✅ MySQL Pool Ready!');
 }
