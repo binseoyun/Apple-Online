@@ -284,6 +284,8 @@ socket.on('gameEnd', (data) => {
       game = false;
       //이겼을 때 소리 재생 추가
       playWinSound();
+      //이겼을 때 confetti 효과 추가
+      playWinEffect();
       //이겼을 때 승리 배너 추가
       const winOverlay=document.getElementById("winOverlay");
       winOverlay.classList.remove("hidden"); //숨겨져 있던 승리 배너를 화면에 표시
@@ -433,4 +435,15 @@ function playLoseSound(){
     lose.play();
   }
   
+}
+
+//게임에서 이겼을 때 confetti 효과 호출
+function playWinEffect(){
+  confetti({
+    particleCount: 150,
+    spread: 100,
+    origin: { y: 0.6 },
+    colors: ['#ffe4e1', '#ff69b4', '#ffb6c1'],
+    shapes: ['circle']
+  });
 }
