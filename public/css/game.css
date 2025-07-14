@@ -1,3 +1,42 @@
+/*dark/light 모드 전환을 위한 작성*/
+  
+:root {
+  --bg-color: #f8fcf8;
+  --text-color: #0e1b0e;
+  --board-bg: #ffffff;
+  --border-color: #d0e7d0;
+}
+
+.dark-mode {
+  --bg-color: #1e1e1e;
+  --text-color: #f1f1f1;
+  --board-bg: #2b2b2b;
+  --border-color: #3a3a3a;
+}
+
+/* 실제 적용 대상 */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#game-main,#game-board {
+  background-color: var(--board-bg);
+  border-color: var(--border-color);
+}
+
+header,.rounded-xl, .border {
+  border-color: var(--border-color) !important;
+}
+
+
+
+/*여기 까지*/
+
+
+  
+  
   .apple.selected {
     background-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.1);

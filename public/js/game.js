@@ -20,7 +20,7 @@
     }
   });
 
-  const socket = io();
+  const socket = io(); //클라이언트에서 서버에 연결 요청
   const board = document.getElementById('game-board');
   const rows= 10; //행의 수
   const cols = 17; //열의 수
@@ -476,4 +476,51 @@ function playLoseEffect(){
       gravity:0.5
   })
 }
-})();
+
+/*
+// 🌙 테마 전환 관련 코드
+document.addEventListener('DOMContentLoaded', () => {
+  const selector = document.getElementById('themeSelector');
+  if (!selector) return;
+
+  // 저장된 테마 불러오기
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  applyTheme(savedTheme);
+  selector.value = savedTheme;
+
+  // 드롭다운 변경 시 테마 적용
+  selector.addEventListener('change', (e) => {
+    const selectedTheme = e.target.value;
+    applyTheme(selectedTheme);
+  });
+});
+
+// 실제로 테마를 적용하는 함수
+function applyTheme(mode) {
+  const body = document.body;
+  if (mode === 'dark') {
+    body.classList.add('dark-mode');
+  } else {
+    body.classList.remove('dark-mode');
+  }
+  localStorage.setItem('theme', mode); // 브라우저에 저장
+}*/
+
+  const themeSelector = document.getElementById('themeSelector');
+  const htmlBody = document.body;
+
+  themeSelector.addEventListener('change', function () {
+    if (this.value === 'dark') {
+      htmlBody.classList.add('dark-mode');
+    } else {
+      htmlBody.classList.remove('dark-mode');
+    }
+  });
+
+
+
+
+
+
+
+});

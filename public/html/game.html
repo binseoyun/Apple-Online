@@ -3,7 +3,7 @@
   <head>
     
     <meta charset="UTF-8" />
-    <title>Apple Sum</title>
+    <title>Apple Game</title>
 
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
@@ -67,9 +67,11 @@
           
 
             <!--게임 제목-->
-          <h2 class="text-[#0e1b0e] text-lg font-bold leading-tight tracking-[-0.015em]">Apple Sum</h2>
+          <h2 class="text-[#0e1b0e] text-lg font-bold leading-tight tracking-[-0.015em]">🍎 Apple Game</h2>
           
           </div>
+
+          
 
 
        <!-- ⏱️ 타이머 영역 -->
@@ -93,6 +95,17 @@
            <span class="truncate" >End Game</span>
           </button>
 
+          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 -->
+<select 
+     id="themeSelector" 
+     class= "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]">
+  
+  <option value="light">🌞 Light</option>
+  <option value="dark">🌙 Dark</option>
+</select>
+
+          
+
 
         </header>
 
@@ -100,7 +113,13 @@
         <!-- 중앙 콘텐츠 -->
          <!--양쪽 여백 px-40, 콘텐츠는 flex-col로 세로 방향 구성-->
         <div class="px-40 flex flex-1 justify-center py-5">
+           
           
+
+
+
+
+
           <!--시간이 10초 이하가 되면 중앙 콘텐츠 부분이 빨간색이 되도록 id 추가-->
           <div id="game-main" class="layout-content-container flex flex-col max-w-[960px] flex-1">
 
