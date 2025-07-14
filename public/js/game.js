@@ -309,6 +309,8 @@ socket.on('gameEnd', (data) => {
       game = false;
       //이겼을 때 소리 재생 추가
       playWinSound();
+      //이겼을 때 꽃가루 효과 추가
+      playWinEffect();
       //이겼을 때 승리 배너 추가
       const windOverlay=document.getElementById("winOverlay");
       windOverlay.classList.remove("hidden");
@@ -321,6 +323,8 @@ socket.on('gameEnd', (data) => {
       game = false;
       //졌을 때 소리 재생 추가
       playLoseSound();
+      //졌을 때 효과 추가
+      playLoseEffect();
       //졌을 때 패배 배너 추가
       const loseOverlay=document.getElementById("loseOverlay");
       loseOverlay.classList.remove("hidden");
@@ -370,6 +374,7 @@ function updateTimerUI() {
 
 // 게임 종료 처리
 function endGame(message) {
+  //종료했을 때 alert 메세지 
   alert(message);
   board.style.pointerEvents = "none";
   clearSelection();
