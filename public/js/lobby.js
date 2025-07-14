@@ -20,8 +20,11 @@ function drawRoomList(data) {
       row.className = 'border-t border-t-[#e9e9ce]'; // Tailwind CSS 클래스 적용
 
       // 각 행에 들어갈 HTML 내용을 정의
+
       row.innerHTML = `
         <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">${room.title}</td>
+        //생성자 이름이 추가되게 정의(생성자 아이디를 받아와야 함)
+         <td class="h-[72px] px-4 py-2 text-[#1c1c0d] text-sm font-normal">userId</td>
         <td class="h-[72px] px-4 py-2 text-[#9e9e47] text-sm font-normal">1/2</td>
         <td class="h-[72px] px-4 py-2 text-sm font-bold tracking-[0.015em] flex gap-3 items-center">
           <button onclick="joinRoom('${room.id}')" class="text-[#9e9e47]">Enter</button>
@@ -32,9 +35,7 @@ function drawRoomList(data) {
 
     //Enter와 Delete 버튼 누르면 비빌번호 입력 모듈 뜨게 연결해야 함
 
-    
-
-      // 완성된 행을 tbody에 추가
+    // 완성된 행을 tbody에 추가
       roomListBody.appendChild(row);
     });
   } else {
