@@ -13,6 +13,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
      * @param {object} data - { title: string, password: string }
      * @param {object} userInfo - { id: string, nickname: string }
     */
+
+    const session = socket.request.session;
+    const userId = session.passport.user;
     
     const handleCreateRoom = async (data, userInfo) => {
         try {
@@ -58,6 +61,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
             // 방 생성 완료 사실 전달
             socket.emit('roomCreated', { roomId });
+            io.to('lobby').emit('newRoom', {id: roomId, title: title, maker: userInfo.id, createdAt: Date.now().toString()});
         } catch (error) {
             console.error('방 생성 중 에러 발생:', error);
             socket.emit('error', { message: '방을 만드는 데 실패했습니다.' });
@@ -120,7 +124,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         const roomId = findRoomBySocket(socket);
 
         // 방에 참여하고 있었는지 확인(게임을 진행 중이었는지)
-        const hasRoom = await redisClient.sIsMember('waits', socket.id);
+        const hasRoom = await redisClient.sIsMember('waits', userId);
         if (!hasRoom) {
             return;
         }
@@ -129,7 +133,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         const roomData = await redisClient.hGetAll(roomId);
 
         // roomId에 참여하는 유저인지 확인
-        if ((roomData.player1 !== userInfo.id) && (roomData.player2 !== socket.id)) {
+        if ((roomData.player1 !== userInfo.id) && (roomData.player2 !== userId)) {
             return;
         }
 
@@ -150,7 +154,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         await redisClient.sRem('rooms:playing', roomId);
         await redisClient.sRem('rooms:waiting', roomId);
         await redisClient.sRem('fastRooms', roomId);
-        await redisClient.sRem('waits', socket.id);
+        await redisClient.sRem('waits', userId);
+
+        io.to('lobby').emit('deleteRoom', roomId);
     };
 
     const fastRoomGenerate = async (userInfo, data) => {
@@ -226,7 +232,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 };
             });
 
-            socket.emit('updateRoomList', roomsForClient);
+            socket.emit('initialRoomList', roomsForClient);
         } catch (error) {
             console.error('방 목록 조회 중 오류가 발생하였습니다.', error);
             socket.emit('error', { message: '방 목록을 불러오는 데 실패했습니다.' });
@@ -262,7 +268,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     const startGame = async(roomId) => {
         try {
             socket.join(roomId);
-            console.log(`${socket.id} joined ${roomId}`);
+            console.log(`${userId} joined ${roomId}`);
 
             const roomData = await redisClient.hGetAll(roomId);
 
@@ -271,7 +277,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 gameStates[roomId] = {
                     timeLeft: null,
                     timerId: null,
-                    player1: socket.id,
+                    player1: userId,
                     player2: null,
                     score1: 0,
                     score2: 0
@@ -286,7 +292,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 SendMap(roomId);
 
                 gameStates[roomId].timeLeft = 60;
-                gameStates[roomId].player2 = socket.id;
+                gameStates[roomId].player2 = userId;
 
                 const timerId = setInterval(() => {
                     const roomState = gameStates[roomId];
@@ -392,6 +398,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     socket.on('createRoom', handleCreateRoom);
     socket.on('getRoomList', getRoomList);
 
+    socket.on('joinRoom', joinRoom);
     socket.on('startGame', startGame);
     socket.on('dragApples', dragApples);
 };

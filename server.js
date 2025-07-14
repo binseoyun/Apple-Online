@@ -13,6 +13,13 @@ const { createAdapter } = require('@socket.io/redis-adapter');
 
 const roomHandler = require('./server/handlers/roomHandlers');
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login.html');
+}
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -85,28 +92,32 @@ io.use((socket, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRoutes);
 
+app.get('/api/me', ensureAuthenticated, (req, res) => {
+  res.json({id: req.user.id, name: req.user.name});
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
 });
-app.get('/game.html', (req, res) => {
+app.get('/game.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'game.html'));
 });
-app.get('/addroom.html', (req, res) => {
+app.get('/addroom.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'addroom.html'));
 });
-app.get('/editprofile.html', (req, res) => {
+app.get('/editprofile.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'editprofile.html'));
 });
 app.get('/login.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
 });
-app.get('/lobby.html', (req, res) => {
+app.get('/lobby.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
 });
-app.get('/profile.html', (req, res) => {
+app.get('/profile.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'profile.html'));
 });
-app.get('/ranking.html', (req, res) => {
+app.get('/ranking.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'html', 'ranking.html'));
 });
 
@@ -124,14 +135,26 @@ io.on('connection', (socket) => {
   }
 
   const userId = session.passport.user;
-  console.log(`✅ A user connected: ${userId}`); // 유저 접속 시 콘솔에 메시지 출력
+  
+  socket.emit('your_id', { id: userId });
 
   socket.userId = userId;
 
   // -- 유저 id 기반 접속/종료 로직 -- /
-  
+  socket.join(userId);
+
+  io.in(userId).allSockets().then(sockets => {
+    if (sockets.size === 1) {
+      console.log(`✅ A user visited our server!: ${userId}`);
+    }
+  });
 
   roomHandler.registerRoomsHandlers(io, socket, redisClient);
+
+  socket.on('joinLobby', () => {
+    socket.join('lobby');
+  });
+
   socket.on('disconnecting', () => {
     try {
       const roomId = Array.from(socket.rooms).filter(room => room !== socket.id)[0];
@@ -146,7 +169,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('❌ A user disconnected'); // 유저 접속 해제 시 메시지 출력
+    setTimeout(() => {
+      io.in(userId).allSockets().then(sockets => {
+        if (sockets.size === 0) {
+          console.log(`❌ A user disconnected: ${userId}`);
+        }
+      })
+    }, 3000);
   });
 });
 
