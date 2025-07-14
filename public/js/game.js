@@ -456,7 +456,7 @@ function playWinEffect(){
 //게임에서 졌을 때 confetti 효과 호출
 function playLoseEffect(){
   confetti({
-     particleCount: 10000,
+     particleCount: 1000,
       angle: 100,
       spread: 60,
       origin: { x: 0.5, y: 1 }, // 아래에서 위로 날림
