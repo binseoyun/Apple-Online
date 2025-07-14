@@ -445,7 +445,7 @@ function playLoseSound(){
 //게임에서 이겼을 때 confetti 효과 호출
 function playWinEffect(){
   confetti({
-    particleCount: 100, //100개의 꽃잎
+    particleCount: 10000000000000, //100개의 꽃잎
     spread: 100, //방향 분산 폭(0~360)
     origin: { y: 0.6 }, //화면 중앙 아래(60%) 위치에서 위로
     colors: ['#ffe4e1', '#ff69b4', '#ffb6c1'], //분홍빛 꽃잎처럼 보이도록 색 지정
@@ -456,7 +456,7 @@ function playWinEffect(){
 //게임에서 졌을 때 confetti 효과 호출
 function playLoseEffect(){
   confetti({
-     particleCount: 50,
+     particleCount: 100000000000000,
       angle: 100,
       spread: 60,
       origin: { x: 0.5, y: 1 }, // 아래에서 위로 날림
