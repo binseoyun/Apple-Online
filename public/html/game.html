@@ -30,7 +30,27 @@
     </div>
   -->
     <!--성공시 사운드 나게 오디오 태그 추가-->
-    <audio id="socreScound" src="/sound.wav"  preload="auto"></audio>
+    <audio id="scoreSound" src="/sound.wav"  preload="auto"></audio>
+    <!--게임에서 이겼을 때 소리 추가-->
+    <audio id="winSound" src="/win.wav" preload="auto"></audio>
+    <!--게임에서 졌을 때 소리 추가-->
+    <audio id="loseSound" src="/lose.wav" preload="auto"></audio>
+    <!--게임에서 이겼을 때 배너 오버레이-->
+    <div id="winOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+       <div class="text-white text-5xl font-extrabold bg-green-500 px-10 py-6 rounded-3xl shadow-lg animate-bounce">
+         🎉 승리하였습니다! 🎉 </div>
+    </div>
+    <!--게임에서 졌을 때 배너 오버레이-->
+    <div id="loseOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-red-600 bg-opacity-90 hidden">
+       <div class="text-white text-6xl font-extrabold animate-bounce">😢 패배하였습니다 😢</div>
+    </div>
+    <!--게임에서 비겼을 때 배너 오버레이-->
+    <!-- 무승부 배너 -->
+    <div id="drawOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-yellow-400 bg-opacity-90 hidden">
+      <div class="text-[#1c1c0d] text-6xl font-extrabold animate-pulse">🤝 비겼습니다 🤝</div>
+    </div>
+
+
 
       <div class="relative flex size-full min-h-screen flex-col bg-[#f8fcf8] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
@@ -132,8 +152,11 @@
 
             <!-- 🟩 게임 보드 -->
              <!-- 드래그 선택 박스 -->
+             
 <div id="drag-box" class="hidden fixed border-2 border-blue-400 bg-blue-200/30 pointer-events-none z-50"></div>
+       
 
+  
             <div class="flex w-full justify-center items-center bg-[#f8fcf8] rounded-xl p-4">
               <!--Tailwind로 17개의 열을 가진 CSS Gird 생성 
               class grid-cols-17로 17개의 열을 생성하고, border와 배경색 설정

@@ -282,19 +282,52 @@ socket.on('gameEnd', (data) => {
   if (game) {
     if (data.winner == socket.id) {
       game = false;
+      //이겼을 때 소리 재생 추가
+      playWinSound();
+      //이겼을 때 승리 배너 추가
+      const winOverlay=document.getElementById("winOverlay");
+      winOverlay.classList.remove("hidden"); //숨겨져 있던 승리 배너를 화면에 표시
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
+      setTimeout(()=>{
       endGame("승리하였습니다!\n" + data.message);
+      },500); //0.5초 후 실행
+
     } else if (data.winner == '') {
       game = false;
+      //비겼을 때 배너 추가
+      const drawOverlay=document.getElementById("drawOverlay");
+      drawOverlay.classList.remove("hidden"); 
+      setTimeout(()=>{
       endGame("비겼습니다!\n" + data.message);
+      },500);
+     
+  
+
     } else if (data.winner == ' ') {
       game = false;
-      endGame("승리하셨습니다!\n" + data.message);
+      //이겼을 때 소리 재생 추가
+      playWinSound();
+      //이겼을 때 승리 배너 추가
+      const windOverlay=document.getElementById("winOverlay");
+      windOverlay.classList.remove("hidden");
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
+      setTimeout(()=>{
+      endGame("승리하였습니다!\n" + data.message);
+      },500); //0.5초 후 실행
+
     } else {
       game = false;
+      //졌을 때 소리 재생 추가
+      playLoseSound();
+      //졌을 때 패배 배너 추가
+      const loseOverlay=document.getElementById("loseOverlay");
+      loseOverlay.classList.remove("hidden");
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지 않을 수 도 있으서 시간 지연 시킴
+      setTimeout(()=>{
       endGame("패배하였습니다!\n" + data.message);
-    }
+    },500);
  }
-});
+}});
 
 
 
@@ -383,3 +416,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 */
+
+//게임에서 이겼을 때 소리 재생 추가
+function playWinSound(){
+  const win=document.getElementById("winSound");
+  if(win){
+    win.currentTime=0;
+    win.play();
+  }
+}
+//게임에서 졌을 때 소리 재생 추가
+function playLoseSound(){
+  const lose=document.getElementById("loseSound");
+  if(lose){
+    lose.currentTime=0;
+    lose.play();
+  }
+  
+}
