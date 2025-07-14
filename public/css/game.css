@@ -1,5 +1,6 @@
 /*dark/light 모드 전환을 위한 작성*/
   
+/*light mode의 기본 값*/
 :root {
   --bg-color: #f8fcf8;
   --text-color: #0e1b0e;
@@ -7,6 +8,7 @@
   --border-color: #d0e7d0;
 }
 
+/*dark mode가 켜지면 => .dark-mode 클래스가 body에 붙어서 css 변수가 재정의됨*/
 .dark-mode {
   --bg-color: #1e1e1e;
   --text-color: #f1f1f1;
