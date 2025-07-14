@@ -55,6 +55,7 @@ socket.on('map', (data) => {
   console.log(data.mapData);
   console.log("맵을 받았습니다.");
 
+  /*
   //카운트 다운 로직을 구현하기 위해 변경
   //카운트다운 후에만 드레그 활성화 되게 
   board.style.pointerEvents="none";
@@ -62,7 +63,10 @@ socket.on('map', (data) => {
   startCountdown(()=>{
     //카운트 다운 완료 후 드레그가 가능해짐
     board.style.pointerEvents="auto"; //드래그 가능해짐
+    
   })
+*/
+
 });
 
 
@@ -278,19 +282,54 @@ socket.on('gameEnd', (data) => {
   if (game) {
     if (data.winner == socket.id) {
       game = false;
+      //이겼을 때 소리 재생 추가
+      playWinSound();
+      //이겼을 때 confetti 효과 추가
+      playWinEffect();
+      //이겼을 때 승리 배너 추가
+      const winOverlay=document.getElementById("winOverlay");
+      winOverlay.classList.remove("hidden"); //숨겨져 있던 승리 배너를 화면에 표시
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
+      setTimeout(()=>{
       endGame("승리하였습니다!\n" + data.message);
+      },500); //0.5초 후 실행
+
     } else if (data.winner == '') {
       game = false;
+      //비겼을 때 배너 추가
+      const drawOverlay=document.getElementById("drawOverlay");
+      drawOverlay.classList.remove("hidden"); 
+      setTimeout(()=>{
       endGame("비겼습니다!\n" + data.message);
+      },500);
+     
+  
+
     } else if (data.winner == ' ') {
       game = false;
-      endGame("승리하셨습니다!\n" + data.message);
+      //이겼을 때 소리 재생 추가
+      playWinSound();
+      //이겼을 때 승리 배너 추가
+      const windOverlay=document.getElementById("winOverlay");
+      windOverlay.classList.remove("hidden");
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
+      setTimeout(()=>{
+      endGame("승리하였습니다!\n" + data.message);
+      },500); //0.5초 후 실행
+
     } else {
       game = false;
+      //졌을 때 소리 재생 추가
+      playLoseSound();
+      //졌을 때 패배 배너 추가
+      const loseOverlay=document.getElementById("loseOverlay");
+      loseOverlay.classList.remove("hidden");
+      //endGame()에서 alert()가 먼저 뜨면 배너가 보이지 않을 수 도 있으서 시간 지연 시킴
+      setTimeout(()=>{
       endGame("패배하였습니다!\n" + data.message);
-    }
+    },500);
  }
-});
+}});
 
 
 
@@ -315,8 +354,19 @@ function updateTimerUI() {
       timerBar.classList.add("bg-green-400");
       timerBar.classList.remove("bg-yellow-400", "bg-red-500");
     }
+
+    //배경색 변경하기 위해 추가
+    //시간이 10초 이하 남았을 때 빨간색이 뜨게 설정
+    const gameRoot =document.getElementById("game-main");
+    if(timeLeft<=10){
+      gameRoot.classList.add("bg-red-100","transition-colors");
+    }else{
+      gameRoot.classList.remove("bg-red-100");
+    }
   }
 }
+
+
 
 // 게임 종료 처리
 function endGame(message) {
@@ -336,11 +386,11 @@ function playScoreSound(){
   sound.play();
 }
 
-
+/*
 //카운트 다운 로직 추가
 function startCountdown(callback){
   //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
-  const overlay=document.getElementById("countdonwOverlay");
+  const overlay=document.getElementById("countdownOverlay");
   const text=document.getElementById("countdownText");
   let count=3;
 
@@ -362,4 +412,38 @@ function startCountdown(callback){
   },1000); 
 }
 
+document.addEventListener('DOMContentLoaded',()=>{
+  startCountdown(()=>{
+    console.log("카운트다운 종료 후 실행됨");   
+  });
+});
+*/
 
+//게임에서 이겼을 때 소리 재생 추가
+function playWinSound(){
+  const win=document.getElementById("winSound");
+  if(win){
+    win.currentTime=0;
+    win.play();
+  }
+}
+//게임에서 졌을 때 소리 재생 추가
+function playLoseSound(){
+  const lose=document.getElementById("loseSound");
+  if(lose){
+    lose.currentTime=0;
+    lose.play();
+  }
+  
+}
+
+//게임에서 이겼을 때 confetti 효과 호출
+function playWinEffect(){
+  confetti({
+    particleCount: 150,
+    spread: 100,
+    origin: { y: 0.6 },
+    colors: ['#ffe4e1', '#ff69b4', '#ffb6c1'],
+    shapes: ['circle']
+  });
+}
