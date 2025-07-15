@@ -11,15 +11,6 @@ function openPasswordModal(roomId){
 }
 
 
-//튜토리얼 보여주는 모달 제어 함수
-function showTutorial() {
-  document.getElementById('tutorialModal').classList.remove('hidden');
-}
-
-function closeTutorial() {
-  document.getElementById('tutorialModal').classList.add('hidden');
-}
-
 
 
 

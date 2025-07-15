@@ -427,38 +427,7 @@
     sound.play();
   }
 
-  /*
-  //카운트 다운 로직 추가
-  function startCountdown(callback){
-    //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
-    const overlay=document.getElementById("countdownOverlay");
-    const text=document.getElementById("countdownText");
-    let count=3;
-
-    text.textContent=count; //3초 카운트 진행예정
-    overlay.style.display="flex";
-
-    const interval=setInterval(()=>{
-      count--;
-      if(count>0){
-        text.textContent=count; 
-      } else if(count==0){
-        text.textContent="Start!";
-      }  else{ //3초가 지나면
-          clearInterval(interval); 
-          overlay.style.display="none"; //카운트 다운 화면 사라지게
-          //게임이 시작되게
-          if(callback) callback(); //이 부분에서 callback()이 실행됨
-        } 
-    },1000); 
-  }
-
-  document.addEventListener('DOMContentLoaded',()=>{
-    startCountdown(()=>{
-      console.log("카운트다운 종료 후 실행됨");   
-    });
-  });
-  */
+  
 
   //게임에서 이겼을 때 소리 재생 추가
   function playWinSound(){
