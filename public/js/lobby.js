@@ -46,6 +46,23 @@ function joinOrDeleteRoom(mode, roomId, userId, password) {
   }
 }
 
+//Room Name 검색할 수 있도록 filterRoomList() 추가
+function filterRoomList() {
+  const keyword = document.getElementById("search-room-name").value.toLowerCase(); 
+  const rows = document.querySelectorAll("#room-list-body tr");
+
+  rows.forEach(row => {
+  
+    const roomName = row.querySelector("td:nth-child(1)").textContent.toLowerCase();
+    if (roomName.includes(keyword)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+}
+
+
 function deleteRow(btn) {
   const row = btn.closest('tr');
   if (confirm("Are you sure you want to delete this room?")) {
@@ -174,3 +191,4 @@ function deleteRow(btn) {
     removeRoom(roomId);
   });
 })();
+

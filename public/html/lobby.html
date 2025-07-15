@@ -45,7 +45,27 @@
         <div class="layout-content-container flex flex-col max-w-[960px] w-full">
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <p class="text-[#1c1c0d] text-[32px] font-bold tracking-light">Game Lobby</p>
+             
+            <!--roomName 검색 창
+            oninput="filterRoomList()에서 입력할 때 마다 자동 필터링이 일어나서 검색 버튼 필요 없음"-->
+
+            <div class="mt-4">
+                <input 
+                    type="text" 
+                    id="search-room-name" 
+                    placeholder="🔍 Search Room Name..." 
+                    class="w-full max-w-md px-4 py-2 border border-[#e4e4e4] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#eeee06]" 
+                    oninput="filterRoomList()" 
+            />
+</div>
+
+
+
           </div>
+
+          
+     
+
 
           <div class="px-4 py-3 @container">
             <div class="overflow-hidden rounded-xl border border-[#e9e9ce] bg-[#fcfcf8]">

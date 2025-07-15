@@ -7,6 +7,30 @@
   });
 
   document.addEventListener('DOMContentLoaded', () => {
+
+    //여기 내부에서 모드 선택하는 코드 넣기
+ const themeSelector = document.getElementById('themeSelector');
+  const htmlBody = document.body; //html에서 body 태그 전체를 가져옴
+
+  // 저장된 테마 불러오기
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  if (savedTheme === 'dark') htmlBody.classList.add('dark-mode');
+  themeSelector.value = savedTheme;
+
+  // 드롭다운 변경 시 다크모드 적용
+  themeSelector.addEventListener('change', function () {
+    if (this.value === 'dark') {
+      document.body.classList.add('dark-mode');
+      //htmlBody.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+      //htmlBody.classList.remove('dark-mode');
+    }
+    localStorage.setItem('theme', this.value); //테마를 저장
+  });
+//여기까지 추가한 코드
+
+
     // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
     const urlParams = new URLSearchParams(window.location.search);
     
@@ -430,23 +454,26 @@
 //게임에서 이겼을 때 confetti 효과 호출
 function playWinEffect(){
   confetti({
-    particleCount: 1000, //100개의 꽃잎
-    spread: 100, //방향 분산 폭(0~360)
+    particleCount: 150, //100개의 꽃잎
+    spread: 360, //방향 분산 폭(0~360)
     origin: { y: 0.6 }, //화면 중앙 아래(60%) 위치에서 위로
-    colors: ['#ffe4e1', '#ff69b4', '#ffb6c1'], //분홍빛 꽃잎처럼 보이도록 색 지정
-    shapes: ['circle'] //꽃잎처럼 보이는 원형 입자
+    colors: ['#c94739ff', '#ff69b4', '#ffb6c1'], //분홍빛 꽃잎처럼 보이도록 색 지정
+    shapes: ['circle'], //꽃잎처럼 보이는 원형 입자
+    gravity:0.5 //천천히 떨어지는 효과
   });
 }
 
 //게임에서 졌을 때 confetti 효과 호출
 function playLoseEffect(){
   confetti({
-     particleCount: 1000,
-      angle: 100,
-      spread: 60,
+     particleCount: 150,
+      spread: 360,
       origin: { x: 0.5, y: 1 }, // 아래에서 위로 날림
-      colors: ['#333333', '#555555', '#990000'], // 어두운 계열
+      colors: ['#333333', '#2e1d1dff', '#190606ff'], // 어두운 계열
       shapes: ['circle'], // 사과처럼 보이는 원
+      gravity:0.5
   })
 }
-})();
+
+
+});
