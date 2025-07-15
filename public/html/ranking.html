@@ -16,6 +16,10 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    
   </head>
 
   <body>
@@ -75,6 +79,22 @@
       </div>
     </div>
   </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 폭죽 효과 함수 실행
+    launchConfetti();
+  });
+
+  function launchConfetti() {
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+  }
+</script>
+
+
   <script src="/js/auth.js"></script>
   <script src="/js/ranking.js"></script>
 </html>
