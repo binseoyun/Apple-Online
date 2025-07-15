@@ -25,12 +25,13 @@ module.exports = (passport) => {
 
                     let suffix = 0;
                     let finalNickname = newUser.nickname;
+                    let newRows;
 
                     while (true) {
                         try {
                             const insertSql = 'INSERT INTO Users (google_id, nickname, profile_image_url) VALUES (?, ?, ?)';
                             const [result] = await pool.query(insertSql, [newUser.google_id, newUser.nickname, newUser.profile_image_url]);
-                            const [newRows] = await pool.query('SELECT * FROM Users WHERE id = ?', [result.insertId]);
+                            [newRows] = await pool.query('SELECT * FROM Users WHERE id = ?', [result.insertId]);
 
                             break;
                         } catch (error) {
