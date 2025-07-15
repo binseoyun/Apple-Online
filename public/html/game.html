@@ -76,6 +76,10 @@
 
        <!-- ⏱️ 타이머 영역 -->
        <div class="flex items-center gap-4 px-10 py-2">
+   
+
+
+
        <!-- 숫자형 타이머 -->
             <span id="timer-text" class="text-sm font-bold text-[#0e1b0e]">
                 Time: 60s </span>
@@ -95,13 +99,14 @@
            <span class="truncate" >End Game</span>
           </button>
 
-          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 -->
+          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 
 <select 
      id="themeSelector" 
      class= "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]">
   <option value="light">🌞 Light</option>
   <option value="dark">🌙 Dark</option>
-</select>
+</select> -->
+
 
           
 
@@ -113,13 +118,7 @@
          <!--양쪽 여백 px-40, 콘텐츠는 flex-col로 세로 방향 구성-->
         <div class="px-40 flex flex-1 justify-center py-5">
            
-          
-
-
-
-
-
-          <!--시간이 10초 이하가 되면 중앙 콘텐츠 부분이 빨간색이 되도록 id 추가-->
+         <!--시간이 10초 이하가 되면 중앙 콘텐츠 부분이 빨간색이 되도록 id 추가-->
           <div id="game-main" class="layout-content-container flex flex-col max-w-[960px] flex-1">
 
             <h2 class="text-[#0e1b0e] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Apple Game</h2>
@@ -207,13 +206,21 @@
         
       </div>
 
-     
+  
+      
+
+
+
+
 
     </div>
 
+
+
+
     <!-- 🧠 게임 보드 생성 스크립트 -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="\js/game.js"> </script>
+    <script src="/js/game.js"> </script>
     <script src="/js/auth.js"></script>
   
     

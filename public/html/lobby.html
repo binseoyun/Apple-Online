@@ -21,6 +21,16 @@
 
 
 <div class="flex gap-5">
+
+  <!--튜토리얼 열기 버튼-->
+   <button 
+   onclick="showTutorial()" 
+   class="ml-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold px-4 py-2 rounded-full">
+   <span class="truncate">
+  📖 튜토리얼</span>
+</button>
+
+
   <!--View Ranking 버튼 추가-->
         <button
           onclick="window.location.href='ranking.html'"
@@ -80,10 +90,17 @@
 
                   </tr>
                 </thead>
-                <tbody id="room-list-body">
+                </table>  
+                <!--tobdy를 스크롤 가능 영역으로 분리-->
+                <div class="max-h-[300px] overflow-y-auto">
+                  <table class="w-full table-fixed">
+                  <tbody id="room-list-body">
+                    <!--js가 여기 방 목록을 <tr>로 동적으로 추가-->
                   <!-- 필요한 만큼 더 추가 가능 -->
                 </tbody>
+
               </table>
+            </div>
             </div>
             <style>
               @container(max-width:120px){.table-column-120{display: none;}}
@@ -121,6 +138,19 @@
 </div>
 
 
+<!-- 🎮 튜토리얼 모달 -->
+<div id="tutorialModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-2xl p-6 w-[90%] max-w-md text-center shadow-lg">
+    <h2 class="text-2xl font-bold mb-4">🍎 게임 가이드</h2>
+    <p class="text-gray-700 mb-4 leading-relaxed">
+      사과를 드래그해서 합이 10이 되도록 만들어보세요!
+      제한 시간 내에 더 많은 점수를 획득하면 승리합니다 🎉
+    </p>
+    <button onclick="closeTutorial()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full font-semibold">
+      닫기
+    </button>
+  </div>
+</div>
 
 
   <!-- 삭제 기능 스크립트 -->

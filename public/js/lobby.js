@@ -10,6 +10,19 @@ function openPasswordModal(roomId){
   
 }
 
+
+//튜토리얼 보여주는 모달 제어 함수
+function showTutorial() {
+  document.getElementById('tutorialModal').classList.remove('hidden');
+}
+
+function closeTutorial() {
+  document.getElementById('tutorialModal').classList.add('hidden');
+}
+
+
+
+
 //Room Name 검색할 수 있도록 filterRoomList() 추가
 function filterRoomList() {
   const keyword = document.getElementById("search-room-name").value.toLowerCase(); 
