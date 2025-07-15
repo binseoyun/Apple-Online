@@ -440,7 +440,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             score1: score1,
             score2: score2,
             image1: image1,
-            image2: image2
+            image2: image2,
+            rating1: user1Data.elo_rating,
+            rating2: user2Data.elo_rating
         });
     };
 
@@ -485,7 +487,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                     num: num
                 });
                 io.to(roomId).emit('deleteApple', {
-                    row1: x1, col1: y1, row2: x2, col2: y2
+                    row1: x1, col1: y1, row2: x2, col2: y2, userId: userId
                 });
             }
         } catch {}

@@ -209,11 +209,32 @@ async function initializeGame() {
     selectedCells.push(cell);
   }
 
+  function showOpponentDrag(startX, startY, endX, endY) {
+    const opponentDragOverlay = document.createElement('div');
+    opponentDragOverlay.className = 'opponent-drag absolute bg-red-500 opacity-50 border border-red-700 pointer-events-none';
+    opponentDragOverlay.style.left = `${Math.min(startX, endX) * 40}px`; // 셀 크기(40px) 고려
+    opponentDragOverlay.style.top = `${Math.min(startY, endY) * 40}px`;
+    opponentDragOverlay.style.width = `${(Math.abs(endX - startX) + 1) * 40}px`;
+    opponentDragOverlay.style.height = `${(Math.abs(endY - startY) + 1) * 40}px`;
+    
+    board.appendChild(opponentDragOverlay);
+    
+    // 잠시 후 빨간색 영역 제거
+    setTimeout(() => {
+      opponentDragOverlay.remove();
+    }, 100); // 0.5초 동안 표시
+  }
+
   socket.on('deleteApple', (data) => {
     const startX = Math.min(data.col1, data.col2);
     const startY = Math.min(data.row1, data.row2);
     const endX = Math.max(data.col1, data.col2);
     const endY = Math.max(data.row1, data.row2);
+    const who = data.userId;
+
+    if (who !== String(userId)) {
+      showOpponentDrag(startY, startX, endY, endX)
+    }
 
     for (let i = startX; i <= endX; i++) {
       for (let j = startY; j <= endY; j++) {
