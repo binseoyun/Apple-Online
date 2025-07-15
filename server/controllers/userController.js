@@ -43,6 +43,50 @@ async function getProfile(userId) {
     }
 }
 
+async function updateUserNickname(userId, newUsername) {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        const sql = 'UPDATE Users SET nickname = ? WHERE id = ?';
+        const [row] = await connection.execute(sql, [newUsername, userId]);
+        console.log('11');
+        if (row.length > 0) {
+            return row[0];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(`${userId}의 조회에 실패하였습니다.`, error);
+        return null;
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+}
+
+
+async function updateUserImageUrl(userId, newImageUrl) {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        const sql = 'UPDATE Users SET profile_image_url = ? WHERE id = ?';
+        const [row] = await connection.execute(sql, [newImageUrl, userId]);
+        if (row.length > 0) {
+            return row[0];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(`${userId}의 조회에 실패하였습니다.`);
+        return null;
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+}
+
 
 module.exports = {
     // 구글 로그인 시작
@@ -63,5 +107,7 @@ module.exports = {
         });
     },
     getUserNickname,
-    getProfile
+    getProfile,
+    updateUserImageUrl,
+    updateUserNickname
 }

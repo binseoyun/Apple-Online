@@ -15,13 +15,13 @@
 
     <!--이 파일에서 변경한 내용들이 저장되게 해야함-->
     <!-- 이미지 미리보기 -->
+    <form id="edit-profile-form">
     <div class="flex justify-center mb-4">
       <div class="w-32 h-32 rounded-full bg-center bg-cover bg-no-repeat border"
            id="preview"
-           style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoDTJgbUs-rAkXpY393nqF3-LUKyqfZsd4r3XeYEChkixKZsGNTFcQo0bR0jq_R_pvKs7uNQnr8c82VuwwNalAmBASIO46uqzt0JepbdUlEadVXt7fZp7dSgEprled597DbQggeOpbdxOG8w5JdScAxJfsccn9n1_99SPGlXcYNIUPx4u6TJ7NlaugA8v-Fkq2Iq5p-eDcvYjsDLthjKBKm09mSDXRVrZO0FqtHpEwCJZk-_fDb1qrYfIMFBy9sy7qsM0hfwou7yuX');">
+           style="background-image: url('');">
       </div>
     </div>
-
     <!-- 파일 선택 -->
     <div class="flex justify-center mb-6">
       <label for="imageInput" class="cursor-pointer bg-[#f1f1ea] text-[#181811] font-medium py-2 px-4 rounded-full text-sm">
@@ -38,10 +38,11 @@
 
     <!-- 저장 버튼 -->
     <div class="flex justify-center">
-      <button onclick="goBack()" class="bg-[#181811] text-white font-bold px-6 py-2 rounded-full text-sm">
-        click
+      <button id="save-button" onclick="goBack()" class="bg-[#181811] text-white font-bold px-6 py-2 rounded-full text-sm" disabled>
+        변경
       </button>
     </div>
+  </form>
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/auth.js"></script>

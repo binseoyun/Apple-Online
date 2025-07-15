@@ -31,7 +31,7 @@
           <div class="flex flex-1 justify-end gap-8">
 
         <!--프로필 페이지에서 로비로 돌아가는 버튼-->
-            <div  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"><a class="text-[#181811] text-sm font-bold leading-normal" href="lobby.html">Select room</a></div>
+            <div  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#f4f4e6] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"><a class="text-[#181811] text-sm font-bold leading-normal" href="lobby.html">Back to Lobby</a></div>
               
                <!-- 설정 아이콘(이미지 닉네임 등 부분 구성의 위치) -->
               <div class="text-[#181811]" data-icon="Gear" data-size="200px" data-weight="regular">
@@ -58,18 +58,18 @@
 
                   <!--나타나는 이미지 프로필 이미지 부분-->
                   <div
-                    
+                    id="profile-image"
                     class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32"
-                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDoDTJgbUs-rAkXpY393nqF3-LUKyqfZsd4r3XeYEChkixKZsGNTFcQo0bR0jq_R_pvKs7uNQnr8c82VuwwNalAmBASIO46uqzt0JepbdUlEadVXt7fZp7dSgEprled597DbQggeOpbdxOG8w5JdScAxJfsccn9n1_99SPGlXcYNIUPx4u6TJ7NlaugA8v-Fkq2Iq5p-eDcvYjsDLthjKBKm09mSDXRVrZO0FqtHpEwCJZk-_fDb1qrYfIMFBy9sy7qsM0hfwou7yuX");'
+                    style='background-image: url();'
                   ></div>
                   
                   <!--profile부분 전체 요소 중앙 정렬-->
                   <div class="flex flex-col items-center justify-center justify-center">
 
                     <!-- 사용자 이름, ID, 랭킹 등 서버와 연동하는 기능 필요-->
-                    <p class="text-[#181811] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">Olivia Bennett</p>
-                    <p class="text-[#89895d] text-base font-normal leading-normal text-center">User ID: apple</p>
-                    <p class="text-[#89895d] text-base font-normal leading-normal text-center">Ranking: 123</p>
+                    <p id="profile-name" class="text-[#181811] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center"></p>
+                    <p id="profile-userid" class="text-[#89895d] text-base font-normal leading-normal text-center">User ID: apple</p>
+                    <p id="profile-ranking" class="text-[#89895d] text-base font-normal leading-normal text-center">Rating: 123</p>
                  
                   </div>
                 </div>
@@ -91,5 +91,5 @@
   </body>
 
   <script src="/js/auth.js"></script>
-  <script src="/js/script.js"></script>
+  <script src="/js/profile.js"></script>
 </html>

@@ -10,6 +10,25 @@ const passportConfig = require('./server/controllers/passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20');
 const { createAdapter } = require('@socket.io/redis-adapter');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  // 파일이 저장될 경로를 지정
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // 'uploads' 폴더에 저장
+  },
+  // 파일의 새로운 이름을 지정 (가장 중요한 부분)
+  filename: function (req, file, cb) {
+    const userId = req.user.id;
+    // path.extname()으로 원본 파일의 확장자를 추출합니다. (예: '.jpg')
+    const ext = path.extname(file.originalname);
+    
+    // 최종 파일 이름: "유저ID-현재시간.확장자" (예: user123-1678886400000.jpg)
+    cb(null, `${userId}-${Date.now()}${ext}`);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 const roomHandler = require('./server/handlers/roomHandlers');
 
@@ -24,7 +43,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://www.applegame.shop",
+    origin: ["https://www.applegame.shop", "https://applegame.shop"],
     credentials: true
   }
 });
@@ -84,18 +103,16 @@ const PORT = 3000;
 const HOST = '127.0.0.1';
 
 const path = require('path');
+const fs = require('fs');
 const authRoutes = require('./server/routes/authRoutes');
+const userController = require('./server/controllers/userController');
+const { url } = require('inspector');
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true
-// }));
 
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.set('trust proxy', 1);
 
 passport.serializeUser((user, done) => {
@@ -118,6 +135,57 @@ app.use('/auth', authRoutes);
 
 app.get('/api/me', ensureAuthenticated, (req, res) => {
   res.json({id: req.user.id, name: req.user.name});
+});
+
+app.get('/api/profile/get', ensureAuthenticated, async(req, res) => {
+  if (req.user.id) {
+    const profileData = await userController.getProfile(req.user.id); 
+    if (profileData) {
+      res.json(profileData);
+    } else {
+      res.status(404).send('Not Found');
+    }
+  } else {
+    res.status(403).send('권한이 없습니다.');
+  }
+});
+
+app.post('/api/profile/update', ensureAuthenticated, upload.single('profileImage'), async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const newUsername = req.body.username; // 텍스트 데이터는 req.body에 있습니다.
+    const newImageFile = req.file; // 이미지 파일 데이터는 req.file에 있습니다.
+    // 1. 닉네임 업데이트 (DB에 쿼리)
+    await userController.updateUserNickname(userId, newUsername);
+    // 2. 새 이미지가 업로드되었으면, 이미지 URL도 업데이트
+    if (newImageFile) {
+      const userData = await userController.getProfile(userId);
+      const oldImage = userData.profile_image_url;
+      const newImageUrl = `/uploads/${newImageFile.filename}`;
+      await userController.updateUserImageUrl(userId, newImageUrl);
+
+      if (oldImageUrl && oldImageUrl.startsWith('/uploads/')) {
+        const oldImagePath = path.join(__dirname, oldImageUrl);
+        // 파일이 실제로 존재하는지 확인 후 삭제 (더 안전한 방법)
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlink(oldImagePath, (err) => {
+            if (err) {
+              console.error(`기존 이미지 파일 삭제 실패: ${oldImagePath}`, err);
+            } else {
+              console.log(`기존 이미지 파일 삭제 성공: ${oldImagePath}`);
+            }
+          });
+        }
+      }
+    }
+
+    console.log(`[Profile Update] User ${userId} updated their profile.`);
+    res.json({ message: 'Profile updated successfully!' });
+
+  } catch (error) {
+    console.error('Profile update server error:', error);
+    res.status(500).json({ error: 'Failed to update profile.' });
+  }
 });
 
 app.get('/', (req, res) => {
