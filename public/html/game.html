@@ -28,11 +28,11 @@
   <body>
     <!--게임 시작 전에 카운트다운 요소 추가
     countdownOverlay: 화면 전체를 덮는 반투명 배경
-    counddowntText:중앙의 큰 숫자
+    counddowntText:중앙의 큰 숫자-->
     <div id="countdownOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div id="countdownText" class="text-white text-8xl font-extrabold animate-pulse">3</div>
     </div>
-  -->
+  
     <!--성공시 사운드 나게 오디오 태그 추가-->
     <audio id="scoreSound" src="/sound.wav"  preload="auto"></audio>
     <!--게임에서 이겼을 때 소리 추가-->
@@ -77,6 +77,10 @@
 
        <!-- ⏱️ 타이머 영역 -->
        <div class="flex items-center gap-4 px-10 py-2">
+   
+
+
+
        <!-- 숫자형 타이머 -->
             <span id="timer-text" class="text-sm font-bold text-[#0e1b0e]">
                 Time: 60s </span>
@@ -96,13 +100,14 @@
            <span class="truncate" >End Game</span>
           </button>
 
-          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 -->
+          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 
 <select 
      id="themeSelector" 
      class= "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]">
   <option value="light">🌞 Light</option>
   <option value="dark">🌙 Dark</option>
-</select>
+</select> -->
+
 
           
 
@@ -114,13 +119,7 @@
          <!--양쪽 여백 px-40, 콘텐츠는 flex-col로 세로 방향 구성-->
         <div class="px-40 flex flex-1 justify-center py-5">
            
-          
-
-
-
-
-
-          <!--시간이 10초 이하가 되면 중앙 콘텐츠 부분이 빨간색이 되도록 id 추가-->
+         <!--시간이 10초 이하가 되면 중앙 콘텐츠 부분이 빨간색이 되도록 id 추가-->
           <div id="game-main" class="layout-content-container flex flex-col max-w-[960px] flex-1">
 
             <h2 class="text-[#0e1b0e] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Apple Game</h2>
@@ -188,6 +187,48 @@
         </div>       
       </div>
     </div>
+
+    <!--game.js안에 넣으면 비동기 함수로 인해 호출 순서가 꼬여서 html 내부에 작성
+    카운트 다운 로직-->
+    <script>
+    function startCountdown(callback){
+    //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
+    const overlay=document.getElementById("countdownOverlay");
+    const text=document.getElementById("countdownText");
+    let count=3;
+
+    text.textContent=count; //3초 카운트 진행예정
+    overlay.style.display="flex";
+
+    const interval=setInterval(()=>{
+      count--;
+      if(count>0){
+        text.textContent=count; 
+      } else if(count==0){
+        text.textContent="Start!";
+      }  else{ //3초가 지나면
+          clearInterval(interval); 
+          overlay.style.display="none"; //카운트 다운 화면 사라지게
+          //게임이 시작되게
+          if(callback) callback(); //이 부분에서 callback()이 실행됨
+        } 
+    },1000); 
+  }
+   document.addEventListener('DOMContentLoaded',()=>{
+    startCountdown(()=>{
+      console.log("카운트다운 종료 후 실행됨");   
+    });
+  });
+
+
+
+
+
+    </script>
+
+
+
+
     <!-- 🧠 게임 보드 생성 스크립트 -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/auth.js"></script>

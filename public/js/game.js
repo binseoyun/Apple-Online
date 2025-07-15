@@ -406,6 +406,7 @@
       const gameRoot =document.getElementById("game-main");
       if(timeLeft<=10){
         gameRoot.classList.add("bg-red-100","transition-colors");
+        
       }else{
         gameRoot.classList.remove("bg-red-100");
       }
@@ -474,6 +475,9 @@ function playLoseEffect(){
       gravity:0.5
   })
 }
+
+
+
 
 
 });

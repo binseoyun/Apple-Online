@@ -46,6 +46,10 @@ function joinOrDeleteRoom(mode, roomId, userId, password) {
   }
 }
 
+
+
+
+
 //Room Name 검색할 수 있도록 filterRoomList() 추가
 function filterRoomList() {
   const keyword = document.getElementById("search-room-name").value.toLowerCase(); 
