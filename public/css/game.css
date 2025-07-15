@@ -1,6 +1,6 @@
 /*dark/light 모드 전환을 위한 작성*/
   
-/*light mode의 기본 값*/
+/*light mode에서 설정된 기본 값*/
 :root {
   --bg-color: #f8fcf8;
   --text-color: #0e1b0e;
