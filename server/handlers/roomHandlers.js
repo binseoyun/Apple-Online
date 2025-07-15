@@ -352,7 +352,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             winner_id = gameStates[roomId].player2;
             winner = 2;
         } else {
-            winner_id = null;
+            winner_id = '';
             winner = 0;
         }
 
