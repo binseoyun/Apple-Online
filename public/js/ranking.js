@@ -32,5 +32,5 @@ const topPlayers = [
       </div>
     `;
 
-    container.appendChild(playerDiv); //ranking.html의 top-players 부분의 container에 playerDiv가 추가가 됨
+    container.appendChild(playerDiv); //ranking.html의 top-players 부분인 container에 playerDiv가 추가가 됨
   });

@@ -99,6 +99,14 @@
            <span class="truncate" >End Game</span>
           </button>
 
+          <!--셔플 버튼 추가-->
+            <button
+            id="shuffleBtn"
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]"
+          >
+           <span class="truncate" > 🔄Shuffle</span>
+          </button>
+
          
 
 
@@ -242,28 +250,7 @@
 
   });
 
-  //모드 선택하는 함수 js내부에서 추가하면 호출 순서의 오류 발생해서 html 파일에서 작성
 
-  const themeSelector = document.getElementById('themeSelector');
-  const htmlBody = document.body; //html에서 body 태그 전체를 가져옴
-
-  // 저장된 테마 불러오기
-  const savedTheme = localStorage.getItem('theme') || 'light'; //기본 버전은 light로
-  if (savedTheme === 'dark') htmlBody.classList.add('dark-mode'); //body에 dark-mode 추가
-  themeSelector.value = savedTheme;
-
-  // 드롭다운 변경 시 다크모드 적용
-  themeSelector.addEventListener('change', function () {
-    if (this.value === 'dark') { //선택 옵션이 dark 인 경우
-     // document.body.classList.add('dark-mode');
-      htmlBody.classList.add('dark-mode');
-    } else {
-     // document.body.classList.remove('dark-mode');
-      htmlBody.classList.remove('dark-mode');
-    }
-    localStorage.setItem('theme', this.value); //테마를 저장
-  });
-//여기까지 추가한 코드
 
 
     </script>

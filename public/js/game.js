@@ -453,6 +453,30 @@ function playLoseEffect(){
 
 
 
+//셔플 기능 추가
+document.getElementById("shuffleBtn").addEventListener("click", shuffleBoard);
+
+function shuffleBoard() {
+  // #game-borad(id="game-board") 안에 있는 모든 <div> 요소들(보드의 각 셀들)을 배열로 가져옴
+  const cells = Array.from(document.querySelectorAll("#game-board div"));
+  const numbers = cells.map(cell => parseInt(cell.getAttribute("data-value")));
+
+  // Fisher-Yates 알고리즘으로 섞기
+  for (let i = numbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+  }
+
+  // 섞은 숫자를 다시 셀에 적용
+  cells.forEach((cell, index) => {
+    cell.textContent = numbers[index];
+    cell.setAttribute("data-value", numbers[index]);
+  });
+
+  // 시각적 피드백
+  board.classList.add("animate-pulse");
+  setTimeout(() => board.classList.remove("animate-pulse"), 500);
+}
 
 
 });
