@@ -449,7 +449,6 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     };
 
     const dragApples = async (x1, y1, x2, y2, roomId, userId) => {
-        console.log('점수 획득 시도', userId, x1, y1, x2, y2);
         // 나중에 mapdata를 서버에 저장하고 불러와야함.
         try {
             const mapDataLoad = await redisClient.hGetAll(`game:map:${roomId}`);
@@ -489,7 +488,6 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                     userId: userId,
                     num: num
                 });
-                console.log('점수 획득', num, userId);
                 io.to(roomId).emit('deleteApple', {
                     row1: x1, col1: y1, row2: x2, col2: y2, userId: userId
                 });

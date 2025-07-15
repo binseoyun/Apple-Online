@@ -1,0 +1,77 @@
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 22개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 22개의 랭킹 정보가 변경되었습니다.
+❌ A user disconnected: 2
+✅ A user visited our server!: 18
+❌ A user disconnected: 18
+✅ A user visited our server!: 25
+✅ A user visited our server!: 18
+❌ A user disconnected: 25
+✅ A user visited our server!: 25
+❌ A user disconnected: 25
+✅ A user visited our server!: 25
+✅ A user visited our server!: 2
+❌ A user disconnected: 25
+✅ A user visited our server!: 18
+✅ A user visited our server!: 20
+❌ A user disconnected: 20
+❌ A user disconnected: 2
+✅ A user visited our server!: 18
+❌ A user disconnected: 18
+✅ A user visited our server!: 18
+✅ A user visited our server!: 18
+❌ A user disconnected: 18
+✅ A user visited our server!: 18
+❌ A user disconnected: 18
+✅ A user visited our server!: 18
+❌ A user disconnected: 18
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 26개의 랭킹 정보가 변경되었습니다.
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 23개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 23개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 16
+✅ A user visited our server!: 16
+[Room Created] ID: 9b66df57-d968-490a-8e77-74d34d395059 by 이창섭
+✅ A user visited our server!: 16
+16 joined 9b66df57-d968-490a-8e77-74d34d395059
+✅ A user visited our server!: 26
+✅ A user visited our server!: 26
+✅ A user visited our server!: 26
+26 joined 9b66df57-d968-490a-8e77-74d34d395059
+9b66df57-d968-490a-8e77-74d34d395059 started the game.

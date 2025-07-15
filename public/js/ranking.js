@@ -54,6 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '<p class="text-center text-gray-500">플레이어가 별로 없습니다.</p>';
         return;
     }
+
+    // 업데이트 시간 표시
+    const updateTimeElement = document.getElementById('update-time');
+    if (ranking.length > 0 && ranking[0].time) {
+        const lastUpdateTime = new Date(ranking[0].time);
+        const hours = String(lastUpdateTime.getHours()).padStart(2, '0');
+        const minutes = String(lastUpdateTime.getMinutes()).padStart(2, '0');
+        updateTimeElement.textContent = `랭킹은 10분마다 업데이트됩니다. (최신 업데이트: ${hours}시 ${minutes}분)`;
+    }
   }
 
   fetchGameHistory();

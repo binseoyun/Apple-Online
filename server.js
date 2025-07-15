@@ -186,7 +186,7 @@ app.get('/api/profile/get/ranking', ensureAuthenticated, async(req, res) => {
 app.get('/api/ranking/get', ensureAuthenticated, async(req, res) => {
   const userId = req.user.id;
   try {
-    const query = `SELECT user_id, ranking, A.elo_rating AS elo, profile_image_url, nickname FROM Rankings A JOIN Users B ON A.user_id = B.id ORDER BY ranking LIMIT 3;`;
+    const query = `SELECT user_id, ranking, A.elo_rating AS elo, profile_image_url, nickname, A.last_updated_at AS time FROM Rankings A JOIN Users B ON A.user_id = B.id ORDER BY ranking LIMIT 3;`;
     const [records] = await pool.query(query);
     res.json({
       currentUserId: userId,
