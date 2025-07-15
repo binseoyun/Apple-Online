@@ -4,28 +4,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
 
-    //여기 내부에서 모드 선택하는 코드 넣기
- const themeSelector = document.getElementById('themeSelector');
-  const htmlBody = document.body; //html에서 body 태그 전체를 가져옴
-
-  // 저장된 테마 불러오기
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  if (savedTheme === 'dark') htmlBody.classList.add('dark-mode');
-  themeSelector.value = savedTheme;
-
-  // 드롭다운 변경 시 다크모드 적용
-  themeSelector.addEventListener('change', function () {
-    if (this.value === 'dark') {
-      document.body.classList.add('dark-mode');
-      //htmlBody.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-      //htmlBody.classList.remove('dark-mode');
-    }
-    localStorage.setItem('theme', this.value); //테마를 저장
-  });
-//여기까지 추가한 코드
-
 
     // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
     const urlParams = new URLSearchParams(window.location.search);
@@ -470,6 +448,8 @@ function playLoseEffect(){
       gravity:0.5
   })
 }
+
+
 
 
 

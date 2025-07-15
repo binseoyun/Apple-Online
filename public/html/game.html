@@ -56,8 +56,8 @@
 
 
 
-
-      <div class="relative flex size-full min-h-screen flex-col bg-[#f8fcf8] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
+<!--#f8fcf8에서 bg 변경-->
+      <div class="relative flex size-full min-h-screen flex-col bg-[var(--bg--color)] group/design-root overflow-x-hidden" style='font-family: "Spline Sans", "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
 
 
@@ -66,8 +66,8 @@
           <div class="flex items-center gap-4 text-[#0e1b0e]">
           
 
-            <!--게임 제목-->
-          <h2 class="text-[#0e1b0e] text-lg font-bold leading-tight tracking-[-0.015em]">🍎 Apple Game</h2>
+            <!--게임 제목 #0e1b0e에서 var(--text--color) 로 변경-->
+          <h2 class="text-[var(--text--color)] text-lg font-bold leading-tight tracking-[-0.015em]">🍎 Apple Game</h2>
           
           </div>
 
@@ -99,13 +99,13 @@
            <span class="truncate" >End Game</span>
           </button>
 
-          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 
+          <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 -->
 <select 
      id="themeSelector" 
      class= "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]">
-  <option value="light">🌞 Light</option>
-  <option value="dark">🌙 Dark</option>
-</select> -->
+    <option value="light">🌞 Light</option>
+    <option value="dark">🌙 Dark</option>
+</select> 
 
 
           
@@ -245,10 +245,31 @@
     startCountdown(()=>{
       console.log("카운트다운 종료 후 실행됨");   
     });
+
   });
 
+  //모드 선택하는 함수 js내부에서 추가하면 호출 순서의 오류 발생해서 html 파일에서 작성
 
+  const themeSelector = document.getElementById('themeSelector');
+  const htmlBody = document.body; //html에서 body 태그 전체를 가져옴
 
+  // 저장된 테마 불러오기
+  const savedTheme = localStorage.getItem('theme') || 'light'; //기본 버전은 light로
+  if (savedTheme === 'dark') htmlBody.classList.add('dark-mode'); //body에 dark-mode 추가
+  themeSelector.value = savedTheme;
+
+  // 드롭다운 변경 시 다크모드 적용
+  themeSelector.addEventListener('change', function () {
+    if (this.value === 'dark') { //선택 옵션이 dark 인 경우
+     // document.body.classList.add('dark-mode');
+      htmlBody.classList.add('dark-mode');
+    } else {
+     // document.body.classList.remove('dark-mode');
+      htmlBody.classList.remove('dark-mode');
+    }
+    localStorage.setItem('theme', this.value); //테마를 저장
+  });
+//여기까지 추가한 코드
 
 
     </script>
