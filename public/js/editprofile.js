@@ -54,14 +54,16 @@ async function goBack() {
 
   try {
       // 서버의 업데이트 API로 formData를 POST 방식으로 전송합니다.
-      const response = await fetch('https://applegame.shop/api/profile/update', {
+      const response = await fetch('https://www.applegame.shop/api/profile/update', {
           method: 'POST',
           body: formData
       });
 
       if (!response.ok) {
-          // 서버 응답이 실패하면 에러를 발생시킵니다.
-          throw new Error('프로필 저장에 실패했습니다.');
+          // 서버가 JSON 형태의 에러 메시지를 보냈다고 가정
+          const errorData = await response.json(); 
+          // 서버에서 보낸 에러 메시지나 상태 코드를 기반으로 에러 객체 생성
+          throw new Error(errorData.message || `서버 에러: ${response.status}`);
       }
 
       // 성공적으로 저장되었을 경우
@@ -69,8 +71,8 @@ async function goBack() {
       window.location.href = 'profile.html'; // 프로필 조회 페이지로 이동
 
   } catch (error) {
-    console.log(error);
     console.error('Error saving profile:', error);
-    alert(error.message);
+    // 이제 error.message는 서버가 보낸 메시지 또는 직접 만든 메시지가 됩니다.
+    alert(error.message); 
   }
 }

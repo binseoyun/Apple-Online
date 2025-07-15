@@ -156,7 +156,17 @@ app.post('/api/profile/update', ensureAuthenticated, upload.single('profileImage
     const newUsername = req.body.username; // 텍스트 데이터는 req.body에 있습니다.
     const newImageFile = req.file; // 이미지 파일 데이터는 req.file에 있습니다.
     // 1. 닉네임 업데이트 (DB에 쿼리)
-    await userController.updateUserNickname(userId, newUsername);
+    const getnick = await userController.getUserNickname(userId);
+
+    if (getnick !== newUsername) {
+      const checkNick = await userController.updateUserNickname(userId, newUsername);
+
+      if (checkNick === null) {
+        res.status(999).json({ error: '중복되었거나 사용할 수 없는 username입니다.' });
+        return;
+      }
+    }
+
     // 2. 새 이미지가 업로드되었으면, 이미지 URL도 업데이트
     if (newImageFile) {
       const userData = await userController.getProfile(userId);
@@ -164,8 +174,8 @@ app.post('/api/profile/update', ensureAuthenticated, upload.single('profileImage
       const newImageUrl = `/uploads/${newImageFile.filename}`;
       await userController.updateUserImageUrl(userId, newImageUrl);
 
-      if (oldImageUrl && oldImageUrl.startsWith('/uploads/')) {
-        const oldImagePath = path.join(__dirname, oldImageUrl);
+      if (oldImage && oldImage.startsWith('/uploads/')) {
+        const oldImagePath = path.join(__dirname, oldImage);
         // 파일이 실제로 존재하는지 확인 후 삭제 (더 안전한 방법)
         if (fs.existsSync(oldImagePath)) {
           fs.unlink(oldImagePath, (err) => {

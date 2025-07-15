@@ -49,7 +49,6 @@ async function updateUserNickname(userId, newUsername) {
         connection = await pool.getConnection();
         const sql = 'UPDATE Users SET nickname = ? WHERE id = ?';
         const [row] = await connection.execute(sql, [newUsername, userId]);
-        console.log('11');
         if (row.length > 0) {
             return row[0];
         } else {
