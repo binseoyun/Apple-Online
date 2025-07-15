@@ -1,52 +1,29 @@
 //js/game.js
-(async () => {
+async function initializeGame() {
   let roomId = '';
   let userId = await getMyUserId();
   const socket = io("https://www.applegame.shop", {
       withCredentials: true
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-
-    //여기 내부에서 모드 선택하는 코드 넣기
- const themeSelector = document.getElementById('themeSelector');
-  const htmlBody = document.body; //html에서 body 태그 전체를 가져옴
-
-  // 저장된 테마 불러오기
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  if (savedTheme === 'dark') htmlBody.classList.add('dark-mode');
-  themeSelector.value = savedTheme;
-
-  // 드롭다운 변경 시 다크모드 적용
-  themeSelector.addEventListener('change', function () {
-    if (this.value === 'dark') {
-      document.body.classList.add('dark-mode');
-      //htmlBody.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-      //htmlBody.classList.remove('dark-mode');
-    }
-    localStorage.setItem('theme', this.value); //테마를 저장
-  });
 //여기까지 추가한 코드
 
 
-    // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    // 2. 'roomId'라는 이름의 파라미터 값을 가져옵니다.
-    roomId = urlParams.get('roomId');
-    password = urlParams.get('password');
+  // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // 2. 'roomId'라는 이름의 파라미터 값을 가져옵니다.
+  roomId = urlParams.get('roomId');
+  password = urlParams.get('password');
 
-    if (roomId !== '') {
-      console.log(`전달받은 방 ID: ${roomId}`);
-      // 이 roomId를 사용해 서버에 방 참여 요청 등을 보냅니다.
-      socket.emit('getGame', userId, roomId);
-    } else {
-      console.error('방 ID가 전달되지 않았습니다!');
-      // 에러 처리 (예: 로비로 돌려보내기)
-    }
-  });
+  if (roomId !== '') {
+    console.log(`전달받은 방 ID: ${roomId}`);
+    // 이 roomId를 사용해 서버에 방 참여 요청 등을 보냅니다.
+    socket.emit('getGame', userId, roomId);
+  } else {
+    console.error('방 ID가 전달되지 않았습니다!');
+    // 에러 처리 (예: 로비로 돌려보내기)
+  }
 
   socket.on('what?', () => {
     alert("잘못된 접근입니다!");
@@ -80,7 +57,12 @@
   }
   //게임 시작 전 카운트 다운 로직을 구현하기 위해 startCountdown 추가
   //사과 셀 생성
+  let map_update = 0;
   socket.on('map', (data) => {
+    if (map_update > 0) {
+      // 맵 한 번만 받아도 충분함.
+      return;
+    }
     DrawMap(data.mapData);
     mapData = data.mapData;
     console.log(data.mapData);
@@ -99,8 +81,9 @@
     image2Div.style.backgroundImage = `url('${data.image2}')`;
     score1Element.textContent = `Score: ${data.score1}`;
     score2Element.textContent = `Score: ${data.score2}`;
-    name1Element.textContent = data.user1;
-    name2Element.textContent = data.user2;
+    name1Element.textContent = `${data.user1}(${data.rating1}점)`;
+    name2Element.textContent = `${data.user2}(${data.rating2}점)`;
+    map_update++;
   });
 
 
@@ -316,6 +299,7 @@
   socket.on('updateTime', (data) => {
     timeLeft = data.timeLeft;
     updateTimerUI();
+    updateTimerBar();
     console.log("game update");
   });
 
@@ -324,8 +308,22 @@
   });
 
   socket.on('gameEnd', (data) => {
+    let elo_diff = 0;
+    if (data.player1 == userId) {
+      elo_diff = data.elo_A;
+    } else {
+      elo_diff = data.elo_B;
+    }
+
+    let plus = "";
+    if (elo_diff > 0) {
+      plus = "+";
+    }
+
+
+
     if (game) {
-      if (data.winner == userId) {
+      if (data.winner === String(userId)) {
         game = false;
         //이겼을 때 소리 재생 추가
         playWinSound();
@@ -336,7 +334,7 @@
         winOverlay.classList.remove("hidden"); //숨겨져 있던 승리 배너를 화면에 표시
         //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
         setTimeout(()=>{
-        endGame("승리하였습니다!\n" + data.message);
+        endGame(`승리하였습니다!\n(점수: ${plus}${elo_diff})`);
         },500); //0.5초 후 실행
 
       } else if (data.winner == '') {
@@ -345,22 +343,8 @@
         const drawOverlay=document.getElementById("drawOverlay");
         drawOverlay.classList.remove("hidden"); 
         setTimeout(()=>{
-        endGame("비겼습니다!\n" + data.message);
+        endGame(`비겼습니다!\n(점수: ${elo_diff})`);
         },500);
-      } else if (data.winner == ' ') {
-        game = false;
-        //이겼을 때 소리 재생 추가
-        playWinSound();
-        //이겼을 때 꽃가루 효과 추가
-        playWinEffect();
-        //이겼을 때 승리 배너 추가
-        const windOverlay=document.getElementById("winOverlay");
-        windOverlay.classList.remove("hidden");
-        //endGame()에서 alert()가 먼저 뜨면 배너가 보이지도 않을 수 도 있어서 시간 지연 시킴
-        setTimeout(()=>{
-        endGame("승리당하였습니다!\n" + data.message);
-        },500); //0.5초 후 실행
-
       } else {
         game = false;
         //졌을 때 소리 재생 추가
@@ -372,7 +356,7 @@
         loseOverlay.classList.remove("hidden");
         //endGame()에서 alert()가 먼저 뜨면 배너가 보이지 않을 수 도 있으서 시간 지연 시킴
         setTimeout(()=>{
-        endGame("패배하였습니다!\n" + data.message);
+        endGame(`패배하였습니다!\n(점수: ${elo_diff})`);
       },500);
   }
   }});
@@ -403,12 +387,9 @@
 
       //배경색 변경하기 위해 추가
       //시간이 10초 이하 남았을 때 빨간색이 뜨게 설정
-      const gameRoot =document.getElementById("game-main");
-      if(timeLeft<=10){
+      const gameRoot = document.getElementById("game-main");
+      if (timeLeft <= 10){
         gameRoot.classList.add("bg-red-100","transition-colors");
-        
-      }else{
-        gameRoot.classList.remove("bg-red-100");
       }
     }
   }
@@ -452,32 +433,27 @@
     
   }
 
-//게임에서 이겼을 때 confetti 효과 호출
-function playWinEffect(){
-  confetti({
-    particleCount: 150, //100개의 꽃잎
-    spread: 360, //방향 분산 폭(0~360)
-    origin: { y: 0.6 }, //화면 중앙 아래(60%) 위치에서 위로
-    colors: ['#c94739ff', '#ff69b4', '#ffb6c1'], //분홍빛 꽃잎처럼 보이도록 색 지정
-    shapes: ['circle'], //꽃잎처럼 보이는 원형 입자
-    gravity:0.5 //천천히 떨어지는 효과
-  });
+  //게임에서 이겼을 때 confetti 효과 호출
+  function playWinEffect(){
+    confetti({
+      particleCount: 150, //100개의 꽃잎
+      spread: 360, //방향 분산 폭(0~360)
+      origin: { y: 0.6 }, //화면 중앙 아래(60%) 위치에서 위로
+      colors: ['#c94739ff', '#ff69b4', '#ffb6c1'], //분홍빛 꽃잎처럼 보이도록 색 지정
+      shapes: ['circle'], //꽃잎처럼 보이는 원형 입자
+      gravity:0.5 //천천히 떨어지는 효과
+    });
+  }
+
+  //게임에서 졌을 때 confetti 효과 호출
+  function playLoseEffect(){
+    confetti({
+      particleCount: 150,
+        spread: 360,
+        origin: { x: 0.5, y: 1 }, // 아래에서 위로 날림
+        colors: ['#333333', '#2e1d1dff', '#190606ff'], // 어두운 계열
+        shapes: ['circle'], // 사과처럼 보이는 원
+        gravity:0.5
+    })
+  }
 }
-
-//게임에서 졌을 때 confetti 효과 호출
-function playLoseEffect(){
-  confetti({
-     particleCount: 150,
-      spread: 360,
-      origin: { x: 0.5, y: 1 }, // 아래에서 위로 날림
-      colors: ['#333333', '#2e1d1dff', '#190606ff'], // 어두운 계열
-      shapes: ['circle'], // 사과처럼 보이는 원
-      gravity:0.5
-  })
-}
-
-
-
-
-
-});

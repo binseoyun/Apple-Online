@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const redisClient = require('redis');
 const { isKeyObject } = require('util/types');
 const userController = require('../controllers/userController')
+const { pool } = require('../../config/db');
 
 const gameLogic = require('./gameLogic');
 const { STATUS_CODES } = require('http');
@@ -269,6 +270,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     };
 
     const getGame = async (userId, roomId) => {
+        console.log(`${userId}로 부터 게임 시작 요청이 들어왔습니다.`);
         try {
             const roomData = await redisClient.hGetAll(roomId);
 
@@ -288,14 +290,14 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
             socket.join(roomId);
 
-            if (gameStates[roomId].loading === 2) {
+            if (gameStates[roomId].loading === 1) {
                 await SendMap(roomId);
                 return;
             }
 
             io.in(roomId).allSockets().then(async sockets => {
                 gameStates[roomId].loading += 1;
-                if (gameStates[roomId].loading === 2) {
+                if (gameStates[roomId].loading === 1) {
                     await SendMap(roomId);
 
                     gameStates[roomId].timeLeft = 60;
@@ -317,11 +319,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                                 winner = '';
                             }
         
-                            io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner });
-        
                             await redisClient.sRem('waits', String(gameStates[roomId].player1));
                             await redisClient.sRem('waits', String(gameStates[roomId].player2));
-                            delete gameStates[roomId];
+
                             endGame(roomId);
                         }
                     }, 1000);
@@ -334,7 +334,47 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         }
     };
 
-    const endGame = async(roomId) => {
+    const endGame = async (roomId) => {
+        const roomData = await redisClient.hGetAll(roomId);
+
+        const player1_id = roomData.player1;
+        const player2_id = roomData.player2;
+
+        const player1_data = await userController.getProfile(player1_id);
+        const player2_data = await userController.getProfile(player2_id);
+
+        let winner_id = 0;
+        let winner = 0;
+        if (gameStates[roomId].score1 > gameStates[roomId].score2) {
+            winner_id = gameStates[roomId].player1;
+            winner = 1;
+        } else if (gameStates[roomId].score1 < gameStates[roomId].score2) {
+            winner_id = gameStates[roomId].player2;
+            winner = 2;
+        } else {
+            winner_id = null;
+            winner = 0;
+        }
+
+        const player1_old_elo = player1_data.elo_rating;
+        const player2_old_elo = player2_data.elo_rating;
+
+        const new_elo = userController.calculateElo(player1_old_elo, player2_old_elo, winner);
+
+        let player1_new_elo = new_elo.newRatingA;
+        let player2_new_elo = new_elo.newRatingB;
+
+        io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner_id, elo_A: player1_new_elo - player1_old_elo, elo_B: player2_new_elo - player2_old_elo, player1: player1_id, player2: player2_id});
+
+        // 게임 전적 기록하기
+        const insertSql = 'INSERT INTO GameRecords (player1_id, player2_id, winner_id, player1_old_elo, player1_new_elo, player2_old_elo, player2_new_elo) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        const [result] = await pool.query(insertSql, [player1_id, player2_id, winner_id, player1_old_elo, player1_new_elo, player2_old_elo, player2_new_elo]);
+
+        // 유저 레이팅 변경하기
+        await userController.updateUserElo(player1_id, player1_new_elo);
+        await userController.updateUserElo(player2_id, player2_new_elo);
+
+        delete gameStates[roomId];
         handleDeleteRoom(io, redisClient, roomId);
     }
 
@@ -374,7 +414,9 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 score1: score1,
                 score2: score2,
                 image1: image1,
-                image2: image2
+                image2: image2,
+                rating1: user1Data.elo_rating,
+                rating2: user2Data.elo_rating
             });
             return;
         }

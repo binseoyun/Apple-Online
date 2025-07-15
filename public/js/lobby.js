@@ -76,6 +76,7 @@ function deleteRow(btn) {
 
 (async () => {
   const userId = await getMyUserId();
+  let roomListTimeout;
 
   if (!userId) {
     console.log("User ID not found, stopping script.");
@@ -173,10 +174,16 @@ function deleteRow(btn) {
 
   document.addEventListener('DOMContentLoaded', () => {
     socket.emit('getRoomList');
+
+    roomListTimeout = setTimeout(() => {
+      // 사용자에게 상황을 알려주는 것이 좋습니다.
+      alert("서버로부터 방 목록을 받지 못했습니다. 페이지를 새로고침합니다.");
+      window.location.reload();
+    }, 3000);
   });
 
   socket.on('initialRoomList', (data) => {
-    console.log(data);
+    clearTimeout(roomListTimeout);
     try {
       const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
       drawRoomList(data);

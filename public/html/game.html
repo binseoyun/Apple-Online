@@ -93,12 +93,6 @@
                    ></div>
                  </div>
 
-          <button
-          onclick="window.location.href='lobby.html'"
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#19e519] text-[#0e1b0e] text-sm font-bold leading-normal tracking-[0.015em]"
-          >
-           <span class="truncate" >End Game</span>
-          </button>
 
           <!-- End Game 버튼 옆에 테마 선택 드롭다운 추가 
 <select 
@@ -189,7 +183,10 @@
     </div>
 
     <!--game.js안에 넣으면 비동기 함수로 인해 호출 순서가 꼬여서 html 내부에 작성
-    카운트 다운 로직-->
+    카운트 다운 로직-->    <!-- 🧠 게임 보드 생성 스크립트 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/game.js"> </script>
     <script>
     function startCountdown(callback){
     //카운트 다운 표시하는 부분과 텍스트 받아서 3초 카운트 진행
@@ -215,23 +212,9 @@
     },1000); 
   }
    document.addEventListener('DOMContentLoaded',()=>{
-    startCountdown(()=>{
-      console.log("카운트다운 종료 후 실행됨");   
-    });
+    startCountdown(initializeGame);
   });
 
-
-
-
-
     </script>
-
-
-
-
-    <!-- 🧠 게임 보드 생성 스크립트 -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="\js/game.js"> </script>
   </body>
 </html>

@@ -11,6 +11,26 @@ const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20');
 const { createAdapter } = require('@socket.io/redis-adapter');
 const multer = require('multer');
+const cron = require('node-cron');
+const { updateAllUserRankings } = require('./server/controllers/rankingService');
+
+cron.schedule('*/10 * * * *', () => {
+  // 에러가 발생해도 서버가 중단되지 않도록 try-catch로 감싸줍니다.
+  try {
+    updateAllUserRankings();
+  } catch (scheduleError) {
+    console.error('스케줄링된 랭킹 업데이트 작업 실행에 실패했습니다:', scheduleError);
+  }
+});
+
+// 서버 시작 시 한 번 즉시 실행하고 싶다면 아래 코드를 추가합니다.
+(async () => {
+  try {
+    await updateAllUserRankings();
+  } catch (initialError) {
+    console.error('서버 시작 시 초기 랭킹 업데이트에 실패했습니다:', initialError);
+  }
+})();
 
 const storage = multer.diskStorage({
   // 파일이 저장될 경로를 지정
@@ -147,6 +167,43 @@ app.get('/api/profile/get', ensureAuthenticated, async(req, res) => {
     }
   } else {
     res.status(403).send('권한이 없습니다.');
+  }
+});
+
+app.get('/api/users/me/history', ensureAuthenticated, async(req, res) => {
+  const userId = req.user.id;
+  try {
+    const query = `
+        SELECT 
+            gr.id, 
+            gr.player1_id, 
+            gr.player2_id, 
+            gr.winner_id,
+            gr.player1_new_elo,
+            gr.player1_old_elo,
+            gr.player2_new_elo,
+            gr.player2_old_elo,
+            gr.played_at AS gametime,
+            p1.nickname AS player1_name,
+            p1.profile_image_url AS player1_image,
+            p2.nickname AS player2_name,
+            p2.profile_image_url AS player2_image
+        FROM GameRecords gr
+        JOIN Users p1 ON gr.player1_id = p1.id
+        JOIN Users p2 ON gr.player2_id = p2.id
+        WHERE 
+            gr.player1_id = ? OR gr.player2_id = ?
+        ORDER BY 
+            gr.played_at DESC;
+    `;
+    const [records] = await pool.query(query, [userId, userId]);
+    res.json({
+      currentUserId: userId,
+      history: records
+    });
+  } catch (error) {
+    console.error("전적 조회 중 에러 발생:", error);
+    res.status(500).json({ message: "서버 에러가 발생했습니다." });
   }
 });
 
