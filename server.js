@@ -170,6 +170,34 @@ app.get('/api/profile/get', ensureAuthenticated, async(req, res) => {
   }
 });
 
+app.get('/api/profile/get/ranking', ensureAuthenticated, async(req, res) => {
+  if (req.user.id) {
+    const Ranking = await userController.getRanking(req.user.id); 
+    if (Ranking) {
+      res.json(Ranking);
+    } else {
+      res.status(404).send('Not Found');
+    }
+  } else {
+    res.status(403).send('권한이 없습니다.');
+  }
+});
+
+app.get('/api/ranking/get', ensureAuthenticated, async(req, res) => {
+  const userId = req.user.id;
+  try {
+    const query = `SELECT user_id, ranking, A.elo_rating AS elo, profile_image_url, nickname FROM Rankings A JOIN Users B ON A.user_id = B.id ORDER BY ranking LIMIT 3;`;
+    const [records] = await pool.query(query);
+    res.json({
+      currentUserId: userId,
+      ranking: records
+    });
+  } catch (error) {
+    console.error("랭킹 조회 중 에러 발생:", error);
+    res.status(500).json({ message: "서버 에러가 발생했습니다." });
+  }
+});
+
 app.get('/api/users/me/history', ensureAuthenticated, async(req, res) => {
   const userId = req.user.id;
   try {
@@ -326,15 +354,5 @@ io.on('connection', (socket) => {
 
   socket.on('joinLobby', () => {
     socket.join('lobby');
-  });
-
-  socket.on('disconnect', () => {
-    setTimeout(() => {
-      io.in(userId).allSockets().then(sockets => {
-        if (sockets.size === 0) {
-          console.log(`❌ A user disconnected: ${userId}`);
-        }
-      })
-    }, 3000);
   });
 });

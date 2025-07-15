@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // 1. 서버에 프로필 정보를 요청합니다.
             const response = await fetch('/api/profile/get');
+            const ranking = await fetch('/api/profile/get/ranking');
             if (!response.ok) {
                 throw new Error('프로필 정보를 불러오는 데 실패했습니다.');
             }
             const data = await response.json();
+            const rank = await ranking.json();
 
             // 2. ID를 이용해 HTML 요소들을 선택합니다.
             const imageDiv = document.getElementById('profile-image');
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             imageDiv.style.backgroundImage = `url('${data.profile_image_url}')`;
             nameElement.textContent = data.nickname;
             userIdElement.textContent = `User ID: ${data.id}`;
-            rankingElement.textContent = `Rating: ${data.elo_rating}`;
+            rankingElement.textContent = `Rating: ${data.elo_rating}(${rank.ranking}위)`;
 
         } catch (error) {
             console.error(error);

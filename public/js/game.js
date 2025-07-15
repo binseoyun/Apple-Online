@@ -6,18 +6,148 @@ async function initializeGame() {
       withCredentials: true
   });
 
-//여기까지 추가한 코드
-
-
-  // 1. 현재 페이지의 URL에서 파라미터를 읽어옵니다.
   const urlParams = new URLSearchParams(window.location.search);
-  
-  // 2. 'roomId'라는 이름의 파라미터 값을 가져옵니다.
+
+  // 'roomId'라는 이름의 파라미터 값을 가져옵니다.
   roomId = urlParams.get('roomId');
   password = urlParams.get('password');
+  const board = document.getElementById('game-board');
+  
+  // WebRTC 관련 코드 //
+  let peerConnection;
+  let dataChannel;
+  const opponentCursor = document.getElementById('opponent-cursor');
+  let connectionTimeout = null;
+
+  const configuration = {
+    iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' }
+    ]
+  };
+
+  function initializePeerConnection() {
+    if (peerConnection) {
+      peerConnection.close();
+    }
+
+    peerConnection = new RTCPeerConnection(configuration);
+
+    peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit('ice', { roomId: roomId, ice: event.candidate });
+      }
+    };
+
+    peerConnection.ondatachannel = (event) => {
+      dataChannel = event.channel;
+      setupDataChannelEvents();
+    };
+
+    peerConnection.onconnectionstatechange = (event) => {
+      if (peerConnection.connectionState === 'connected') {
+        clearTimeout(connectionTimeout);
+      }
+    };
+  }
+
+  function setupDataChannelEvents() {
+    dataChannel.onopen = () => {
+    };
+
+    dataChannel.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (opponentCursor.style.display === 'none') {
+        opponentCursor.style.display = 'block';
+      }
+      opponentCursor.style.left = data.x + 'px';
+      opponentCursor.style.top = data.y + 'px';
+    };
+  }
+
+  function setupMouseListeners() {
+    const gameBoard = document.getElementById('game-board');
+
+    // 마우스 이동 이벤트 통합 리스너
+    document.addEventListener('mousemove', (e) => {
+        // --- 역할 1: P2P 커서 위치 전송 (쓰로틀링 적용) ---
+        if (dataChannel && dataChannel.readyState === 'open') {
+
+          // 좌표 계산 및 전송
+          const boardRect = gameBoard.getBoundingClientRect();
+          const mouseX = e.clientX - boardRect.left;
+          const mouseY = e.clientY - boardRect.top;
+
+          if (mouseX >= 0 && mouseX <= boardRect.width && mouseY >= 0 && mouseY <= boardRect.height) {
+              dataChannel.send(JSON.stringify({ x: mouseX, y: mouseY, inBoard: true }));
+          } else {
+              dataChannel.send(JSON.stringify({ inBoard: false }));
+          }
+        }
+
+        // --- 역할 2: 게임 드래그 로직 ---
+        // 드래그 중이 아닐 때는 이 로직을 실행하지 않습니다.
+        if (!isDragging) {
+            return;
+        }
+
+        // 마우스가 보드 위에 있을 때만 드래그 로직 실행
+        if (e.target.parentElement !== gameBoard) {
+            return;
+        }
+        
+        // (기존 드래그 로직을 여기에 그대로 가져옴)
+        const currRect = e.target.getBoundingClientRect();
+        const dragX = Math.min(dragStartX, currRect.left);
+        const dragY = Math.min(dragStartY, currRect.top);
+        const dragWidth = Math.abs(currRect.left - dragStartX);
+        const dragHeight = Math.abs(currRect.top - dragStartY);
+        
+        dragBox.style.left = `${dragX}px`;
+        dragBox.style.top = `${dragY}px`;
+        dragBox.style.width = `${dragWidth + currRect.width}px`;
+        dragBox.style.height = `${dragHeight + currRect.height}px`;
+
+        if (!startCell) return;
+
+        const index1 = [...board.children].indexOf(startCell) - 1;
+        const index2 = [...board.children].indexOf(e.target) - 1;
+        const row1 = Math.floor(index1 / cols);
+        const col1 = index1 % cols;
+        const row2 = Math.floor(index2 / cols);
+        const col2 = index2 % cols;
+
+        const currentIndex = [...board.children].indexOf(e.target) - 1;
+        const currentRow = Math.floor(currentIndex / cols);
+        const currentCol = currentIndex % cols;
+        selectionCoords.end = { row: currentRow, col: currentCol };
+
+        if (isAllowedDirection(row1, col1, row2, col2)) {
+            if (!selectedCells.includes(e.target)) {
+                selectCell(e.target);
+            }
+        }
+    });
+}
+
+  socket.on('getOffer', async (offer) => {
+    initializePeerConnection();
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+
+    const answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+    socket.emit('answer', { roomId: roomId, answer: answer });
+  });
+
+  socket.on('getAnswer', async (answer) => {
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+  });
+
+  socket.on('getIce', async (ice) => {
+    await peerConnection.addIceCandidate(new RTCIceCandidate(ice));
+  });
 
   if (roomId !== '') {
-    console.log(`전달받은 방 ID: ${roomId}`);
     // 이 roomId를 사용해 서버에 방 참여 요청 등을 보냅니다.
     socket.emit('getGame', userId, roomId);
   } else {
@@ -30,7 +160,6 @@ async function initializeGame() {
     window.location.href = `lobby.html`;
   });
 
-  const board = document.getElementById('game-board');
   const rows= 10; //행의 수
   const cols = 17; //열의 수
 
@@ -60,13 +189,38 @@ async function initializeGame() {
   let map_update = 0;
   socket.on('map', (data) => {
     if (map_update > 0) {
-      // 맵 한 번만 받아도 충분함.
       return;
     }
     DrawMap(data.mapData);
     mapData = data.mapData;
-    console.log(data.mapData);
-    console.log("맵을 받았습니다.");
+
+    async function createAndSendOffer() {
+      initializePeerConnection(); // P2P 객체 생성
+      dataChannel = peerConnection.createDataChannel('mouse-cursor-channel'); // 데이터 채널 생성
+      setupDataChannelEvents(); // 데이터 채널 이벤트 설정
+      
+      const offer = await peerConnection.createOffer();
+      await peerConnection.setLocalDescription(offer); // 자신의 정보로 offer 등록
+      socket.emit('offer', { roomId: roomId, offer: peerConnection.localDescription });
+
+      clearTimeout(connectionTimeout); // 이전 타이머가 있다면 해제
+      connectionTimeout = setTimeout(() => {
+          if (peerConnection.connectionState !== 'connected') {
+              console.warn("연결 시간 초과! 재연결을 시도합니다...");
+              createAndSendOffer(); // 연결 재시도
+          }
+      }, 3000);
+    }
+    setupMouseListeners();
+    // P2P 요청
+    // 내가 Player 1인지 확인하고, 맞다면 P2P 연결 제안(Offer)을 보냄
+    if (String(data.userId) === String(userId)) {
+      createAndSendOffer();
+    } else {
+      // Player 2는 Offer를 기다리기 전에 미리 P2P 객체를 만들어둬야 함
+      // (ICE Candidate 교환을 최대한 빨리 시작하기 위함)
+      initializePeerConnection();
+    }
 
     // user data 설정
     const score1Element = document.getElementById("user1");
@@ -88,7 +242,6 @@ async function initializeGame() {
 
 
   socket.on('getScore', (result) => {
-    console.log(result.userId);
     if (result.userId == userId) {
       if (result.num == 1) {
         const currentScore = getScore("user1");
@@ -128,12 +281,11 @@ async function initializeGame() {
   //드레그 시작(마우스 누르면 박스가 표시 시작 됨)
   board.addEventListener("mousedown", (e) => {
     if (e.target.parentElement !== board) return;
-
     //드레그 됐다고 표시, 기존에 드레그 된것(기존 선택 셀 초기화)
     isDragging = true; 
     clearSelection(); //기존에 선택한 셀을 초기화 했음
 
-    const startIndex = [...board.children].indexOf(e.target);
+    const startIndex = [...board.children].indexOf(e.target) - 1;
     const startRow = Math.floor(startIndex / cols);
     const startCol = startIndex % cols;
     
@@ -152,46 +304,6 @@ async function initializeGame() {
     dragBox.style.width = `${rect.width}px`;
     dragBox.style.height = `${rect.height}px`;
     dragBox.style.display = "block"; //드래그 박스 표시
-  });
-
-  //드래그 중 마우스 이동
-  board.addEventListener("mouseover", (e) => {
-    if (!isDragging || e.target.parentElement !== board) return;
-    
-    const currRect = e.target.getBoundingClientRect();
-
-    const x = Math.min(dragStartX, currRect.left);
-    const y = Math.min(dragStartY, currRect.top);
-    const width = Math.abs(currRect.left - dragStartX);
-    const height = Math.abs(currRect.top - dragStartY);
-
-    dragBox.style.left = `${x}px`;
-    dragBox.style.top = `${y}px`;
-    dragBox.style.width=`${width+currRect.width}px`;
-    dragBox.style.height = `${height+currRect.height}px`;
-
-
-    if (!startCell) return;
-
-    const index1 = [...board.children].indexOf(startCell);
-    const index2 = [...board.children].indexOf(e.target);
-
-    const row1 = Math.floor(index1 / cols);
-    const col1 = index1 % cols;
-    const row2 = Math.floor(index2 / cols);
-    const col2 = index2 % cols;
-
-    const currentIndex = [...board.children].indexOf(e.target);
-    const currentRow = Math.floor(currentIndex / cols);
-    const currentCol = currentIndex % cols;
-
-    selectionCoords.end = { row: currentRow, col: currentCol };
-
-    if (isAllowedDirection(row1, col1, row2, col2)) {
-      if (!selectedCells.includes(e.target)) {
-        selectCell(e.target);
-      }
-    }
   });
 
   //드래그 종료(마우스 뗐을 때)
@@ -239,7 +351,7 @@ async function initializeGame() {
     for (let i = startX; i <= endX; i++) {
       for (let j = startY; j <= endY; j++) {
         const index = i * cols + j;
-        const cellElement = board.children[index];
+        const cellElement = board.children[index+1];
 
         if (cellElement) {
           cellElement.textContent = '';
@@ -258,11 +370,6 @@ async function initializeGame() {
 
   //합이 10인지 확인하는 함수
   function checkSum() {
-    console.log(selectionCoords.start.row, 
-      selectionCoords.start.col, 
-      selectionCoords.end.row, 
-      selectionCoords.end.col);
-
     if (!selectionCoords.start || !selectionCoords.end) return;
 
     //숫자의 합이 10인지 확인하는 위치
@@ -321,7 +428,6 @@ async function initializeGame() {
     timeLeft = data.timeLeft;
     updateTimerUI();
     updateTimerBar();
-    console.log("game update");
   });
 
   socket.on('whatareyoudoing', () => {
@@ -340,7 +446,6 @@ async function initializeGame() {
     if (elo_diff > 0) {
       plus = "+";
     }
-
 
 
     if (game) {
@@ -364,7 +469,7 @@ async function initializeGame() {
         const drawOverlay=document.getElementById("drawOverlay");
         drawOverlay.classList.remove("hidden"); 
         setTimeout(()=>{
-        endGame(`비겼습니다!\n(점수: ${elo_diff})`);
+        endGame(`비겼습니다!\n(점수: ${plus}${elo_diff})`);
         },500);
       } else {
         game = false;
@@ -377,7 +482,7 @@ async function initializeGame() {
         loseOverlay.classList.remove("hidden");
         //endGame()에서 alert()가 먼저 뜨면 배너가 보이지 않을 수 도 있으서 시간 지연 시킴
         setTimeout(()=>{
-        endGame(`패배하였습니다!\n(점수: ${elo_diff})`);
+        endGame(`패배하였습니다!\n(점수: ${plus}${elo_diff})`);
       },500);
   }
   }});

@@ -22,6 +22,8 @@ function createMap() {
     sum = sum - temp;
     mapData[9][16] = 10 - (sum % 10);
 
+    console.log(mapData);
+    
     return mapData;
 }
 
@@ -57,6 +59,7 @@ function calculateScore(apple_list, mapData) {
     let sum = 0;
     let cnt = 0;
     for (const apple of apple_list) {
+        console.log(mapData[apple[0]][apple[1]]);
         if (Number(mapData[apple[0]][apple[1]]) != 0) {
             sum += Number(mapData[apple[0]][apple[1]]);
             cnt += 1;

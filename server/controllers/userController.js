@@ -43,6 +43,28 @@ async function getProfile(userId) {
     }
 }
 
+async function getRanking(userId) {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        const sql = 'SELECT ranking FROM Rankings WHERE user_id = ?';
+        const [row] = await connection.execute(sql, [userId]);
+        if (row.length > 0) {
+            return row[0];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(`${userId}의 조회에 실패하였습니다.`);
+        return null;
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+}
+
+
 async function updateUserNickname(userId, newUsername) {
     let connection;
     try {
@@ -158,5 +180,6 @@ module.exports = {
     updateUserImageUrl,
     updateUserNickname,
     calculateElo,
-    updateUserElo
+    updateUserElo,
+    getRanking
 }

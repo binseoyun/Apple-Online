@@ -187,7 +187,7 @@ function deleteRow(btn) {
     try {
       const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
       drawRoomList(data);
-    } catch(error) {
+    } catch (error) {
       console.log("방 목록을 불러오지 못했습니다.", error);
     }
   });

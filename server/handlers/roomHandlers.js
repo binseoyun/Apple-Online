@@ -416,7 +416,8 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 image1: image1,
                 image2: image2,
                 rating1: user1Data.elo_rating,
-                rating2: user2Data.elo_rating
+                rating2: user2Data.elo_rating,
+                userId: roomData.player1
             });
             return;
         }
@@ -442,11 +443,13 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             image1: image1,
             image2: image2,
             rating1: user1Data.elo_rating,
-            rating2: user2Data.elo_rating
+            rating2: user2Data.elo_rating,
+            userId: roomData.player1
         });
     };
 
     const dragApples = async (x1, y1, x2, y2, roomId, userId) => {
+        console.log('점수 획득 시도', userId, x1, y1, x2, y2);
         // 나중에 mapdata를 서버에 저장하고 불러와야함.
         try {
             const mapDataLoad = await redisClient.hGetAll(`game:map:${roomId}`);
@@ -486,6 +489,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                     userId: userId,
                     num: num
                 });
+                console.log('점수 획득', num, userId);
                 io.to(roomId).emit('deleteApple', {
                     row1: x1, col1: y1, row2: x2, col2: y2, userId: userId
                 });
@@ -516,7 +520,33 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             await handleDeleteRoom(io, redisClient, roomId);
             socket.emit('outRoom');
         }
-    })
+    });
+
+    socket.on('disconnecting', async () => {
+        try {
+            const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+        } catch (error) {
+
+        }
+    });
+
+    socket.on('disconnect', async () => {
+        setTimeout(() => {
+            io.in(userId).allSockets().then(async sockets => {
+            if (sockets.size === 0) {
+                console.log(`❌ A user disconnected: ${userId}`);
+                try {
+                    const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+                    const roomId = await redisClient.get(`user-${userId}-room`);
+                    const roomData = await redisClient.hGetAll(String(roomId));
+                    if (roomData.status === 'waiting') {
+                        handleDeleteRoom(io, redisClient, roomId);
+                    }
+                } catch (error) {}
+            }
+            })
+        }, 3000);
+    });
 
 
     socket.on('createRoom', handleCreateRoom);
@@ -525,6 +555,17 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     socket.on('joinRoom', joinRoom);
     socket.on('getGame', getGame);
     socket.on('dragApples', dragApples);
+
+    // WebRTC 시그널링 처리
+    socket.on('offer', (data) => {
+        socket.to(data.roomId).emit('getOffer', data.offer);
+    });
+    socket.on('answer', (data) => {
+        socket.to(data.roomId).emit('getAnswer', data.answer);
+    });
+    socket.on('ice', (data) => {
+        socket.to(data.roomId).emit('getIce', data.ice);
+    });
 };
 
 const handleDeleteRoom = async (io, redisClient, roomId) => {
