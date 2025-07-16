@@ -32,10 +32,11 @@
 💡
 
 혼자 하던 사과 게임을 “친구와 함께”하고 싶다는 마음에서 시작된 게임입니다.
+<img width="701" height="323" alt="사과 게임 로고(빨간색)" src="https://github.com/user-attachments/assets/43f1201a-3afe-44ab-816e-c3a36fc3fba6" />
 
 </aside>
 
-![사과 게임 로고(빨간색).png](attachment:0cf507a9-d396-4d02-8a38-e68346f0c797:사과_게임_로고(빨간색).png)
+
 
 우리 🍏**사과 게임**🍏 은 온라인에서 친구들끼리 방을 생성해서 1:1 로 게임을 진행할 수 있게 합니다. 
 
