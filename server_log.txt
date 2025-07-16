@@ -1,653 +1,121 @@
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  suppress all logs with { quiet: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도
+미인증 사용자 접속 시도
+미인증 사용자 접속 시도
+미인증 사용자 접속 시도
+미인증 사용자 접속 시도
 ✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
 ✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
+2: 큐 잡는 중...
+[ '6fae0c4e-fcda-450c-bb11-78db80f95ad9' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752664567113'
+}
+Room 6fae0c4e-fcda-450c-bb11-78db80f95ad9 is deleted.
+✅ A user visited our server!: 2
+✅ A user visited our server!: 3
+❌ A user disconnected: 3
+✅ A user visited our server!: 3
+✅ A user visited our server!: 3
+✅ A user visited our server!: 3
+✅ A user visited our server!: 3
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
 [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도
 미인증 사용자 접속 시도
 ✅ A user visited our server!: 2
+ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+}
+null
+❌ A user disconnected: 2
+✅ A user visited our server!: 3
+❌ A user disconnected: 3
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
 ✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
+❌ A user disconnected: 2
+ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+}
+[Profile Update] User 2 updated their profile.
+2의 조회에 실패하였습니다. Error: Duplicate entry '빈서윤' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '빈서윤' for key 'Users.nickname'"
+}
+null
+✅ A user visited our server!: 15
+ResultSetHeader {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+}
+[Profile Update] User 2 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/2-1752664220679.png
+✅ A user visited our server!: 15
+✅ A user visited our server!: 15
 [dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
 [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
 미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-0 1
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-0 1
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-0 1
-✅ A user visited our server!: 2
-disconnect 핸들러 내부의 io 객체: true
-disconnect 핸들러 내부의 io.adapter: [Function: adapter]
-0 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-2로 부터 게임 시작 요청이 들어왔습니다.
-19
-54
-4
-5
-2
-2
-1
-412
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-19
-9
-9
-9
-2
-7
-7
-7
-721
-9
-4
-42
-55
-82
-91
-46
-55
-91
-69feb8e5-a19a-419b-9526-a6c8f3af631d의 게임이 종료되었습니다.(승자 1)
-Room 69feb8e5-a19a-419b-9526-a6c8f3af631d is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-❌ A user disconnected: 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 47개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-27481330-0f62-4452-9bad-9dc952ad95ba의 게임이 종료되었습니다.(승자 1)
-Room 27481330-0f62-4452-9bad-9dc952ad95ba is deleted.
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  enable debug logging with { debug: true })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 28개의 랭킹 정보가 변경되었습니다.
-bb6df124-b739-4175-87ad-b92a0b493fd0의 게임이 종료되었습니다.(승자 1)
-Room bb6df124-b739-4175-87ad-b92a0b493fd0 is deleted.
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
+✅ A user visited our server!: 15
+❌ A user disconnected: 15
+[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
 [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 33개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-be0a1c48-583d-4a11-93f8-1336f23d6491의 게임이 종료되었습니다.(승자 1)
-Room be0a1c48-583d-4a11-93f8-1336f23d6491 is deleted.
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 30개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-❌ A user disconnected: 2
-✅ A user visited our server!: 2
-✅ A user visited our server!: 16
-✅ A user visited our server!: 16
-16: 큐 잡는 중...
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-33: 큐 잡는 중...
-❌ A user disconnected: 33
-❌ A user disconnected: 16
-❌ A user disconnected: 33
-✅ A user visited our server!: 33
-33로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 16
-16로 부터 게임 시작 요청이 들어왔습니다.
-947e6db1-0b77-4c8d-9339-9e2fee1ee759의 게임이 종료되었습니다.(승자 33)
-Room 947e6db1-0b77-4c8d-9339-9e2fee1ee759 is deleted.
-✅ A user visited our server!: 16
-✅ A user visited our server!: 33
-✅ A user visited our server!: 16
-16: 큐 잡는 중...
-❌ A user disconnected: 33
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-33: 큐 잡는 중...
-❌ A user disconnected: 16
-✅ A user visited our server!: 16
-16로 부터 게임 시작 요청이 들어왔습니다.
-33로 부터 게임 시작 요청이 들어왔습니다.
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 48개의 랭킹 정보가 변경되었습니다.
-a108a480-8eba-4134-a6e5-19b6b7e48ab5의 게임이 종료되었습니다.(승자 33)
-Room a108a480-8eba-4134-a6e5-19b6b7e48ab5 is deleted.
-✅ A user visited our server!: 16
-✅ A user visited our server!: 33
-❌ A user disconnected: 33
-❌ A user disconnected: 33
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-33: 큐 잡는 중...
-✅ A user visited our server!: 2
-[ '0d6f737b-6733-4ac6-8db0-fd93e07097bc' ]
-[Object: null prototype] {
-  title: 'fastRoom of 33',
-  nickname: '',
-  password: '',
-  player1: '33',
-  player2: '',
-  status: 'waiting',
-  createdAt: '1752649848775'
-}
-Room 0d6f737b-6733-4ac6-8db0-fd93e07097bc is deleted.
-✅ A user visited our server!: 33
-✅ A user visited our server!: 33
-33: 큐 잡는 중...
-[ '74fd9d4e-5c5c-4b3e-a85f-18a05189fa2e' ]
-[Object: null prototype] {
-  title: 'fastRoom of 33',
-  nickname: '',
-  password: '',
-  player1: '33',
-  player2: '',
-  status: 'waiting',
-  createdAt: '1752649853349'
-}
-Room 74fd9d4e-5c5c-4b3e-a85f-18a05189fa2e is deleted.
-✅ A user visited our server!: 33
-❌ A user disconnected: 33
-❌ A user disconnected: 33
-✅ A user visited our server!: 3
-✅ A user visited our server!: 2
-✅ A user visited our server!: 3
-✅ A user visited our server!: 3
-[Room Created] ID: 612c8fa6-9b51-4917-a661-78402a5de830 by 황정현
-✅ A user visited our server!: 2
-2 joined 612c8fa6-9b51-4917-a661-78402a5de830
-✅ A user visited our server!: 3
-✅ A user visited our server!: 3
-❌ A user disconnected: 3
-✅ A user visited our server!: 3
-✅ A user visited our server!: 34
-❌ A user disconnected: 3
-❌ A user disconnected: 3
-✅ A user visited our server!: 34
-✅ A user visited our server!: 34
-✅ A user visited our server!: 34
-34: 큐 잡는 중...
-[ '2a529ae5-6b6c-48da-ad04-50a8478d3025' ]
-[Object: null prototype] {
-  title: 'fastRoom of 34',
-  nickname: '',
-  password: '',
-  player1: '34',
-  player2: '',
-  status: 'waiting',
-  createdAt: '1752650134734'
-}
-Room 2a529ae5-6b6c-48da-ad04-50a8478d3025 is deleted.
-✅ A user visited our server!: 34
-✅ A user visited our server!: 34
-34: 큐 잡는 중...
-❌ A user disconnected: 34
-Room 612c8fa6-9b51-4917-a661-78402a5de830 is deleted.
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  override existing env vars with { override: true })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 39개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-❌ A user disconnected: 2
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 30개의 랭킹 정보가 변경되었습니다.
-❌ A user disconnected: 2
-✅ A user visited our server!: 17
-✅ A user visited our server!: 2
-✅ A user visited our server!: 17
-17: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 17
-❌ A user disconnected: 17
-✅ A user visited our server!: 17
-17로 부터 게임 시작 요청이 들어왔습니다.
-2로 부터 게임 시작 요청이 들어왔습니다.
-player1의 승리! rating 상승!
-c7b78751-dcab-44f0-871a-4bc8df4ccccb의 게임이 종료되었습니다.(승자 17)
-Room c7b78751-dcab-44f0-871a-4bc8df4ccccb is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 17
-✅ A user visited our server!: 17
-✅ A user visited our server!: 17
-17: 큐 잡는 중...
-✅ A user visited our server!: 32
-✅ A user visited our server!: 32
-32: 큐 잡는 중...
-❌ A user disconnected: 32
-❌ A user disconnected: 32
-❌ A user disconnected: 17
-✅ A user visited our server!: 32
-✅ A user visited our server!: 17
-32로 부터 게임 시작 요청이 들어왔습니다.
-17로 부터 게임 시작 요청이 들어왔습니다.
-player1의 승리! rating 상승!
-5f1def09-2a7a-4b97-9fa3-37756ef9f34b의 게임이 종료되었습니다.(승자 17)
-Room 5f1def09-2a7a-4b97-9fa3-37756ef9f34b is deleted.
-✅ A user visited our server!: 17
-❌ A user disconnected: 17
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  enable debug logging with { debug: true })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 37개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-가입 시도 황정현1
-✅ A user visited our server!: 201268
-✅ A user visited our server!: 201268
-❌ A user disconnected: 201268
-✅ A user visited our server!: 201268
-✅ A user visited our server!: 201268
-❌ A user disconnected: 201268
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-2로 부터 게임 시작 요청이 들어왔습니다.
-player1의 승리! rating 상승!
-a4c25d21-487b-4fc0-aa43-1061fd1535e5의 게임이 종료되었습니다.(승자 1)
-Room a4c25d21-487b-4fc0-aa43-1061fd1535e5 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 37개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 31개의 랭킹 정보가 변경되었습니다.
-285ce76f-8f36-47b4-b688-beaca272b96d의 게임이 종료되었습니다.(승자 1)
-Room 285ce76f-8f36-47b4-b688-beaca272b96d is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-2로 부터 게임 시작 요청이 들어왔습니다.
-1로 부터 게임 시작 요청이 들어왔습니다.
-fecbcbd6-1506-424f-92f6-a05bfc52dfe6의 게임이 종료되었습니다.(승자 )
-Room fecbcbd6-1506-424f-92f6-a05bfc52dfe6 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-792493bc-9b11-45ee-b595-347275a7f565의 게임이 종료되었습니다.(승자 )
-Room 792493bc-9b11-45ee-b595-347275a7f565 is deleted.
-✅ A user visited our server!: 2
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 33개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-player1의 승리! rating 상승!
-785a925f-e6cf-4257-9eb1-ebe8c73fa347의 게임이 종료되었습니다.(승자 1)
-Room 785a925f-e6cf-4257-9eb1-ebe8c73fa347 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-2로 부터 게임 시작 요청이 들어왔습니다.
-198322d0-b188-48a7-998f-81ccaf2c7ce9의 게임이 종료되었습니다.(승자 )
-Room 198322d0-b188-48a7-998f-81ccaf2c7ce9 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-❌ A user disconnected: 1
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-2로 부터 게임 시작 요청이 들어왔습니다.
-player1의 승리! rating 상승!
-437df295-a9e3-4c0c-801e-23e27838aad5의 게임이 종료되었습니다.(승자 1)
-Room 437df295-a9e3-4c0c-801e-23e27838aad5 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  override existing env vars with { override: true })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  enable debug logging with { debug: true })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 31개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-fa632992-bae0-4812-bf74-8bd283f53576의 게임이 종료되었습니다.(승자 1)
-Room fa632992-bae0-4812-bf74-8bd283f53576 is deleted.
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 33개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 31개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-❌ A user disconnected: 2
-❌ A user disconnected: 2
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 31개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-✅ A user visited our server!: 1
-✅ A user visited our server!: 1
-1: 큐 잡는 중...
-✅ A user visited our server!: 2
-2: 큐 잡는 중...
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-❌ A user disconnected: 1
-❌ A user disconnected: 2
-✅ A user visited our server!: 1
-1로 부터 게임 시작 요청이 들어왔습니다.
-✅ A user visited our server!: 2
-2로 부터 게임 시작 요청이 들어왔습니다.
-❌ A user disconnected: 1
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 15
+✅ A user visited our server!: 15
+✅ A user visited our server!: 15

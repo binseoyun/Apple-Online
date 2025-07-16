@@ -625,6 +625,7 @@ const handleDeleteRoom = async (io, redisClient, roomId) => {
     await redisClient.sRem('waits', String(user2));
     await redisClient.del(`user-${user1}-room`);
     await redisClient.del(`user-${user2}-room`);
+    await redisClient.del(`game:map:${roomId}`);
 
     // 방 목록 및 유저 목록에서 제거
     await redisClient.sRem('rooms:playing', roomId);
