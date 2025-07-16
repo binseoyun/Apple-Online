@@ -1,40 +1,10 @@
-# Apple-Online
-
-# 😎 Team
-
-### **🧑‍💻** 황정현
-
-- KAIST 전산학부 21학번
-- jh0927@kaist.ac.kr
-- https://github.com/jpt0927
-- 바보
-
-### **👩‍💻** 빈서윤
-
-- 숙명여자대학교 소프트웨어학부 23학번
-- sunnybin04@sookmyung.ac.kr
-- https://github.com/binseoyun
-
-### 기능
-- 구글 클라우드로 서버 배포(https)
-- API 명세서
-- 구글 로그인
-- 로비 시스템(redis)
-- 실시간 게임 구현(socket.io)
-- 프로필 및 게임 전적 검색(mySQL)
-- 랭킹 시스템(elo ranking system) - 10분마다 전체 랭킹 업데이트
-- 방 생성 및 삭제/검색
-
+# **📱 서버 링크 >** https://www.applegame.shop
 
 # 💭 기획 의도
 
-<aside>
 💡
 
 혼자 하던 사과 게임을 “친구와 함께”하고 싶다는 마음에서 시작된 게임입니다.
-<img width="701" height="323" alt="사과 게임 로고(빨간색)" src="https://github.com/user-attachments/assets/43f1201a-3afe-44ab-816e-c3a36fc3fba6" />
-
-</aside>
 
 
 
@@ -44,26 +14,26 @@
 
 # 💫 게임 설명
 
-## 1.게임 목표
+## 1. 게임 목표
 
 ---
 
 제한 시간 1분 안에 **사과에 적힌 숫자의 합이 10**이 되도록 사과를 선택하여 점수를 얻는 게임입니다.
 상대를 이겨 승리하고 랭킹을 높여보세요! 강한 상대를 이길 수록 랭킹이 크게 증가합니다!!
 
-## 2.플레이 방식
+## 2. 플레이 방식
 
 ---
 
 화면에 나타난 **사과들을 마우스로 드래그**하여 선택합니다. 선택한 사과의 합이 10이 되면 해당 사과들이 사라지며 점수를 획득합니다.
 
-## 3.진행 방식
+## 3. 진행 방식
 
 ---
 
 **1:1 실시간 대결**로 진행됩니다. 제한 시간 10분 동안 상대방보다 더 높은 점수를 얻으면 승리하게 되고, 강한 상대를 이길 수록 랭킹이 많이 상승합니다.
 
-## 4.재미 요소
+## 4. 재미 요소
 
 ---
 
@@ -94,30 +64,12 @@
 ## 🏛️ 게임 로비 화면
 
 - 상대가 생성한 **Room 확인**(방 이름, 생성자, 참여자 수, Enter/Delete)
-- **방 이름 검색** 기능
-- **접속자 수** 확인 가능
-- **Create Room** button을 통한 방 생성
+- **방 이름 검색** 기능 & **방 목록** 실시간 업데이트
+- **현재 동시 접속자 수** 확인 가능(실시간)
+- **방 만들기** 버튼을 통한 방 생성 & **빠른 참여** 버튼을 통한 과정 생략
 - 사과 게임 **튜토리얼** 확인
 - View Ranking button 클릭 시 Top3 Players 확인
 - View Profile button 클릭 시 나의 Profile 확인
-- 현재 게임 접속자 수 확인 가능
-
-**튜토리얼 확인**
-
-![image.png](attachment:6075c7e4-4362-4505-a6b2-47e4807b5a26:image.png)
-
-**방 검색(자동 필터링)**
-
-
-https://github.com/user-attachments/assets/afaf7a8a-f364-4ef0-b5b4-3abf196d783e
-
-
-
-**스크롤 해서 방 확인하고 게임 접속**
-
-https://github.com/user-attachments/assets/4ffeb5d0-3beb-451d-8f4d-de4e6dc00f87
-
-
 
 ---
 
@@ -130,22 +82,12 @@ https://github.com/user-attachments/assets/4ffeb5d0-3beb-451d-8f4d-de4e6dc00f87
 - Create 버튼 클릭했다면 대기 화면이 뜨며 상대를 기다림
 - 상대가 들어온다면 게임 시작***!!***
 
-https://github.com/user-attachments/assets/97d51d3e-2a19-4a79-9f1d-ee9d37ec5227
-
-
-
-
 ---
 
 ## 🔄 대기 화면
 
 - 방을 만든 후 상대가 들어오기 전까지 대기(사과가 움직임)
 - 상대가 내가 만든 방에 들어오면 게임 화면으로 자동 전환
-
-
-https://github.com/user-attachments/assets/127d8e0f-91ad-4fba-816e-254304be38f4
-
-
 
 ---
 
@@ -154,20 +96,12 @@ https://github.com/user-attachments/assets/127d8e0f-91ad-4fba-816e-254304be38f4
 - **Ranking TOP3 Player**를 볼 수 있는 화면
 - 상단에 Lobby로 돌아가는 Back to Lobby button
 - 상단에 나의 Profile을 볼 수 있는 View Profile button
-
-
-https://github.com/user-attachments/assets/0eadd317-7f59-487a-972f-9079c0633624
+- 랭킹은 서버 자체적으로 10분마다 업데이트
 
 
 ---
 
 ## 🙍 프로필 화면 + 프로필 편집
-
-
-https://github.com/user-attachments/assets/5544b30a-e181-4648-84c1-75afa5450448
-
-
-
 
 - **나의 프로필**을 볼 수 있는 화면
 - **Edit Profile button**을 통해 image와 username 변경
@@ -188,11 +122,11 @@ https://github.com/user-attachments/assets/5544b30a-e181-4648-84c1-75afa5450448
 - 승리 시 승리 배너+꽃가루+승리 BGM 🎇
 - 패배 시 패배 배너+꽃가루+패배 BGM 😣
 
-(현재 상대가 생성해 대기중인 방에 들어갔기 때문에 대기 없이 바로 게임 진행)
+ (현재 상대가 생성해 대기중인 방에 들어갔기 때문에 대기 없이 바로 게임 진행)
 
 ---
 
-# 💎 구현 과정
+# 🪄 기능 구현
 
 ---
 
@@ -205,13 +139,30 @@ https://github.com/user-attachments/assets/5544b30a-e181-4648-84c1-75afa5450448
 ### **📌 유저 정보 및 전적 관리(MySQL)**
 
 - 유저 정보와 전적 기록은 영구적으로 기록해야 하는 정보이기 때문에, MySQL을 통해 구현했다.
-- 
+- Rankings 테이블은 서버에서 10분마다 업데이트한다. **(Elo Rating System 사용)**
 
 ### **📌 게임 구동(Socket.io & WebRTC)**
 
 - 실시간으로 서버와 정보를 주고 받기 위해 socket.io를 사용했다.
+- 게임 참여, 맵 생성과 사과 제거까지의 모든 과정은 서버와의 소통 속에서 이루어진다.(치팅 방지)
+- 유저 간의 마우스 포인터 공유는 WebRTC를 통한 P2P 통신 방식으로 구현했다.(서버 부하 줄이기)
 
-### **📌 API 명세서(http)**
+### **📌 API 명세서(HTTP)**
+
+| 기능 | method | URL | 내용 |
+| --- | --- | --- | --- |
+| 구글 로그인 | GET | /auth/* | 구글 로그인 및 인증 관련 처리 |
+| 프로필 조회 | GET | /api/profile/get | 유저 프로필 조회 |
+| 유저 랭킹 조회 | GET | /api/profile/get/ranking | 유저 등수 조회 |
+| 전체 랭킹 조회 | GET | /api/ranking/get | 서버 전체 랭킹 조회 |
+| 전적 조회 | GET | /api/users/me/history | 사과 게임 전적 기록 조회 |
+| 프로필 수정 | POST | /api/profile/update | 유저 닉네임 및 프로필 사진 변경 |
+
+### **📌 서버 배포**
+
+- GCP(Google Cloud Platform)을 통해 서버를 열었다.
+- Nginx를 통해 들어온 http 패킷을 node.js로 연결한다.
+- 서버는 HTTPS 프로토콜을 사용한다.
 
 # 🚀 기술 스택
 
@@ -220,65 +171,47 @@ https://github.com/user-attachments/assets/5544b30a-e181-4648-84c1-75afa5450448
 - **HTML, CSS, JavaScript**
     
     > 웹 표준 기술인 HTML, CSS, JavaScript를 사용하여 '사과 게임'의 UI와 동적인 게임 화면을 구현합니다. 유저의 입력에 실시간으로 반응하고 직관적인 경험을 제공하는 데 중점을 두었습니다.
-    > 
 - **Tailwind**
     
-    > UI Framework 작업을 위한 유틸리티 기반의 프레임 워크입니다.  Tailwind 는 직접 클래스를 조합해 빠르게 UI를 구현할 수 있어, 일관된 디자인과 빠른 개발 속도를 위해 채택하였습니다.
-    > 
+    > UI Framework 작업을 위한 유틸리티 기반의 프레임 워크 입니다.  Tailwind 는 직접 클래스를 조합해 빠르게 UI를 구현할 수 있어, 일관된 디자인과 빠른 개발 속도를 위해 채택하였습니다.
+
 
 ### **📌 Back-end**
 
 - **Node.js**
     
     > Node.js의 Express 프레임워크를 기반으로 API 서버를 구축했습니다. 비동기 I/O 모델의 장점을 활용하여 실시간 게임 로직 처리, 데이터베이스 연동 등 핵심적인 게임 로직을 효율적으로 수행합니다.
-    > 
+  
 
 ### **📌 Database**
 
 - **Redis**
     
     > 인메모리(In-Memory) 데이터 스토어인 Redis를 사용하여 실시간성이 가장 중요한 게임방 정보, 참여 유저 상태 등을 초고속으로 처리합니다. 휘발성 데이터를 빠르게 캐싱하여 DB 부하를 최소화하는 역할을 담당합니다.
-    > 
 - **MySQL**
     
-    > 관계형 데이터베이스인 MySQL을 활용하여 회원 정보, 게임 전적, 계정 데이터 등 영구적으로 보관해야 할 데이터를 안정적으로 저장하고 관리합니다. 데이터의 무결성과 정합성을 보장합니다.
-    > 
+    > 관계형 데이터베이스인 MySQL을 활용하여 회원 정보, 게임 전적, 계정 데이터 등 영구적으로 보관해야 할 데이터를 안정적으로 저장하고 관리합니다. 데이터 적합성을 보장합니다.
 
 ### **📌 Real-time Communication**
 
 - **Socket.IO**
     
     > 사용자와 서버, 그리고 사용자 간의 실시간 양방향 통신을 위해 Socket.IO 라이브러리를 사용합니다. WebRTC 연결을 위한 시그널링, 게임 내 이벤트 동기화 등 '사과 게임'의 핵심적인 실시간 기능을 구현하는 데 사용됩니다.
-    > 
 - **WebRTC (Web Real-Time Communication)**
     
     > P2P(Peer-to-Peer) 통신을 기반으로 하여 서버를 거치지 않고 사용자 간에 직접 데이터를 교환함으로써 **지연 시간을 최소화**하는 데 특화되어 있습니다. 유저 간의 마우스 포인터 위치 교환을 위해 사용합니다.
-    > 
 
 ### **📌 Infra & Deployment**
 
 - **Google Cloud Platform (GCP)**
     
     > 안정적이고 확장성 있는 서비스 운영을 위해 Google Cloud Platform(GCP)을 인프라로 사용합니다. Compute Engine(VM)을 통해 애플리케이션 서버를 배포하고, 필요에 따라 유연하게 서버 자원을 관리합니다.
-    > 
 - **Nginx**
     
     > Node.js 서버의 안정성과 성능 향상을 위해 Nginx를 리버스 프록시(Reverse Proxy) 서버로 활용합니다. 이를 통해 정적 파일(HTML, CSS 등) 서빙, 로드 밸런싱, HTTPS(SSL) 적용 등의 작업을 처리하여 백엔드 서버가 비즈니스 로직에만 집중할 수 있도록 부하를 분산시킵니다.
-    > 
 
 ### **📌 Authentication**
 
 - **Google Login SDK**
     
     > 사용자 편의성을 높이기 위해 Google Login SDK를 연동하여, 사용자들이 별도의 회원가입 절차 없이 기존 Google 계정으로 간편하고 안전하게 로그인할 수 있는 소셜 로그인 기능을 제공합니다.
-    > 
-
-# 😀 후기
-
-### **🧑‍💻 황정현**
-
-처음에는 웹 개발의 구조를 잘 몰라서 헤맸었지만 이젠 어느 정도 감을 잡게 된 것 같다. 사과 게임은 간단한 게임이지만, 온라인에서 구현하는 과정은 생각보다 신경 쓸 점이 많았다. 결과물이 기대보다 잘 나온 것 같아 만족스럽다.
-
-### **👩‍💻 빈서윤**
-
-프론트엔드를 맡아서 개발을 해본 경험이 처음이여서 처음에 게임 화면을 구상과, 게임의 전반적인 흐름을 생각하는 게 어려웠다. 하지만 내가 구현한 기능들이 바로바로 눈에 보이고 게임으로 바로 실행해 볼 수 있어서 재밌었다.
