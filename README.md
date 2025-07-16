@@ -15,7 +15,7 @@
 - sunnybin04@sookmyung.ac.kr
 - https://github.com/binseoyun
 
-1. 기능 - 게임설명
+#기능
 - 구글 클라우드로 서버 배포(https)
 - API 명세서
 - 구글 로그인
@@ -24,8 +24,7 @@
 - 프로필 및 게임 전적 검색(mySQL)
 - 랭킹 시스템(elo ranking system) - 10분마다 전체 랭킹 업데이트
 - 방 생성 및 삭제/검색
-1. 구현
-2. 기술스택
+
 
 # 💭 기획 의도
 
