@@ -569,6 +569,10 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             }
             })
         }, 3000);
+
+        const num = await redisClient.sCard('waits');
+        const num2 = io.sockets.adapter.rooms.get('lobby')?.size || 0;
+        io.emit('playerNum', num + num2);
     });
 
     socket.on('outFastRoom', async () => {

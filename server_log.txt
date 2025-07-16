@@ -951,3 +951,827 @@ null
 🚀 Server is running on http://localhost:3000
 ✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
 미인증 사용자 접속 시도
+미인증 사용자 접속 시도
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+1
+beab834d-6789-4022-8c8b-9de761d34b15
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752669378002'
+}
+❌ A user disconnected: 17
+2로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 17
+17로 부터 게임 시작 요청이 들어왔습니다.
+1
+beab834d-6789-4022-8c8b-9de761d34b15
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752669378002'
+}
+beab834d-6789-4022-8c8b-9de761d34b15의 게임이 종료되었습니다.(승자 2)
+Room beab834d-6789-4022-8c8b-9de761d34b15 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+[ '15749a78-2906-4600-9702-7aa72ffac24b' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752669819334'
+}
+Room 15749a78-2906-4600-9702-7aa72ffac24b is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 17
+✅ A user visited our server!: 2
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+[ '1a195c4c-60e3-4502-87e1-65a36720e29f' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752669834811'
+}
+Room 1a195c4c-60e3-4502-87e1-65a36720e29f is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+[ '094dc061-6116-4e3d-a6cd-7e9b673531a3' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752669871210'
+}
+Room 094dc061-6116-4e3d-a6cd-7e9b673531a3 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+[ 'c111d695-c686-441f-89bc-4dfe5e8faad8' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752669965160'
+}
+Room c111d695-c686-441f-89bc-4dfe5e8faad8 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+[ '0d66e9ee-7af4-4dff-a44d-16e28f76a8d8' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670003759'
+}
+Room 0d66e9ee-7af4-4dff-a44d-16e28f76a8d8 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+❌ A user disconnected: 17
+유저 검사 중...
+검사 중:  17 null
+[Profile Update] User 17 updated their profile.
+유저 검사 중...
+검사 중:  17 null
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+1
+28ce3947-01e2-49aa-bdb5-280bd7ba0b30
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670087959'
+}
+❌ A user disconnected: 17
+✅ A user visited our server!: 17
+17로 부터 게임 시작 요청이 들어왔습니다.
+2로 부터 게임 시작 요청이 들어왔습니다.
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 55개의 랭킹 정보가 변경되었습니다.
+1
+28ce3947-01e2-49aa-bdb5-280bd7ba0b30
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670087959'
+}
+player1의 승리! rating 상승!
+28ce3947-01e2-49aa-bdb5-280bd7ba0b30의 게임이 종료되었습니다.(승자 17)
+Room 28ce3947-01e2-49aa-bdb5-280bd7ba0b30 is deleted.
+유저 검사 중...
+검사 중:  2 null
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+[ 'caf2e106-822a-403b-985f-3c7d9aa914dc' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670288322'
+}
+Room caf2e106-822a-403b-985f-3c7d9aa914dc is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+[Room Created] ID: 7253f746-d654-439e-89ef-dbee99e82127 by 렛츠끼끼
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17 joined 7253f746-d654-439e-89ef-dbee99e82127
+유저 검사 중...
+인증되지 않았습니다.
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2 joined 7253f746-d654-439e-89ef-dbee99e82127
+7253f746-d654-439e-89ef-dbee99e82127 started the game.
+1
+7253f746-d654-439e-89ef-dbee99e82127
+[Object: null prototype] {
+  title: '한판뜨자',
+  nickname: '렛츠끼끼',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670410857'
+}
+❌ A user disconnected: 17
+✅ A user visited our server!: 17
+17로 부터 게임 시작 요청이 들어왔습니다.
+2로 부터 게임 시작 요청이 들어왔습니다.
+1
+7253f746-d654-439e-89ef-dbee99e82127
+[Object: null prototype] {
+  title: '한판뜨자',
+  nickname: '렛츠끼끼',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670410857'
+}
+유저 검사 중...
+검사 중:  15 null
+✅ A user visited our server!: 15
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 15
+15: 큐 잡는 중...
+유저 검사 중...
+검사 중:  15 dbe4d685-bfde-4a0f-b70b-552052994394
+[Object: null prototype] {
+  title: 'fastRoom of 15',
+  nickname: '',
+  password: '',
+  player1: '15',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670569596'
+}
+Room dbe4d685-bfde-4a0f-b70b-552052994394 is deleted.
+15 wait 이탈을 감지하여 룸을 제거하였습니다. dbe4d685-bfde-4a0f-b70b-552052994394
+유저 검사 중...
+검사 중:  15 null
+0
+null
+[Object: null prototype] {}
+15: 큐 잡는 중...
+1
+5a34b786-9f52-45cb-a2f3-fdb95ad507e4
+[Object: null prototype] {
+  title: 'fastRoom of 15',
+  nickname: '',
+  password: '',
+  player1: '15',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670581386'
+}
+Room 5a34b786-9f52-45cb-a2f3-fdb95ad507e4 is deleted.
+7253f746-d654-439e-89ef-dbee99e82127의 게임이 종료되었습니다.(승자 2)
+Room 7253f746-d654-439e-89ef-dbee99e82127 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  2 null
+[]
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+[]
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 15
+15: 큐 잡는 중...
+1
+71f1b42e-c1d8-498d-b545-af82e4e26058
+[Object: null prototype] {
+  title: 'fastRoom of 15',
+  nickname: '',
+  password: '',
+  player1: '15',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670590589'
+}
+Room 71f1b42e-c1d8-498d-b545-af82e4e26058 is deleted.
+✅ A user visited our server!: 15
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  17 null
+유저 검사 중...
+검사 중:  15 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17: 큐 잡는 중...
+[ '40e4953d-e11c-4d62-b531-b498d8c0d861' ]
+[Object: null prototype] {
+  title: 'fastRoom of 17',
+  nickname: '',
+  password: '',
+  player1: '17',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752670597501'
+}
+Room 40e4953d-e11c-4d62-b531-b498d8c0d861 is deleted.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+❌ A user disconnected: 15
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+[Room Created] ID: c3d661ea-4da2-4cb3-96c1-a013f712e744 by 렛츠끼끼
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+17 joined c3d661ea-4da2-4cb3-96c1-a013f712e744
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2 joined c3d661ea-4da2-4cb3-96c1-a013f712e744
+c3d661ea-4da2-4cb3-96c1-a013f712e744 started the game.
+1
+c3d661ea-4da2-4cb3-96c1-a013f712e744
+[Object: null prototype] {
+  title: '아 억울해 다시 들어와',
+  nickname: '렛츠끼끼',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670606684'
+}
+❌ A user disconnected: 17
+✅ A user visited our server!: 17
+17로 부터 게임 시작 요청이 들어왔습니다.
+2로 부터 게임 시작 요청이 들어왔습니다.
+1
+c3d661ea-4da2-4cb3-96c1-a013f712e744
+[Object: null prototype] {
+  title: '아 억울해 다시 들어와',
+  nickname: '렛츠끼끼',
+  password: '',
+  player1: '17',
+  player2: '2',
+  status: 'playing',
+  createdAt: '1752670606684'
+}
+player1의 승리! rating 상승!
+c3d661ea-4da2-4cb3-96c1-a013f712e744의 게임이 종료되었습니다.(승자 17)
+Room c3d661ea-4da2-4cb3-96c1-a013f712e744 is deleted.
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+인증되지 않았습니다.
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 40개의 랭킹 정보가 변경되었습니다.
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+유저 검사 중...
+검사 중:  17 null
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+[ 'ad8a0938-c6d8-4a91-b212-e18766131e3d' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752671138900'
+}
+Room ad8a0938-c6d8-4a91-b212-e18766131e3d is deleted.
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  17 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 17
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 17
+❌ A user disconnected: 17
+유저 검사 중...
+인증되지 않았습니다.
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
