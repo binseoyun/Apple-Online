@@ -357,6 +357,7 @@ async function initializeGame() {
           cellElement.textContent = '';
           cellElement.style.backgroundImage = 'none';
           cellElement.classList.remove('apple');
+          cellElement.dataset.value = '0';
         }
       }
     }
@@ -372,14 +373,22 @@ async function initializeGame() {
   function checkSum() {
     if (!selectionCoords.start || !selectionCoords.end) return;
 
+    let currentSum = 0;
+    selectedCells.forEach(cell => {
+        // 각 셀의 'data-value' 속성에 저장된 숫자 값을 가져와 더합니다.
+        currentSum += Number(cell.dataset.value);
+    });
+
     //숫자의 합이 10인지 확인하는 위치
-    socket.emit('dragApples', 
-      selectionCoords.start.col, 
-      selectionCoords.start.row, 
-      selectionCoords.end.col, 
-      selectionCoords.end.row,
-      roomId, userId
-    );
+    if (currentSum === 10) {
+      socket.emit('dragApples', 
+        selectionCoords.start.col, 
+        selectionCoords.start.row, 
+        selectionCoords.end.col, 
+        selectionCoords.end.row,
+        roomId, userId
+      );
+    }
   }
 
   function isAllowedDirection(startRow, startCol, currRow, currCol) {

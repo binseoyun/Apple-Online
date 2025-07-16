@@ -36,10 +36,6 @@ function dragApple(x1, y1, x2, y2, mapData) {
 
     const cnt = (x_end - x_start + 1) * (y_end - y_start + 1);
 
-    if (cnt >= 10) {
-        return apple_list;
-    }
-
     if ((x_start <= x_end) && (y_start <= y_end)) {
         for (let i = y_start; i <= y_end; i++) {
             for (let j = x_start; j <= x_end; j++) {
@@ -56,16 +52,13 @@ function calculateScore(apple_list, mapData) {
 
     let sum = 0;
     let cnt = 0;
-    let debug = '';
     for (const apple of apple_list) {
-        debug = debug + String(mapData[apple[0]][apple[1]]);
         if (Number(mapData[apple[0]][apple[1]]) != 0) {
             sum += Number(mapData[apple[0]][apple[1]]);
             cnt += 1;
         }
         if (sum > 10) return 0;
     }
-    console.log(debug);
 
     if (sum == 10) return cnt;
     else return 0;
