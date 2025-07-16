@@ -610,8 +610,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
     socket.on('playerNum', async () => {
         const num = await redisClient.sCard('waits');
-        const room = io.adapter.rooms.get(roomId);
-        const num2 = room ? room.size : 0;
+        const num2 = io.sockets.adapter.rooms.get('lobby')?.size || 0;
         io.emit('playerNum', num + num2);
     });
 };
