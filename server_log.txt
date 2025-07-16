@@ -1,19 +1,21 @@
+유저 검사 중...
 [dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  suppress all logs with { quiet: true })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
 ✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
+유저 검사 중...
+검사 중:  2 null
 ✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
 ✅ A user visited our server!: 2
 2: 큐 잡는 중...
-[ '6fae0c4e-fcda-450c-bb11-78db80f95ad9' ]
+1
+4521e8eb-2f6f-48b8-8b1e-90367c3d92ed
 [Object: null prototype] {
   title: 'fastRoom of 2',
   nickname: '',
@@ -21,115 +23,931 @@
   player1: '2',
   player2: '',
   status: 'waiting',
-  createdAt: '1752664567113'
+  createdAt: '1752667213506'
 }
-Room 6fae0c4e-fcda-450c-bb11-78db80f95ad9 is deleted.
+Room 4521e8eb-2f6f-48b8-8b1e-90367c3d92ed is deleted.
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
 ✅ A user visited our server!: 2
-✅ A user visited our server!: 3
-❌ A user disconnected: 3
-✅ A user visited our server!: 3
-✅ A user visited our server!: 3
-✅ A user visited our server!: 3
-✅ A user visited our server!: 3
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
-미인증 사용자 접속 시도
-미인증 사용자 접속 시도
-✅ A user visited our server!: 2
-ResultSetHeader {
-  fieldCount: 0,
-  affectedRows: 1,
-  insertId: 0,
-  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
-  serverStatus: 2,
-  warningStatus: 0,
-  changedRows: 1
-}
+유저 검사 중...
+검사 중:  2 null
+0
 null
-❌ A user disconnected: 2
-✅ A user visited our server!: 3
-❌ A user disconnected: 3
-[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ MySQL Pool Ready!
-✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
-✅ A user visited our server!: 2
-❌ A user disconnected: 2
-ResultSetHeader {
-  fieldCount: 0,
-  affectedRows: 1,
-  insertId: 0,
-  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
-  serverStatus: 2,
-  warningStatus: 0,
-  changedRows: 1
+[Object: null prototype] {}
+2: 큐 잡는 중...
+1
+f37d366c-01a7-405c-b200-c8dd440f8bcf
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752667226341'
 }
-[Profile Update] User 2 updated their profile.
-2의 조회에 실패하였습니다. Error: Duplicate entry '빈서윤' for key 'Users.nickname'
-    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
-    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+Room f37d366c-01a7-405c-b200-c8dd440f8bcf is deleted.
+2: 큐 잡는 중...
+[ '5d668327-4549-4c9a-a858-ab764914bdf2' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752667227571'
+}
+Room 5d668327-4549-4c9a-a858-ab764914bdf2 is deleted.
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+[]
+0
+null
+[Object: null prototype] {}
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+유저 검사 중...
+검사 중:  1 null
+✅ A user visited our server!: 1
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+1: 큐 잡는 중...
+1
+cfb48aea-7d88-4678-8d0a-ea21dfd323ae
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667238611'
+}
+1
+cfb48aea-7d88-4678-8d0a-ea21dfd323ae
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667238611'
+}
+❌ A user disconnected: 1
+❌ A user disconnected: 1
+❌ A user disconnected: 2
+✅ A user visited our server!: 1
+1로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+player1의 승리! rating 상승!
+cfb48aea-7d88-4678-8d0a-ea21dfd323ae의 게임이 종료되었습니다.(승자 2)
+Room cfb48aea-7d88-4678-8d0a-ea21dfd323ae is deleted.
+유저 검사 중...
+검사 중:  1 cfb48aea-7d88-4678-8d0a-ea21dfd323ae
+[Object: null prototype] {}
+0
+cfb48aea-7d88-4678-8d0a-ea21dfd323ae
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+유저 검사 중...
+인증되지 않았습니다.
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+0
+cfb48aea-7d88-4678-8d0a-ea21dfd323ae
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+1: 큐 잡는 중...
+1
+189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  1 189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+검사 중... ReferenceError: consol is not defined
+    at redirectIfInGame (/home/jpt020927/Apple-Online/server.js:117:9)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async /home/jpt020927/Apple-Online/server.js:247:25 {
-  code: 'ER_DUP_ENTRY',
-  errno: 1062,
-  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
-  sqlState: '23000',
-  sqlMessage: "Duplicate entry '빈서윤' for key 'Users.nickname'"
+유저 검사 중...
+검사 중:  1 189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
 }
-null
-✅ A user visited our server!: 15
-ResultSetHeader {
-  fieldCount: 0,
-  affectedRows: 1,
-  insertId: 0,
-  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
-  serverStatus: 2,
-  warningStatus: 0,
-  changedRows: 1
+검사 중... ReferenceError: consol is not defined
+    at redirectIfInGame (/home/jpt020927/Apple-Online/server.js:117:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+1
+189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
 }
-[Profile Update] User 2 updated their profile.
-기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/2-1752664220679.png
-✅ A user visited our server!: 15
-✅ A user visited our server!: 15
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
-[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
+유저 검사 중...
+검사 중:  1 189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+검사 중... ReferenceError: consol is not defined
+    at redirectIfInGame (/home/jpt020927/Apple-Online/server.js:117:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+유저 검사 중...
+검사 중:  1 189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+검사 중... ReferenceError: consol is not defined
+    at redirectIfInGame (/home/jpt020927/Apple-Online/server.js:117:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+유저 검사 중...
+검사 중:  1 189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+검사 중... ReferenceError: consol is not defined
+    at redirectIfInGame (/home/jpt020927/Apple-Online/server.js:117:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+1
+189ce8ba-e16f-4e63-9d26-45629994116f
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667359012'
+}
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+✅ 랭킹 업데이트 완료! 총 39개의 랭킹 정보가 변경되었습니다.
 미인증 사용자 접속 시도
-✅ A user visited our server!: 15
-❌ A user disconnected: 15
-[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
-[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
+유저 검사 중...
+검사 중:  1 null
+✅ A user visited our server!: 1
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
+2: 큐 잡는 중...
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+1: 큐 잡는 중...
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+유저 검사 중...
+인증되지 않았습니다.
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+1로 부터 게임 시작 요청이 들어왔습니다.
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+1 플레이 중 이탈을 확인하여 돌려보냈습니다. e1d4c01e-ea32-4944-b645-be1cca8ed005
+1로 부터 게임 시작 요청이 들어왔습니다.
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+1 플레이 중 이탈을 확인하여 돌려보냈습니다. e1d4c01e-ea32-4944-b645-be1cca8ed005
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+1로 부터 게임 시작 요청이 들어왔습니다.
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+1 플레이 중 이탈을 확인하여 돌려보냈습니다. e1d4c01e-ea32-4944-b645-be1cca8ed005
+1로 부터 게임 시작 요청이 들어왔습니다.
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+1 플레이 중 이탈을 확인하여 돌려보냈습니다. e1d4c01e-ea32-4944-b645-be1cca8ed005
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+유저 검사 중...
+인증되지 않았습니다.
+1로 부터 게임 시작 요청이 들어왔습니다.
+1
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '1',
+  status: 'playing',
+  createdAt: '1752667418077'
+}
+player1의 승리! rating 상승!
+e1d4c01e-ea32-4944-b645-be1cca8ed005의 게임이 종료되었습니다.(승자 2)
+Room e1d4c01e-ea32-4944-b645-be1cca8ed005 is deleted.
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {}
+0
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+유저 검사 중...
+검사 중:  2 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+인증되지 않았습니다.
+❌ A user disconnected: 2
+유저 검사 중...
+검사 중:  2 null
+✅ A user visited our server!: 2
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 2
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  201268 null
+✅ A user visited our server!: 201268
+유저 검사 중...
+검사 중:  201268 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201268
+[Room Created] ID: 3188d892-6e03-4401-a87e-6ae777d3d216 by 황정현1
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201268
+201268 joined 3188d892-6e03-4401-a87e-6ae777d3d216
+유저 검사 중...
+검사 중:  1 e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {}
+0
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+[Room Created] ID: e4c3dce8-9118-4e01-a66b-9daaae931684 by 나는 서버장이다
+0
+e1d4c01e-ea32-4944-b645-be1cca8ed005
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+1 joined e4c3dce8-9118-4e01-a66b-9daaae931684
+유저 검사 중...
+검사 중:  3 null
+✅ A user visited our server!: 3
+유저 검사 중...
+검사 중:  3 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+[Room Created] ID: 48ca1809-e0f8-4d30-8d27-e544ff97a6f9 by apple
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+3 joined 48ca1809-e0f8-4d30-8d27-e544ff97a6f9
+1
+48ca1809-e0f8-4d30-8d27-e544ff97a6f9
+[Object: null prototype] {
+  title: '방아아아',
+  nickname: 'apple',
+  password: '',
+  player1: '3',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752667636701'
+}
+Room 48ca1809-e0f8-4d30-8d27-e544ff97a6f9 is deleted.
+✅ A user visited our server!: 3
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+유저 검사 중...
+검사 중:  3 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+[Room Created] ID: 4710308b-1c80-4eaa-9a26-ca589d326316 by apple
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+3 joined 4710308b-1c80-4eaa-9a26-ca589d326316
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 42개의 랭킹 정보가 변경되었습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  201269 null
+✅ A user visited our server!: 201269
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  201270 null
+✅ A user visited our server!: 201270
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+유저 검사 중...
+검사 중:  10 null
+✅ A user visited our server!: 10
+유저 검사 중...
+검사 중:  10 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+[Room Created] ID: de063179-51a9-492e-a2b8-815a0e8b1ef8 by Lee Ken
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+201270 joined de063179-51a9-492e-a2b8-815a0e8b1ef8
+유저 검사 중...
+검사 중:  10 null
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 10
+유저 검사 중...
+검사 중:  10 null
+유저 검사 중...
+인증되지 않았습니다.
+유저 검사 중...
+검사 중:  10 null
+[Profile Update] User 10 updated their profile.
+유저 검사 중...
+검사 중:  201271 null
+유저 검사 중...
+검사 중:  10 null
+✅ A user visited our server!: 201271
+유저 검사 중...
+검사 중:  10 null
+✅ A user visited our server!: 10
+유저 검사 중...
+검사 중:  10 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+[Room Created] ID: 2ce8c9ac-557f-4f8f-b1db-3df3491ff1e9 by 나는정민지다
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+10 joined 2ce8c9ac-557f-4f8f-b1db-3df3491ff1e9
+Room de063179-51a9-492e-a2b8-815a0e8b1ef8 is deleted.
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201269
+201269: 큐 잡는 중...
+Room 2ce8c9ac-557f-4f8f-b1db-3df3491ff1e9 is deleted.
+유저 검사 중...
+검사 중:  10 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+[ '145efac9-d899-4f48-be04-ac089e1e7225' ]
+[Object: null prototype] {
+  title: 'fastRoom of 201269',
+  nickname: '',
+  password: '',
+  player1: '201269',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668537705'
+}
+Room 145efac9-d899-4f48-be04-ac089e1e7225 is deleted.
+유저 검사 중...
+검사 중:  201269 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201269
+0
+null
+[Object: null prototype] {}
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201269
+201269: 큐 잡는 중...
+✅ A user visited our server!: 201270
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+10: 큐 잡는 중...
+1
+84efb72b-15fc-4074-9450-ddfd0b7b2e08
+[Object: null prototype] {
+  title: 'fastRoom of 201269',
+  nickname: '',
+  password: '',
+  player1: '201269',
+  player2: '10',
+  status: 'playing',
+  createdAt: '1752668544001'
+}
+1
+84efb72b-15fc-4074-9450-ddfd0b7b2e08
+[Object: null prototype] {
+  title: 'fastRoom of 201269',
+  nickname: '',
+  password: '',
+  player1: '201269',
+  player2: '10',
+  status: 'playing',
+  createdAt: '1752668544001'
+}
+❌ A user disconnected: 201269
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  201270 null
+❌ A user disconnected: 201270
+✅ A user visited our server!: 201270
+❌ A user disconnected: 201269
+❌ A user disconnected: 10
+❌ A user disconnected: 10
+❌ A user disconnected: 201269
+✅ A user visited our server!: 10
+✅ A user visited our server!: 201269
+10로 부터 게임 시작 요청이 들어왔습니다.
+201269로 부터 게임 시작 요청이 들어왔습니다.
+유저 검사 중...
+인증되지 않았습니다.
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201271
+201271: 큐 잡는 중...
+player1의 승리! rating 상승!
+84efb72b-15fc-4074-9450-ddfd0b7b2e08의 게임이 종료되었습니다.(승자 201269)
+Room 84efb72b-15fc-4074-9450-ddfd0b7b2e08 is deleted.
+유저 검사 중...
+검사 중:  201269 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201269
+유저 검사 중...
+검사 중:  10 84efb72b-15fc-4074-9450-ddfd0b7b2e08
+[Object: null prototype] {}
+0
+84efb72b-15fc-4074-9450-ddfd0b7b2e08
+[Object: null prototype] {}
+✅ A user visited our server!: 10
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 201269
+1
+102081d0-dbae-4481-91be-dbc7b03a8485
+[Object: null prototype] {
+  title: 'fastRoom of 201271',
+  nickname: '',
+  password: '',
+  player1: '201271',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668568684'
+}
+Room 102081d0-dbae-4481-91be-dbc7b03a8485 is deleted.
+✅ A user visited our server!: 201271
+201271: 큐 잡는 중...
+1
+dadcc341-af8f-4f0e-911f-5de11f826935
+[Object: null prototype] {
+  title: 'fastRoom of 201271',
+  nickname: '',
+  password: '',
+  player1: '201271',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668626845'
+}
+✅ A user visited our server!: 201271
+Room dadcc341-af8f-4f0e-911f-5de11f826935 is deleted.
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+201270: 큐 잡는 중...
+[ '8425540a-9df5-4e01-bb30-aff24737de68' ]
+[Object: null prototype] {
+  title: 'fastRoom of 201270',
+  nickname: '',
+  password: '',
+  player1: '201270',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668646393'
+}
+Room 8425540a-9df5-4e01-bb30-aff24737de68 is deleted.
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+1
+4710308b-1c80-4eaa-9a26-ca589d326316
+[Object: null prototype] {
+  title: 'ㅂ아아아',
+  nickname: 'apple',
+  password: '5555',
+  player1: '3',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752667650885'
+}
+Room 4710308b-1c80-4eaa-9a26-ca589d326316 is deleted.
+❌ A user disconnected: 3
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+Room e4c3dce8-9118-4e01-a66b-9daaae931684 is deleted.
+유저 검사 중...
+검사 중:  1 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 1
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+✅ A user visited our server!: 3
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201271
+201271: 큐 잡는 중...
+❌ A user disconnected: 1
+❌ A user disconnected: 1
+Room 3188d892-6e03-4401-a87e-6ae777d3d216 is deleted.
+유저 검사 중...
+검사 중:  201268 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201268
+[Room Created] ID: c07636b4-639b-4107-b424-9f386cee25d7 by Lee Ken
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+201270 joined c07636b4-639b-4107-b424-9f386cee25d7
+Room c07636b4-639b-4107-b424-9f386cee25d7 is deleted.
+유저 검사 중...
+검사 중:  201270 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 201270
+201270: 큐 잡는 중...
+1
+3d18e6d7-5fdd-469a-8128-434c736f1d23
+[Object: null prototype] {
+  title: 'fastRoom of 201271',
+  nickname: '',
+  password: '',
+  player1: '201271',
+  player2: '201270',
+  status: 'playing',
+  createdAt: '1752668707851'
+}
+1
+3d18e6d7-5fdd-469a-8128-434c736f1d23
+[Object: null prototype] {
+  title: 'fastRoom of 201271',
+  nickname: '',
+  password: '',
+  player1: '201271',
+  player2: '201270',
+  status: 'playing',
+  createdAt: '1752668707851'
+}
+유저 검사 중...
+검사 중:  3 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 3
+❌ A user disconnected: 201270
+❌ A user disconnected: 201271
+❌ A user disconnected: 201270
+✅ A user visited our server!: 201271
+201271로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 201270
+201270로 부터 게임 시작 요청이 들어왔습니다.
+유저 검사 중...
+검사 중:  201268 null
+0
+null
+[Object: null prototype] {}
+유저 검사 중...
+검사 중:  201268 null
+❌ A user disconnected: 201268
+1
+3d18e6d7-5fdd-469a-8128-434c736f1d23
+[Object: null prototype] {
+  title: 'fastRoom of 201271',
+  nickname: '',
+  password: '',
+  player1: '201271',
+  player2: '201270',
+  status: 'playing',
+  createdAt: '1752668707851'
+}
+❌ A user disconnected: 201270
+player1의 승리! rating 상승!
+3d18e6d7-5fdd-469a-8128-434c736f1d23의 게임이 종료되었습니다.(승자 201271)
+Room 3d18e6d7-5fdd-469a-8128-434c736f1d23 is deleted.
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 201271
+유저 검사 중...
+검사 중:  4 null
+✅ A user visited our server!: 4
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 4
+4: 큐 잡는 중...
+[ '1ba36e7a-a5a1-4ce8-bd11-5b098852a0e3' ]
+[Object: null prototype] {
+  title: 'fastRoom of 4',
+  nickname: '',
+  password: '',
+  player1: '4',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668905054'
+}
+Room 1ba36e7a-a5a1-4ce8-bd11-5b098852a0e3 is deleted.
+유저 검사 중...
+검사 중:  4 null
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 4
+0
+null
+[Object: null prototype] {}
+✅ A user visited our server!: 4
+4: 큐 잡는 중...
+1
+fd2d08a8-6326-4ba4-b6e0-6a023cfa661c
+[Object: null prototype] {
+  title: 'fastRoom of 4',
+  nickname: '',
+  password: '',
+  player1: '4',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752668909383'
+}
+Room fd2d08a8-6326-4ba4-b6e0-6a023cfa661c is deleted.
+❌ A user disconnected: 4
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 58개의 랭킹 정보가 변경되었습니다.
+0
+null
+[Object: null prototype] {}
+❌ A user disconnected: 10
+[dotenv@17.2.0] injecting env (7) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
 🚀 Server is running on http://localhost:3000
-✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
-✅ A user visited our server!: 15
-✅ A user visited our server!: 15
-✅ A user visited our server!: 15
-✅ A user visited our server!: 15
-15: 큐 잡는 중...
-✅ A user visited our server!: 15
-🥇 전체 유저 랭킹 업데이트를 시작합니다...
-✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
-❌ A user disconnected: 15
-[Profile Update] User 15 updated their profile.
-✅ A user visited our server!: 15
-✅ A user visited our server!: 15
-15: 큐 잡는 중...
-❌ A user disconnected: 15
-❌ A user disconnected: 15
-✅ A user visited our server!: 15
-15로 부터 게임 시작 요청이 들어왔습니다.
+✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도

@@ -96,28 +96,37 @@ const sessionMiddleware = session({
 });
 
 const redirectIfInGame = async (req, res, next) => {
+  console.log('유저 검사 중...');
   if (!req.isAuthenticated()) {
-    return next();
+    console.log('인증되지 않았습니다.');
+    return res.redirect('/login.html');
   }
   try {
     const userId = req.user.id;
     const roomId = await redisClient.get(`user-${userId}-room`);
+    console.log("검사 중: ", userId, roomId);
     if (roomId) {
       const roomData = await redisClient.hGetAll(String(roomId));
       const roomStatus = roomData.status;
+      console.log(roomData);
       if (roomStatus === 'waiting') {
-        return res.redirect(`/wating.html?roomId=${roomId}&password=${roomData.password}&mode=join`);
+        await roomHandler.handleDeleteRoom(io, redisClient, roomId);
+        console.log(userId, "wait 이탈을 감지하여 룸을 제거하였습니다.", roomId);
+        return res.redirect('/lobby.html');
       } else if (roomStatus === 'playing') {
+        console.log(userId, "플레이 중 이탈을 확인하여 돌려보냈습니다.", roomId);
         return res.redirect(`/game.html?roomId=${roomId}&password=${roomData.password}`);
       }
     }
-
     next();
   } catch(error) {
     console.error('Redirect Middleware error: ', error);
+    console.log("검사 중...", error);
     next();
   }
 };
+
+
 
 const PORT = 3000;
 const HOST = '127.0.0.1';
@@ -283,7 +292,7 @@ app.post('/api/profile/update', ensureAuthenticated, upload.single('profileImage
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/', redirectIfInGame, (req, res) => {
   if (req.isAuthenticated()) {
     res.sendFile(path.join(__dirname, 'public', 'html', 'lobby.html'));
   } else {

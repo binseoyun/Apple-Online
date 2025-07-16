@@ -102,6 +102,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
             // 게임 중인 유저 목록에 새로운 유저 추가
             await redisClient.sAdd('waits', String(userId));
+            await redisClient.set(`user-${userId}-room`, roomId);
         } else {
             // 빠른 방이 존재한다면 -> 참여
 
@@ -118,13 +119,14 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
             // 게임 중인 유저 목록에 새로운 유저 추가
             await redisClient.sAdd('waits', String(userId));
+            await redisClient.set(`user-${userId}-room`, roomId);
 
             // Redis에 방 정보(Hash) 갱신
             await redisClient.hSet(roomId, roomData);
 
             // 방 목록 갱신
             await redisClient.sRem('fastRooms', roomId);
-            await redisClient.sAdd('rooms:playing', roomId);
+            await redisClient.sAdd('rooms:playing', String(roomId));
 
             gameStates[roomId] = {
                 timeLeft: null,
@@ -261,7 +263,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             roomData.status = 'playing';
             await redisClient.hSet(roomId, roomData);
             await redisClient.sRem('rooms:waiting', roomId);
-            await redisClient.sAdd('rooms:playing', roomId);
+            await redisClient.sAdd('rooms:playing', String(roomId));
             io.to('lobby').emit('deleteRoom', String(roomId));
 
             gameStates[roomId] = {
@@ -277,7 +279,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             await redisClient.zRem('rooms:title:index', `${normalizedTitle}:${roomId}`);
             console.log(`${roomId} started the game.`);
         } catch (error) {
-            handleDeleteRoom(io, redisClient, roomId);
+            await handleDeleteRoom(io, redisClient, roomId);
         }
     };
 
@@ -392,7 +394,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         await userController.updateUserElo(player2_id, player2_new_elo);
 
         delete gameStates[roomId];
-        handleDeleteRoom(io, redisClient, roomId);
+        await handleDeleteRoom(io, redisClient, roomId);
     }
 
     const SendMap = async (roomId) => {
@@ -521,7 +523,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 return;
             }
 
-            handleDeleteRoom(io, redisClient, roomId);
+            await handleDeleteRoom(io, redisClient, roomId);
             io.to(roomId).emit('DeleteRoom');
             socket.emit('DeleteRoom');
         } catch (error) {
@@ -546,18 +548,24 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     });
 
     socket.on('disconnect', async () => {
+        try {
+            const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+            const roomId = await redisClient.get(`user-${userId}-room`);
+            const roomData = await redisClient.hGetAll(String(roomId));
+            console.log(isUserWaiting);
+            console.log(roomId);
+            console.log(roomData);
+            if (roomData.status === 'waiting') {
+                await handleDeleteRoom(io, redisClient, roomId);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
         setTimeout(() => {
             io.in(userId).allSockets().then(async sockets => {
             if (sockets.size === 0) {
                 console.log(`❌ A user disconnected: ${userId}`);
-                try {
-                    const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
-                    const roomId = await redisClient.get(`user-${userId}-room`);
-                    const roomData = await redisClient.hGetAll(String(roomId));
-                    if (roomData.status === 'waiting') {
-                        handleDeleteRoom(io, redisClient, roomId);
-                    }
-                } catch (error) {}
             }
             })
         }, 3000);
@@ -620,7 +628,7 @@ const handleDeleteRoom = async (io, redisClient, roomId) => {
     const roomData = await redisClient.hGetAll(roomId);
 
     const user1 = roomData.player1;
-    const user2 = roomData.player1;
+    const user2 = roomData.player2;
     await redisClient.sRem('waits', String(user1));
     await redisClient.sRem('waits', String(user2));
     await redisClient.del(`user-${user1}-room`);
