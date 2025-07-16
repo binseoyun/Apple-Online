@@ -119,3 +119,17 @@ ResultSetHeader {
 ✅ A user visited our server!: 15
 ✅ A user visited our server!: 15
 ✅ A user visited our server!: 15
+✅ A user visited our server!: 15
+15: 큐 잡는 중...
+✅ A user visited our server!: 15
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
+❌ A user disconnected: 15
+[Profile Update] User 15 updated their profile.
+✅ A user visited our server!: 15
+✅ A user visited our server!: 15
+15: 큐 잡는 중...
+❌ A user disconnected: 15
+❌ A user disconnected: 15
+✅ A user visited our server!: 15
+15로 부터 게임 시작 요청이 들어왔습니다.
