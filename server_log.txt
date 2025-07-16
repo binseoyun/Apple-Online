@@ -832,3 +832,197 @@ d194ce13-bc87-4373-b9a8-bedc164993a7의 게임이 종료되었습니다.(승자 
 Room d194ce13-bc87-4373-b9a8-bedc164993a7 is deleted.
 ✅ A user visited our server!: 2
 ✅ A user visited our server!: 1
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  override existing env vars with { override: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  suppress all logs with { quiet: true })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 45개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도
+미인증 사용자 접속 시도
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+❌ A user disconnected: 1
+❌ A user disconnected: 1
+✅ A user visited our server!: 1
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+✅ A user visited our server!: 1
+1: 큐 잡는 중...
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+1로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+3d26b9b4-9fe8-4cbf-8b00-0169628f518e의 게임이 종료되었습니다.(승자 )
+Room 3d26b9b4-9fe8-4cbf-8b00-0169628f518e is deleted.
+✅ A user visited our server!: 1
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+❌ A user disconnected: 1
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 30개의 랭킹 정보가 변경되었습니다.
+[dotenv@17.2.0] injecting env (7) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 1
+❌ A user disconnected: 1
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+1의 조회에 실패하였습니다. Error: Duplicate entry '황정현' for key 'Users.nickname'
+    at PromisePoolConnection.execute (/home/jpt020927/Apple-Online/node_modules/mysql2/lib/promise/connection.js:47:22)
+    at Object.updateUserNickname (/home/jpt020927/Apple-Online/server/controllers/userController.js:73:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /home/jpt020927/Apple-Online/server.js:247:25 {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sql: 'UPDATE Users SET nickname = ? WHERE id = ?',
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '황정현' for key 'Users.nickname'"
+}
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  enable debug logging with { debug: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 1
+❌ A user disconnected: 1
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  write to custom object with { processEnv: myObject })
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 1
+[Profile Update] User 1 updated their profile.
+❌ A user disconnected: 1
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752552769863.png
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752646668620.png
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752646713892.png
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752646840251.png
+[Profile Update] User 1 updated their profile.
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+❌ A user disconnected: 1
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+[Profile Update] User 1 updated their profile.
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  override existing env vars with { override: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 1
+❌ A user disconnected: 1
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752646899909.png
+[Profile Update] User 1 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/1-1752647557730.png
+✅ A user visited our server!: 3
+❌ A user disconnected: 3
+[Profile Update] User 3 updated their profile.
+기존 이미지 파일 삭제 성공: /home/jpt020927/Apple-Online/uploads/3-1752586867923.png

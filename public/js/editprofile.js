@@ -41,6 +41,7 @@ imageInput.addEventListener('change', function () {
 });
 
 async function goBack() {
+  event.preventDefault();
   // FormData 객체를 만들어 폼 데이터를 담을 준비를 합니다.
   const formData = new FormData();
 
@@ -63,6 +64,10 @@ async function goBack() {
           // 서버가 JSON 형태의 에러 메시지를 보냈다고 가정
           const errorData = await response.json(); 
           // 서버에서 보낸 에러 메시지나 상태 코드를 기반으로 에러 객체 생성
+          if (response.status) {
+            alert("중복된 닉네임입니다.");
+            return; 
+          }
           throw new Error(errorData.message || `서버 에러: ${response.status}`);
       }
 
