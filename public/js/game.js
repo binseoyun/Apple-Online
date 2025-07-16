@@ -449,7 +449,8 @@ async function initializeGame() {
 
 
     if (game) {
-      if (data.winner === String(userId)) {
+      console.log(data.winner, userId);
+      if (String(data.winner) == String(userId)) {
         game = false;
         //이겼을 때 소리 재생 추가
         playWinSound();

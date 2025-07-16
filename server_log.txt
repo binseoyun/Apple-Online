@@ -739,3 +739,96 @@ Room a7db3577-691a-41c6-88d5-adc8b01c79e3 is deleted.
 ✅ A user visited our server!: 2
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ 랭킹 업데이트 완료! 총 27개의 랭킹 정보가 변경되었습니다.
+✅ A user visited our server!: 2
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+미인증 사용자 접속 시도
+✅ A user visited our server!: 3
+[ '700be0a5-9fe3-445c-8f3e-bf5cf651a4f3' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752645033734'
+}
+2 700be0a5-9fe3-445c-8f3e-bf5cf651a4f3 2
+Room 700be0a5-9fe3-445c-8f3e-bf5cf651a4f3 is deleted.
+✅ A user visited our server!: 2
+❌ A user disconnected: 2
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+✅ A user visited our server!: 3
+[ '2029aaee-3e76-4fd8-9297-c2b48e0bf96e' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752645056620'
+}
+2 2029aaee-3e76-4fd8-9297-c2b48e0bf96e 2
+Room 2029aaee-3e76-4fd8-9297-c2b48e0bf96e is deleted.
+✅ A user visited our server!: 2
+✅ A user visited our server!: 3
+✅ A user visited our server!: 3
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+[ '2c45b358-c747-4701-be53-c08f8f90a9a3' ]
+[Object: null prototype] {
+  title: 'fastRoom of 2',
+  nickname: '',
+  password: '',
+  player1: '2',
+  player2: '',
+  status: 'waiting',
+  createdAt: '1752645063263'
+}
+2 2c45b358-c747-4701-be53-c08f8f90a9a3 2
+Room 2c45b358-c747-4701-be53-c08f8f90a9a3 is deleted.
+✅ A user visited our server!: 2
+3: 큐 잡는 중...
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+3로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+44b4e7a3-baae-4759-beb4-8cbc11f855ed의 게임이 종료되었습니다.(승자 2)
+Room 44b4e7a3-baae-4759-beb4-8cbc11f855ed is deleted.
+✅ A user visited our server!: 3
+❌ A user disconnected: 3
+❌ A user disconnected: 3
+❌ A user disconnected: 2
+[dotenv@17.2.0] injecting env (7) from .env (tip: ⚙️  override existing env vars with { override: true })
+[dotenv@17.2.0] injecting env (0) from .env (tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`)
+🥇 전체 유저 랭킹 업데이트를 시작합니다...
+✅ MySQL Pool Ready!
+✅ Redis Adapter is connected.
+🚀 Server is running on http://localhost:3000
+✅ 랭킹 업데이트 완료! 총 30개의 랭킹 정보가 변경되었습니다.
+미인증 사용자 접속 시도
+✅ A user visited our server!: 2
+✅ A user visited our server!: 1
+✅ A user visited our server!: 1
+1: 큐 잡는 중...
+✅ A user visited our server!: 2
+2: 큐 잡는 중...
+❌ A user disconnected: 1
+❌ A user disconnected: 2
+❌ A user disconnected: 2
+❌ A user disconnected: 1
+✅ A user visited our server!: 1
+1로 부터 게임 시작 요청이 들어왔습니다.
+✅ A user visited our server!: 2
+2로 부터 게임 시작 요청이 들어왔습니다.
+player1의 승리! rating 상승!
+d194ce13-bc87-4373-b9a8-bedc164993a7의 게임이 종료되었습니다.(승자 1)
+Room d194ce13-bc87-4373-b9a8-bedc164993a7 is deleted.
+✅ A user visited our server!: 2
+✅ A user visited our server!: 1
