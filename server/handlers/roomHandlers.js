@@ -74,7 +74,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         }
     };
 
-    const fastRoomGenerate = async (userInfo, data) => {
+    const fastRoomGenerate = async () => {
         // 빠른 방 참여
         let roomId = await redisClient.sRandMember('fastRooms');
 
@@ -85,12 +85,13 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
             // Redis에 방 정보(Hash) 저장
             await redisClient.hSet(roomId, {
-                title: userInfo.id,
+                title: `fastRoom of ${userId}`,
+                nickname: '',
                 password: '',
-                player1: userInfo.id,
+                player1: userId,
                 player2: '',
                 status: 'waiting', // waiting과 playing으로 상태 구분
-                createdAt: Date.now()
+                createdAt: Date.now().toString()
             });
 
             // Socket.IO Room에 등록
@@ -100,7 +101,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             await redisClient.sAdd('fastRooms', String(roomId));
 
             // 게임 중인 유저 목록에 새로운 유저 추가
-            await redisClient.sAdd('waits', String(userInfo.id));
+            await redisClient.sAdd('waits', String(userId));
         } else {
             // 빠른 방이 존재한다면 -> 참여
 
@@ -108,7 +109,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             const roomData = await redisClient.hGetAll(String(roomId));
 
             // 방 정보 수정 및 재등록
-            roomData.player2 = userInfo.id;
+            roomData.player2 = userId;
             roomData.status = 'playing';
             await redisClient.hSet(roomId, roomData);
 
@@ -116,17 +117,27 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             socket.join(roomId);
 
             // 게임 중인 유저 목록에 새로운 유저 추가
-            await redisClient.sAdd('waits', String(userInfo.id));
+            await redisClient.sAdd('waits', String(userId));
 
             // Redis에 방 정보(Hash) 갱신
-            await redisClient.hSet(data.roomId, roomData);
+            await redisClient.hSet(roomId, roomData);
 
             // 방 목록 갱신
             await redisClient.sRem('fastRooms', roomId);
-            await redisClient.sAdd('rooms:playing', roomKey);
+            await redisClient.sAdd('rooms:playing', roomId);
+
+            gameStates[roomId] = {
+                timeLeft: null,
+                timerId: null,
+                player1: roomData.player1,
+                player2: roomData.player2,
+                score1: 0,
+                score2: 0,
+                loading: 0
+            }
 
             // 큐가 잡혔다는 사실을 알림
-            io.to(roomId).emit('gameStart', {});
+            io.to(roomId).emit('startFastGame', roomId);
         }
     };
 
@@ -251,6 +262,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
             await redisClient.hSet(roomId, roomData);
             await redisClient.sRem('rooms:waiting', roomId);
             await redisClient.sAdd('rooms:playing', roomId);
+            io.to('lobby').emit('deleteRoom', String(roomId));
 
             gameStates[roomId] = {
                 timeLeft: null,
@@ -331,6 +343,7 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
               })
         } catch (error) {
             socket.emit('what?');
+            console.log(error);
         }
     };
 
@@ -343,16 +356,20 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         const player1_data = await userController.getProfile(player1_id);
         const player2_data = await userController.getProfile(player2_id);
 
-        let winner_id = 0;
+        let winner_id_for_sql = 0;
+        let winner_id_for_client = 0;
         let winner = 0;
         if (gameStates[roomId].score1 > gameStates[roomId].score2) {
-            winner_id = gameStates[roomId].player1;
+            winner_id_for_sql = gameStates[roomId].player1;
+            winner_id_for_client = gameStates[roomId].player1;
             winner = 1;
         } else if (gameStates[roomId].score1 < gameStates[roomId].score2) {
-            winner_id = gameStates[roomId].player2;
+            winner_id_for_sql = gameStates[roomId].player2;
+            winner_id_for_client = gameStates[roomId].player2;
             winner = 2;
         } else {
-            winner_id = '';
+            winner_id_for_sql = null;
+            winner_id_for_client = '';
             winner = 0;
         }
 
@@ -363,12 +380,12 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
         let player1_new_elo = new_elo.newRatingA;
         let player2_new_elo = new_elo.newRatingB;
-
-        io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner_id, elo_A: player1_new_elo - player1_old_elo, elo_B: player2_new_elo - player2_old_elo, player1: player1_id, player2: player2_id});
+        console.log(`${roomId}의 게임이 종료되었습니다.(승자 ${winner_id_for_client})`);
+        io.to(roomId).emit('gameEnd', { message: `시간이 종료되었습니다!`, winner: winner_id_for_client, elo_A: player1_new_elo - player1_old_elo, elo_B: player2_new_elo - player2_old_elo, player1: player1_id, player2: player2_id});
 
         // 게임 전적 기록하기
         const insertSql = 'INSERT INTO GameRecords (player1_id, player2_id, winner_id, player1_old_elo, player1_new_elo, player2_old_elo, player2_new_elo) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        const [result] = await pool.query(insertSql, [player1_id, player2_id, winner_id, player1_old_elo, player1_new_elo, player2_old_elo, player2_new_elo]);
+        const [result] = await pool.query(insertSql, [player1_id, player2_id, winner_id_for_sql, player1_old_elo, player1_new_elo, player2_old_elo, player2_new_elo]);
 
         // 유저 레이팅 변경하기
         await userController.updateUserElo(player1_id, player1_new_elo);
@@ -546,6 +563,32 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         }, 3000);
     });
 
+    socket.on('outFastRoom', async () => {
+        const fastRooms = await redisClient.sMembers('fastRooms');
+        console.log(fastRooms);
+        let roomData;
+        let roomId;
+        let player1;
+        fastRooms.forEach(async (TemproomId) => {
+            roomData = await redisClient.hGetAll(TemproomId);
+            console.log(roomData);
+            if (roomData.player1 == userId) {
+                roomId = TemproomId;
+                player1 = roomData.player1;
+                if (player1 === String(userId)) {
+                    await handleDeleteRoom(io, redisClient, roomId);
+                    socket.emit('outRoom');
+                    return;
+                }
+            }
+        });
+    });
+
+    socket.on('fastGame', () => {
+        console.log(`${userId}: 큐 잡는 중...`)
+        fastRoomGenerate();
+    });
+
 
     socket.on('createRoom', handleCreateRoom);
     socket.on('getRoomList', getRoomList);
@@ -563,6 +606,11 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     });
     socket.on('ice', (data) => {
         socket.to(data.roomId).emit('getIce', data.ice);
+    });
+
+    socket.on('playerNum', async () => {
+        const num = await redisClient.sCard('waits');
+        socket.emit('playerNum', num);
     });
 };
 
@@ -590,7 +638,6 @@ const handleDeleteRoom = async (io, redisClient, roomId) => {
     io.to('lobby').emit('deleteRoom', roomId);
 
     console.log(`Room ${roomId} is deleted.`)
-    // todo: 유저 제거
 };
 
 

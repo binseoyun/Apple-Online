@@ -7,11 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userId = await getMyUserId();
     let roomId = '';
 
-    function backtoLobby() {
-        socket.emit('outRoom', roomId);
-    }
-    window.backtoLobby = backtoLobby;
-
     let password = '';
     let mode = '';
     const urlParams = new URLSearchParams(window.location.search);
@@ -19,6 +14,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     roomId = urlParams.get('roomId');
     password = urlParams.get('password');
     mode = urlParams.get('mode');
+
+    function backtoLobby() {
+        if (mode === 'join') {
+            socket.emit('outRoom', roomId);
+        } else if (mode === 'fast') {
+            socket.emit('outFastRoom');
+        } else {
+            window.location.href = `lobby.html`;
+        }
+    }
+    window.backtoLobby = backtoLobby;
 
     if (!roomId || !mode) {
         alert('부적절한 접근입니다!');
@@ -31,6 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         socket.emit('joinRoom', roomId, password);
     } else if (mode === 'delete') {
         socket.emit('deleteRoom', roomId, password);
+    } else if (mode === 'fast') {
+        socket.emit('fastGame');
     } else {
         alert('부적절한 접근입니다!');
         window.location.href = `lobby.html`;
@@ -68,6 +76,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     socket.on('startGame', () => {
         window.location.href = `game.html?roomId=${roomId}`;
+    });
+
+    socket.on('startFastGame', (roomid) => {
+        window.location.href = `game.html?roomId=${roomid}`;
     });
     
     socket.on('outRoom', () => {

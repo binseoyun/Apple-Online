@@ -24,6 +24,7 @@ module.exports = (passport) => {
                     };
 
                     let suffix = 0;
+                    const baseNickname = newUser.nickname;
                     let finalNickname = newUser.nickname;
                     let newRows;
 

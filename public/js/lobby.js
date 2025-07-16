@@ -2,6 +2,7 @@ const roomListBody = document.getElementById('room-list-body');
 const cancelButton = document.getElementById('cancel-password-btn');
 const confirmButton = document.getElementById('confirm-password-btn');
 const passwordInput = document.getElementById('room-password-input');
+const playerCounterElement = document.querySelector('#playernum p');
 
 let mode_ = 0;
 let roomId_ = '';
@@ -187,6 +188,7 @@ function deleteRow(btn) {
     try {
       const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
       drawRoomList(data);
+      socket.emit('playerNum');
     } catch (error) {
       console.log("방 목록을 불러오지 못했습니다.", error);
     }
@@ -195,11 +197,17 @@ function deleteRow(btn) {
   socket.on('newRoom', (room) => {
     console.log('New room created:', room);
     addRoom(room);
+    socket.emit('playerNum');
   });
 
   socket.on('deleteRoom', (roomId) => {
     console.log('Room deleted:', roomId);
     removeRoom(roomId);
+    socket.emit('playerNum');
+  });
+
+  socket.on('playerNum', (num) => {
+    playerCounterElement.textContent = `현재 ${num}명의 사람이 플레이 중입니다!`;
   });
 })();
 

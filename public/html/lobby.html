@@ -52,11 +52,13 @@
 
       <div class="px-40 flex flex-1 justify-center py-5">
         <div class="layout-content-container flex flex-col max-w-[960px] w-full">
-          <div class="flex flex-wrap justify-between gap-3 p-4">
-            <p class="text-[#1c1c0d] text-[32px] font-bold tracking-light">Game Lobby</p>
-             
-            <!--roomName 검색 창
-            oninput="filterRoomList()에서 입력할 때 마다 자동 필터링이 일어나서 검색 버튼 필요 없음"-->
+          <div class="flex flex-wrap items-end justify-between gap-3 p-4">
+            <div class="flex items-baseline gap-x-3">
+              <p class="text-[#1c1c0d] text-[32px] font-bold tracking-light">Game Lobby</p>
+              <div id="playernum">
+                <p class="text-[#1c1c0d] text-[13px] tracking-light">현재 0명의 사람이 플레이 중입니다!</p>
+              </div>
+            </div>
 
             <div class="mt-4">
                 <input 
@@ -65,8 +67,7 @@
                     placeholder="🔍 Search Room Name..." 
                     class="w-full max-w-md px-4 py-2 border border-[#e4e4e4] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#eeee06]" 
                     oninput="filterRoomList()" 
-            />
-</div>
+            /></div>
 
 
 
@@ -108,12 +109,18 @@
             </style>
           </div>
 
-          <div class="flex px-4 py-3 justify-end">
+          <div class="flex px-4 py-3 gap-5 justify-end">
+            <button
+              onclick="window.location.href='wating.html?roomId=8&mode=fast'"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#7092be] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
+            >
+              <span class="truncate">빠른 참여</span>
+            </button>
             <button
               onclick="window.location.href='addroom.html'"
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center rounded-full h-10 px-4 bg-[#eeee06] text-[#1c1c0d] text-sm font-bold tracking-[0.015em]"
             >
-              <span class="truncate">Create Room</span>
+              <span class="truncate">방 만들기</span>
             </button>
           </div>
         </div>

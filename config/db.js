@@ -19,6 +19,7 @@ const redisClient = redis.createClient({
   url: process.env.REDIS_URL
 });
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.FLUSHDB;
 
 // 연결 테스트 및 모듈 export
 async function connectDBs() {
