@@ -52,11 +52,11 @@ async function getRanking(userId) {
         if (row.length > 0) {
             return row[0];
         } else {
-            return null;
+            return '?';
         }
     } catch (error) {
         console.log(`${userId}의 조회에 실패하였습니다.`);
-        return null;
+        return '?';
     } finally {
         if (connection) {
             connection.release();

@@ -21,6 +21,22 @@ function createMap() {
     const temp = mapData[9][16];
     sum = sum - temp;
     mapData[9][16] = 10 - (sum % 10);
+
+    if (mapData[9][16] == 10) {
+        mapData[9][16] = Math.floor(rng() * 9) + 1;
+        let rest = 10 - mapData[9][16];
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 17; j++) {
+                if (rest === 0) {
+                    break;
+                }
+                if (mapData[i][j] < 9) {
+                    mapData[i][j] += 1;
+                    rest--;
+                }
+            }
+        }
+    }
     
     return mapData;
 }

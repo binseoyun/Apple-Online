@@ -357,7 +357,7 @@ async function initializeGame() {
           cellElement.textContent = '';
           cellElement.style.backgroundImage = 'none';
           cellElement.classList.remove('apple');
-          cellElement.dataset.value = '0';
+          cellElement.setAttribute('data-value', '0');
         }
       }
     }
@@ -369,15 +369,41 @@ async function initializeGame() {
     startCell = null;
   }
 
+  function calculateRectangleSum(startCoord, endCoord) {
+    // 좌표 값이 없으면 0을 반환
+    if (!startCoord || !endCoord) {
+      console.error("좌표가 유효하지 않습니다.");
+      return 0;
+    }
+  
+    let totalSum = 0; // 합계를 저장할 변수
+  
+    // 드래그 방향에 상관없이 사각형의 범위를 구합니다.
+    const minRow = Math.min(startCoord.row, endCoord.row);
+    const maxRow = Math.max(startCoord.row, endCoord.row);
+    const minCol = Math.min(startCoord.col, endCoord.col);
+    const maxCol = Math.max(startCoord.col, endCoord.col);
+  
+    // 해당 범위의 모든 셀을 순회합니다.
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        const index = row * cols + col;
+        const cell = board.children[index + 1]; // drag-box를 제외한 실제 셀 인덱스
+  
+        // 셀이 존재하면 data-value 값을 숫자로 변환하여 더합니다.
+        if (cell && cell.dataset.value) {
+          totalSum += Number(cell.dataset.value);
+        }
+      }
+    }
+    return totalSum;
+  }
+
   //합이 10인지 확인하는 함수
   function checkSum() {
     if (!selectionCoords.start || !selectionCoords.end) return;
 
-    let currentSum = 0;
-    selectedCells.forEach(cell => {
-        // 각 셀의 'data-value' 속성에 저장된 숫자 값을 가져와 더합니다.
-        currentSum += Number(cell.dataset.value);
-    });
+    const currentSum = calculateRectangleSum({row: selectionCoords.start.row, col: selectionCoords.start.col}, {row: selectionCoords.end.row, col: selectionCoords.end.col});
 
     //숫자의 합이 10인지 확인하는 위치
     if (currentSum === 10) {

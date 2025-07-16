@@ -31,7 +31,7 @@ module.exports = (passport) => {
                     while (true) {
                         try {
                             const insertSql = 'INSERT INTO Users (google_id, nickname, profile_image_url) VALUES (?, ?, ?)';
-                            const [result] = await pool.query(insertSql, [newUser.google_id, newUser.nickname, newUser.profile_image_url]);
+                            const [result] = await pool.query(insertSql, [newUser.google_id, finalNickname, newUser.profile_image_url]);
                             [newRows] = await pool.query('SELECT * FROM Users WHERE id = ?', [result.insertId]);
 
                             break;
@@ -40,6 +40,7 @@ module.exports = (passport) => {
                             // 닉네임 중복 오류인 경우, 닉네임 뒤에 숫자를 붙여 재시도합니다.
                                 suffix++;
                                 finalNickname = `${baseNickname}${suffix}`;
+                                console.log("가입 시도", finalNickname);
                             } else {
                             // 다른 종류의 에러라면 루프를 멈추고 에러를 전달합니다.
                             throw error;
