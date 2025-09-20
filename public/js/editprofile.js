@@ -55,8 +55,9 @@ async function goBack() {
 
   try {
       // 서버의 업데이트 API로 formData를 POST 방식으로 전송합니다.
-      const response = await fetch('https://www.applegame.shop/api/profile/update', {
-          method: 'POST',
+      //const response = await fetch('https://www.applegame.shop/api/profile/update', {
+      const response = await fetch(`${process.env.REACT_APP_SOCKET_URL}/api/profile/update`, { 
+      method: 'POST',
           body: formData
       });
 

@@ -84,7 +84,8 @@ function deleteRow(btn) {
     return;
   }
 
-  const socket = io("https://www.applegame.shop", {
+  //const socket = io("https://www.applegame.shop", {
+    const socket = io(process.env.REACT_APP_SOCKET_URL, {
     withCredentials: true
   });
   const roomListBody = document.getElementById('room-list-body');

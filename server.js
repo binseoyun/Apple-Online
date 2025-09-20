@@ -61,9 +61,14 @@ function ensureAuthenticated(req, res, next) {
 
 const app = express();
 const server = http.createServer(app);
+
+// CORS 설정: .env 파일에 도메인 추가하는 것을 잊지 마세요.
+const allowedOrigins =process.env.CORS_ORIGINS.split(',');
+
 const io = new Server(server, {
   cors: {
-    origin: ["https://www.applegame.shop", "https://applegame.shop"],
+    //origin: ["https://www.applegame.shop", "https://applegame.shop"],
+    origin: allowedOrigins, // .env 파일에서 불러온 도메인 배열
     credentials: true
   }
 });
@@ -81,7 +86,7 @@ Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
   });
 }).catch(err => {
-  console.errer('Redis connection failed:', err);
+  console.error('Redis connection failed:', err);
 });
 
 const sessionMiddleware = session({

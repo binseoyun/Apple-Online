@@ -2,7 +2,8 @@
 async function initializeGame() {
   let roomId = '';
   let userId = await getMyUserId();
-  const socket = io("https://www.applegame.shop", {
+ // const socket = io("https://www.applegame.shop", {
+  const socket = io(process.env.REACT_APP_SOCKET_URL, {
       withCredentials: true
   });
 
