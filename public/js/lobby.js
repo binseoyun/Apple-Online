@@ -85,15 +85,33 @@ function deleteRow(btn) {
   }
 
   //const socket = io("https://www.applegame.shop", {
-    const socket = io(process.env.REACT_APP_SOCKET_URL, {
+    const socket = io({
     withCredentials: true
   });
   const roomListBody = document.getElementById('room-list-body');
+
+  // lobby.html 인라인 스크립트에서 socket 접근할 수 있도록 노출
+  window._soloSocket = socket;
+
+  // 솔로 게임 요청 (lobby.html 버튼에서 호출)
+  window.requestSoloGame = function(difficulty) {
+    window.closeSoloModal && window.closeSoloModal();
+    socket.emit('startSoloGame', difficulty);
+  };
 
   socket.emit('joinLobby');
 
   socket.on('whatareyoudoing', () => {
     window.location.href = 'whatareyoudoing.html';
+  });
+
+  // 솔로 게임 준비 완료 → game.html 이동
+  socket.on('soloGameReady', (roomId) => {
+    window.location.href = `game.html?roomId=${roomId}&solo=true`;
+  });
+
+  socket.on('soloError', (data) => {
+    alert(data.message || '솔로 게임 시작 실패');
   });
 
   function drawRoomList(data) {

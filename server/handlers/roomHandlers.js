@@ -5,6 +5,7 @@ const userController = require('../controllers/userController')
 const { pool } = require('../../config/db');
 
 const gameLogic = require('./gameLogic');
+const { startBotLoop } = require('./botHandler');
 const { STATUS_CODES } = require('http');
 
 const gameStates = {}; // { roomid: { timeLeft: 60, timerId: <setInterval_ID>, scores: {player1: 0, player2: 0} } ... }
@@ -297,12 +298,18 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                 return;
             }
 
-            if ((roomData.player1 !== userId) && (roomData.player2 !== userId)) {
+            if ((roomData.player1 !== String(userId)) && (roomData.player2 !== String(userId))) {
                 socket.emit('what?');
                 return;
             }
 
             socket.join(roomId);
+
+            // 솔로 모드: loading 카운터 없이 바로 맵 전송 (봇은 소켓이 없음)
+            if (roomData.isBotGame === 'true') {
+                await SendMap(roomId);
+                return;
+            }
 
             if (gameStates[roomId].loading === 1) {
                 await SendMap(roomId);
@@ -324,15 +331,6 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
                         } else {
                             clearInterval(timerId);
         
-                            let winner = '';
-                            if (gameStates[roomId].score1 > gameStates[roomId].score2) {
-                                winner = gameStates[roomId].player1;
-                            } else if (gameStates[roomId].score1 < gameStates[roomId].score2) {
-                                winner = gameStates[roomId].player2;
-                            } else {
-                                winner = '';
-                            }
-        
                             await redisClient.sRem('waits', String(gameStates[roomId].player1));
                             await redisClient.sRem('waits', String(gameStates[roomId].player2));
 
@@ -351,9 +349,30 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
 
     const endGame = async (roomId) => {
         const roomData = await redisClient.hGetAll(roomId);
+        const isBotGame = roomData.isBotGame === 'true';
 
         const player1_id = roomData.player1;
         const player2_id = roomData.player2;
+
+        // 솔로 모드: ELO 변경/DB 기록 없이 결과만 전송
+        if (isBotGame) {
+            let winner_id;
+            if (gameStates[roomId].score1 > gameStates[roomId].score2) winner_id = player1_id;
+            else if (gameStates[roomId].score1 < gameStates[roomId].score2) winner_id = 'BOT';
+            else winner_id = '';
+
+            io.to(roomId).emit('gameEnd', {
+                message: '시간이 종료되었습니다!',
+                winner: winner_id,
+                elo_A: 0, elo_B: 0,
+                player1: player1_id,
+                player2: 'BOT',
+                isBotGame: true,
+            });
+            delete gameStates[roomId];
+            await handleDeleteRoom(io, redisClient, roomId);
+            return;
+        }
 
         const player1_data = await userController.getProfile(player1_id);
         const player2_data = await userController.getProfile(player2_id);
@@ -405,8 +424,11 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
         let score2 = '';
         let image1 = '';
         let image2 = '';
+        const isBotGame = roomData.isBotGame === 'true';
         const user1Data = await userController.getProfile(roomData.player1);
-        const user2Data = await userController.getProfile(roomData.player2);
+        const user2Data = isBotGame
+            ? { nickname: '🤖 Bot', elo_rating: 0, profile_image_url: null }
+            : await userController.getProfile(roomData.player2);
         user1 = user1Data.nickname;
         user2 = user2Data.nickname;
         score1 = gameStates[roomId].score1;
@@ -602,12 +624,93 @@ const registerRoomsHandlers = async (io, socket, redisClient) => {
     });
 
 
+    // 솔로 연습 모드 시작
+    const startSoloGame = async (difficulty) => {
+        console.log(`[SoloGame] 요청 수신: userId=${userId}, difficulty=${difficulty}`);
+        try {
+            const isUserWaiting = await redisClient.sIsMember('waits', String(userId));
+            if (isUserWaiting) {
+                console.log(`[SoloGame] 이미 대기 중인 유저: ${userId}`);
+                socket.emit('whatareyoudoing');
+                return;
+            }
+
+            const roomId = uuidv4();
+            const rawNickname = await userController.getUserNickname(userId);
+            const nickname = rawNickname || `Player${userId}`;
+
+            await redisClient.hSet(roomId, {
+                title: `${nickname}의 솔로 연습`,
+                nickname: nickname,
+                password: '',
+                player1: String(userId),
+                player2: 'BOT',
+                status: 'playing',
+                isBotGame: 'true',
+                createdAt: Date.now().toString(),
+            });
+
+            await redisClient.sAdd('rooms:playing', String(roomId));
+            await redisClient.sAdd('waits', String(userId));
+            await redisClient.set(`user-${userId}-room`, roomId);
+
+            socket.join(roomId);
+
+            gameStates[roomId] = {
+                timeLeft: 60,
+                timerId: null,
+                player1: String(userId),
+                player2: 'BOT',
+                score1: 0,
+                score2: 0,
+                loading: 0,
+                isBotGame: true,
+            };
+
+            // 맵 생성 및 저장
+            const Map = gameLogic.createMap();
+            const initialMapFields = {};
+            Map.forEach((row, r_idx) => {
+                row.forEach((value, c_idx) => {
+                    initialMapFields[`${r_idx}-${c_idx}`] = value.toString();
+                });
+            });
+            await redisClient.hSet(`game:map:${roomId}`, initialMapFields);
+
+            // 타이머 시작
+            const timerId = setInterval(async () => {
+                const roomState = gameStates[roomId];
+                if (!roomState) { clearInterval(timerId); return; }
+                if (roomState.timeLeft > 0) {
+                    roomState.timeLeft--;
+                    io.to(roomId).emit('updateTime', { timeLeft: roomState.timeLeft });
+                } else {
+                    clearInterval(timerId);
+                    await redisClient.sRem('waits', String(userId));
+                    endGame(roomId);
+                }
+            }, 1000);
+
+            // 봇 루프 시작
+            startBotLoop(io, redisClient, gameStates, roomId, difficulty || 'normal');
+
+            console.log(`[SoloGame] 🤖 솔로 방 생성 완료: ${roomId} (${difficulty})`);
+            // 클라이언트에 roomId 전달 → game.html로 이동
+            socket.emit('soloGameReady', roomId);
+
+        } catch (error) {
+            console.error('[SoloGame] 솔로 게임 시작 오류:', error);
+            socket.emit('soloError', { message: '솔로 게임을 시작하는 데 실패했습니다.' });
+        }
+    };
+
     socket.on('createRoom', handleCreateRoom);
     socket.on('getRoomList', getRoomList);
 
     socket.on('joinRoom', joinRoom);
     socket.on('getGame', getGame);
     socket.on('dragApples', dragApples);
+    socket.on('startSoloGame', startSoloGame);
 
     // WebRTC 시그널링 처리
     socket.on('offer', (data) => {

@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
    // const socket = io("https://www.applegame.shop", {
-    const socket = io(process.env.REACT_APP_SOCKET_URL, {
+    const socket = io({
         withCredentials: true
     });
     const userId = await getMyUserId();

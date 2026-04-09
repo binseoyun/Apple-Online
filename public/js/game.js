@@ -3,7 +3,7 @@ async function initializeGame() {
   let roomId = '';
   let userId = await getMyUserId();
  // const socket = io("https://www.applegame.shop", {
-  const socket = io(process.env.REACT_APP_SOCKET_URL, {
+  const socket = io({
       withCredentials: true
   });
 
@@ -12,6 +12,7 @@ async function initializeGame() {
   // 'roomId'라는 이름의 파라미터 값을 가져옵니다.
   roomId = urlParams.get('roomId');
   password = urlParams.get('password');
+  const isSolo = urlParams.get('solo') === 'true';
   const board = document.getElementById('game-board');
   
   // WebRTC 관련 코드 //
@@ -213,14 +214,13 @@ async function initializeGame() {
       }, 3000);
     }
     setupMouseListeners();
-    // P2P 요청
-    // 내가 Player 1인지 확인하고, 맞다면 P2P 연결 제안(Offer)을 보냄
-    if (String(data.userId) === String(userId)) {
-      createAndSendOffer();
-    } else {
-      // Player 2는 Offer를 기다리기 전에 미리 P2P 객체를 만들어둬야 함
-      // (ICE Candidate 교환을 최대한 빨리 시작하기 위함)
-      initializePeerConnection();
+    // P2P 요청 (솔로 모드는 생략)
+    if (!isSolo) {
+      if (String(data.userId) === String(userId)) {
+        createAndSendOffer();
+      } else {
+        initializePeerConnection();
+      }
     }
 
     // user data 설정
@@ -471,6 +471,27 @@ async function initializeGame() {
   });
 
   socket.on('gameEnd', (data) => {
+    // 솔로 모드: ELO 없이 결과만 표시
+    if (data.isBotGame) {
+      if (!game) return;
+      game = false;
+      if (String(data.winner) === String(userId)) {
+        playWinSound();
+        playWinEffect();
+        document.getElementById('winOverlay').classList.remove('hidden');
+        setTimeout(() => endGame('승리하였습니다! (솔로 연습)'), 500);
+      } else if (data.winner === '') {
+        document.getElementById('drawOverlay').classList.remove('hidden');
+        setTimeout(() => endGame('비겼습니다! (솔로 연습)'), 500);
+      } else {
+        playLoseSound();
+        playLoseEffect();
+        document.getElementById('loseOverlay').classList.remove('hidden');
+        setTimeout(() => endGame('패배하였습니다! (솔로 연습)'), 500);
+      }
+      return;
+    }
+
     let elo_diff = 0;
     if (data.player1 == userId) {
       elo_diff = data.elo_A;

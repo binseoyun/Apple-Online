@@ -4,7 +4,7 @@
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
+🚀 Server is running on http://localhost:3001
 ✅ 랭킹 업데이트 완료! 총 32개의 랭킹 정보가 변경되었습니다.
 유저 검사 중...
 검사 중:  2 null
@@ -265,7 +265,7 @@ cfb48aea-7d88-4678-8d0a-ea21dfd323ae
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
+🚀 Server is running on http://localhost:3001
 ✅ 랭킹 업데이트 완료! 총 39개의 랭킹 정보가 변경되었습니다.
 미인증 사용자 접속 시도
 유저 검사 중...
@@ -948,7 +948,7 @@ null
 🥇 전체 유저 랭킹 업데이트를 시작합니다...
 ✅ MySQL Pool Ready!
 ✅ Redis Adapter is connected.
-🚀 Server is running on http://localhost:3000
+🚀 Server is running on http://localhost:3001
 ✅ 랭킹 업데이트 완료! 총 34개의 랭킹 정보가 변경되었습니다.
 미인증 사용자 접속 시도
 미인증 사용자 접속 시도
