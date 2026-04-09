@@ -23,14 +23,7 @@ cron.schedule('*/10 * * * *', () => {
   }
 });
 
-// 서버 시작 시 한 번 즉시 실행하고 싶다면 아래 코드를 추가합니다.
-(async () => {
-  try {
-    await updateAllUserRankings();
-  } catch (initialError) {
-    console.error('서버 시작 시 초기 랭킹 업데이트에 실패했습니다:', initialError);
-  }
-})();
+
 
 const storage = multer.diskStorage({
   // 파일이 저장될 경로를 지정
@@ -73,7 +66,11 @@ const io = new Server(server, {
   }
 });
 
-connectDBs();
+connectDBs().then(() => {
+  updateAllUserRankings().catch(err => {
+    console.error('서버 시작 시 초기 랭킹 업데이트에 실패했습니다:', err);
+  });
+});
 
 const pubClient = redisClient;
 const subClient = pubClient.duplicate();
@@ -94,7 +91,7 @@ const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'lax'
   }

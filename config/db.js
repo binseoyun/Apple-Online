@@ -23,8 +23,46 @@ redisClient.FLUSHDB;
 
 // 연결 테스트 및 모듈 export
 async function connectDBs() {
-  // MySQL은 요청 시점에 연결되므로 별도 connect() 호출 불필요
-  console.log('✅ MySQL Pool Ready!');
+  const connection = await pool.getConnection();
+  try {
+    await connection.execute(`
+      CREATE TABLE IF NOT EXISTS Users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        google_id VARCHAR(255) UNIQUE NOT NULL,
+        nickname VARCHAR(50) UNIQUE NOT NULL,
+        elo_rating INT DEFAULT 1000,
+        profile_image_url TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    await connection.execute(`
+      CREATE TABLE IF NOT EXISTS Rankings (
+        user_id INT PRIMARY KEY,
+        ranking INT,
+        elo_rating INT,
+        last_updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(id)
+      )
+    `);
+    await connection.execute(`
+      CREATE TABLE IF NOT EXISTS GameRecords (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        player1_id INT,
+        player2_id INT,
+        winner_id INT,
+        player1_old_elo INT,
+        player1_new_elo INT,
+        player2_old_elo INT,
+        player2_new_elo INT,
+        played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (player1_id) REFERENCES Users(id),
+        FOREIGN KEY (player2_id) REFERENCES Users(id)
+      )
+    `);
+    console.log('✅ MySQL Pool Ready!');
+  } finally {
+    connection.release();
+  }
 }
 
 module.exports = { pool, redisClient, connectDBs };
